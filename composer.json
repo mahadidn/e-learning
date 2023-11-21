@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Klp1\\ELearning\\": "app/"
+            "Klp1\\ELearning\\": "app"
         }
     },
     "authors": [

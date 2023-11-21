@@ -1,6 +1,6 @@
 <?php
 
-namespace Klp1\ELearning;
+namespace Klp1\ELearning\App;
 
 class Router {
 
@@ -29,16 +29,30 @@ class Router {
         $method = $_SERVER['REQUEST_METHOD'];
 
         foreach(self::$routes as $route){
-            if ($path == $route['path'] && $method == $route['method']){
+            $pattern = "#^" . $route['path'] . '$#';
+
+            if (preg_match($pattern, $path, $variabels) && $method == $route['method']){
+
                 foreach($route['middleware'] as $middleware){
                     $instance = new $middleware;
+                    $instance->before();
                 }
-
+                
                 $function = $route['function'];
+                
                 $controller = new $route['controller'];
+                
+                array_shift($variabels);
+                call_user_func_array([$controller, $function], $variabels);
 
+                return;
             }
+
         }
+
+        http_response_code(404);
+        echo "<h1>PAGE NOT FOUND</h1>";
+
     }
 
 }
