@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 21, 2023 at 11:31 PM
+-- Generation Time: Nov 26, 2023 at 01:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `elearning`
+-- Database: `elearning_test`
 --
 
 -- --------------------------------------------------------
@@ -78,12 +78,13 @@ CREATE TABLE `daftar_matakuliah` (
 --
 
 CREATE TABLE `dosen` (
-  `nip` varchar(20) NOT NULL,
+  `nidn` varchar(20) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `jenis_kelamin` enum('laki-laki','perempuan') NOT NULL,
   `email` varchar(255) NOT NULL,
+  `prodi` varchar(100) NOT NULL,
   `id_nilai_kelompok` int(11) DEFAULT NULL,
   `id_matakuliah` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
