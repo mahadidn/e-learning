@@ -20,7 +20,7 @@ class MahasiswaController {
 
     public function dashboard(): void{
         View::render('index', [
-            "title" => "Dashboard"
+            "title" => "Dashboard Mahasiswa"
         ]);
     }
 
@@ -51,6 +51,12 @@ class MahasiswaController {
         }
 
     }
+
+    public function logout(){
+        View::redirect("/");
+    }
+
+
 
 }
 
