@@ -8,9 +8,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Kelas Mata Kuliah</h1>
-            <p class="mb-4">Dosen Pengampu : </p>
-            <a href="mahasiswa-nilai-akhir.php" class="btn btn-base">Lihat Nilai Akhir</a>
+            <h1 class="h3 text-gray-800">Nilai Akhir</h1>
+            <p class="mb-4">Mata Kuliah</p>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -18,8 +17,8 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama Mahasiswa</th>
-                            <th>NIM</th>
+                            <th>Nama Mata Kuliah</th>
+                            <th>Nilai Akhir</th>
                         </tr>
                     </thead>
                     <tbody>
