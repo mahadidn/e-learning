@@ -38,7 +38,7 @@
                     </div>
                     <form method="POST" action="/register/dosen" class="user">
                       <div class="form-group">
-                        <input required type="text" name="nama" class="form-control form-control-lg " style="border-radius: 20px; font-size: 13px;" id="inputNama" placeholder="Nama Lengkap" />
+                        <input required type="text" name="nama" autocomplete="off" class="form-control form-control-lg " style="border-radius: 20px; font-size: 13px;" id="inputNama" placeholder="Nama Lengkap" />
                       </div>
                       <div class="form-group">
                         <select class="form-control form-control-lg" name="jenisKelamin" id="jenisKelamin" style="border-radius: 20px; font-size: 13px;"> 
