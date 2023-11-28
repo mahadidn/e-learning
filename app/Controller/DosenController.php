@@ -20,7 +20,7 @@ class DosenController {
 
     public function dashboard(): void{
         View::render('index', [
-            "title" => "Dashboard"
+            "title" => "Dashboard Dosen"
         ]);
     }
 
@@ -50,6 +50,10 @@ class DosenController {
             ]);
         }
 
+    }
+
+    public function logout(){
+        View::redirect("/");
     }
 
 }

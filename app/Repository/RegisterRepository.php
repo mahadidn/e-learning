@@ -57,6 +57,7 @@ class RegisterRepository {
                 return null;
             }
         }finally {
+            $statementDosen->closeCursor();
             $statementMahasiswa->closeCursor();
         }
 

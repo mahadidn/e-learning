@@ -28,15 +28,22 @@
                   <div class="p-5">
                     <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4">Login</h1>
+                      <?php if(isset($model['error'])){ ?>
+                        <div class="row">
+                            <div class="alert alert-danger" role="alert">
+                                <?= $model['error'] ?>
+                            </div>
+                        </div>
+                      <?php } ?>
                     </div>
-                    <form class="user">
+                    <form method="post" class="user">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Username" />
+                        <input type="text" name="username" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Username" />
                       </div>
                       <div class="form-group">
-                        <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" />
+                        <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" />
                       </div>
-                      <a href="index.php" class="btn btn-base btn-user btn-block"> Login </a>
+                      <button class="btn btn-base btn-user btn-block" type="submit">Login</button>
                       <hr />
                     </form>
                     <div class="text-center">
