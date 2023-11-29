@@ -18,12 +18,9 @@
             <div class="card-body">
                 <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="inputAnggota">Pilih Anggota</label>
-                        <select class="form-control" id="opsiDosen">
-                            <option value="">Anggota 1</option>
-                            <option value="">Anggota 2</option>
-                            <option value="">Anggota 3</option>
-                        </select>
+                        <!-- nama anggota akan tampil dari yang pertama, ketika tombol selanjutnya ditekan maka yang tampil adalah nama anggota kedua. begitu seterusnya, hingga anggota habis. -->
+                        <label for="inputAnggota">Anggota 1</label>
+                        <input required type="text" name="anggota" class="form-control" id="inputAnggota" placeholder="John Doe" value="">
                     </div>
                     <div class="form-group">
                         <label for="inputNilaiK1">Nilai Kriteria 1</label>
@@ -38,10 +35,11 @@
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-base" name="" value="">
-                            Simpan
+                        <!-- ketika tiba di penilaian anggota terakhir, tombol berubah menjadi simpan -->
+                        <button type="submit" class="btn btn-green mr-1" name="" value="">
+                           Selanjutnya
                         </button>
-                        <a type="button" class="btn btn-danger" href="index.php">
+                        <a type="button" class="btn btn-danger" href="mahasiswa-data-kelas.php">
                             Kembali
                         </a>
                     </div>

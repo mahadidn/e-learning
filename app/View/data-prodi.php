@@ -32,7 +32,7 @@
                             <td></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-success btn-sm mr-2" href="form-prodi.php?">Edit</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="form-prodi.php?">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="proses.php?">Hapus</a>
                                 </div>
                             </td>

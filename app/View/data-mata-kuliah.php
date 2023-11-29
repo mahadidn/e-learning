@@ -32,8 +32,8 @@
                             <td></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-base btn-sm mr-2" href="arsip-nilai-mata-kuliah.php">Arsip</a>
-                                    <a class="btn btn-success btn-sm mr-2" href="form-mata-kuliah.php?">Edit</a>
+                                    <a class="btn btn-dark btn-sm mr-2" href="arsip-nilai-mata-kuliah.php">Arsip</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="form-mata-kuliah.php?">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="proses.php?">Hapus</a>
                                 </div>
                             </td>
@@ -46,8 +46,6 @@
 </div>
 <!-- /.container-fluid -->
 
-<!-- SweetAlert -->
-<script src="../admin/js/sweetalert.min.js"></script>
 
 <?php
 include 'includes/scripts.php';
