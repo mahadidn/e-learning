@@ -36,14 +36,13 @@
                         </div>
                       <?php } ?>
                     </div>
-                    <form method="POST" action="/register/dosen" class="user">
+                    <form method="POST" action="/register/admin" class="user">
                       <div class="form-group">
                         <input required type="text" name="username" autocomplete="off" class="form-control form-control-lg " style="border-radius: 20px; font-size: 13px;" id="inputNama" placeholder="Username" />
                       </div>
                       <div class="form-group">
                         <input required type="text" name="email" autocomplete="off" class="form-control form-control-lg " style="border-radius: 20px; font-size: 13px;" id="inputNama" placeholder="Email" />
                       </div>
-                      
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <input required type="password" name="password" class="form-control form-control-lg" style="border-radius: 20px; font-size: 13px;" id="inputPassword" placeholder="Password" />
