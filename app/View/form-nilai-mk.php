@@ -17,8 +17,8 @@
             <div class="card-body">
                 <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="inputDosen">Kelompok</label>
-                        <select class="form-control" id="opsiDosen">
+                        <label for="inputKelompok">Kelompok</label>
+                        <select class="form-control" id="opsiKelompok">
                             <option value="">Kelompok 1</option>
                             <option value="">Kelompok 2</option>
                             <option value="">Kelompok 3</option>
@@ -37,7 +37,7 @@
                         <input required type="text" name="uas" class="form-control" id="inputUAS" placeholder="Skala 0 -100" value="">
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-base" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
                         <a type="button" class="btn btn-danger" href="dosen-data-nilai-mk.php">

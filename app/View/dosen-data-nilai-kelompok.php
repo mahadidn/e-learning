@@ -11,8 +11,8 @@
             <h1 class="h3 text-gray-800">Data Nilai Kelompok</h1>
             <h1 class="h5 mb-4 text-gray-800">Kelas Mata Kuliah</h1>
             <a href="dosen-data-kelas.php" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
-            <a href="form-nilai-kelompok.php" class="btn btn-base">Tambah Data</a>
-            <a href="form-kriteria-penilaian.php" class="btn btn-info">Kelola Kriteria Penilaian</a>
+            <a href="form-nilai-kelompok.php" class="btn btn-base mr-1">Tambah Data</a>
+            <a href="form-kriteria-penilaian.php" class="btn btn-dark">Kelola Kriteria Penilaian</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -38,7 +38,7 @@
                             <td></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-success btn-sm mr-2" href="edit-data-nilai-kelompok.php?">Edit</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="form-nilai-kelompok.php">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="proses.php?">Hapus</a>
                                 </div>
                             </td>

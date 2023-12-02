@@ -4,7 +4,7 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
     <div class="sidebar-brand-icon">
-        <i class="fa fa-laptop text-warning" style="font-size: 20px;"></i>
+        <i class="fas fa-laptop-code text-warning" style="font-size: 20px;"></i>
     </div>
     <div class="sidebar-brand-text mx-3 text-warning font-weight-bold">E-Learning</div>
   </a>
@@ -49,7 +49,7 @@
   <!-- Role: Admin -->
   <li class="nav-item">
     <a class="nav-link" href="data-prodi.php">
-      <i class="fas fa-address-card"></i>
+      <i class="fas fa-users"></i>
       <span>Prodi</span></a>
   </li>
 
@@ -57,7 +57,7 @@
   <!-- Role: Admin -->
   <li class="nav-item">
     <a class="nav-link" href="data-mata-kuliah.php">
-      <i class="fas fa-address-card"></i>
+      <i class="fas fa-book"></i>
       <span>Mata Kuliah</span></a>
   </li>
 
@@ -65,17 +65,26 @@
   <!-- Role: Admin, Dosen, Mahasiswa -->
   <li class="nav-item">
     <a class="nav-link" href="data-kelas.php">
-      <i class="fas fa-address-card"></i>
+      <!-- untuk role dosen menuju ke file dosen-kelas.php -->
+      <!-- untuk role mahasiswa menuju ke file mahasiswa-kelas.php -->
+      <i class="fas fa-school"></i>
       <span>Kelas Mata Kuliah</span></a>
   </li>
 
-  <!-- Penilaian -->
-  <!-- Role: Dosen -->
-  <li class="nav-item">
-    <a class="nav-link" href="penilaian.php">
-      <i class="fas fa-address-card"></i>
-      <span>Penilaian</span></a>
-  </li>
+  <!-- Tambahan Fitur Kelas -->
+  <!-- Role: Dosen dan Mahasiswa -->
+  <!-- <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-school"></i>
+        <span>Kelas Anda</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="buttons.html">Kelas Mata Kuliah A</a>
+        <a class="collapse-item" href="cards.html">Kelas Mata Kuliah B</a>
+        </div>
+      </div>
+  </li> -->
   
   <!-- Logout-->
   <!-- Role: Admin, Dosen, Mahasiswa -->
@@ -107,7 +116,7 @@
 
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
+            <i class="fa fa-bars text-base"></i>
           </button>
 
           <!-- Topbar Navbar -->
@@ -119,7 +128,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">username</span>
-                <img class="img-profile rounded-circle" src="/assets/img/user.png">
+                <img class="img-profile rounded-circle" src="img/user.png">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -154,7 +163,7 @@
         <div class="modal-body">Klik Keluar untuk mengakhiri sesi ini</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-          <form action="/logout" method="POST">
+          <form action="./login.php" method="POST">
             <button type="submit" name="logout_btn" class="btn btn-base">Keluar</button>
           </form>
         </div>

@@ -23,14 +23,14 @@
                     </div>
                     <div class="form-group">
                         <label for="inputMahasiswa">Anggota</label>
-                        <select class="form-control" id="opsiMahasiswa">
-                            <option value="">Mahasiswa A</option>
-                            <option value="">Mahasiswa B</option>
-                            <option value="">Mahasiswa C</option>
+                        <select id="select-mahasiswa" multiple>
+                            <option value="mahasiswa a">mahasiswa a</option>
+                            <option value="mahasiswa b">mahasiswa b</option>
+                            <option value="mahasiswa c">mahasiswa c</option>
                         </select>
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-base" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
                         <a type="button" class="btn btn-danger" href="dosen-data-kelompok.php">
@@ -43,6 +43,12 @@
     </div>
 </div>
 <!-- container-fluid -->
+
+<script>
+    new MultipleSelect('#select-mahasiswa', {
+    placeholder: 'Pilih Anggota'
+})
+</script>
 
 <!-- SweetAlert -->
 <script src="js/sweetalert.min.js"></script>

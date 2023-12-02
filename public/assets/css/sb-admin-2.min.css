@@ -8,8 +8,8 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
-  --base: #006da4;
+ :root {
+  --base: #04202e;
   --blue: #4e73df;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -17,7 +17,7 @@
   --red: #e74a3b;
   --orange: #fd7e14;
   --yellow: #f6c23e;
-  --green: #1cc88a;
+  --green: #0c974a;
   --teal: #20c9a6;
   --cyan: #36b9cc;
   --white: #fff;
@@ -79,15 +79,41 @@ body {
   background-color: var(--base) !important;
 }
 
+.text-base{
+  color: var(--base);
+}
+
 .btn-base{
   background-color: var(--base) !important;
   color: #fff !important;
-  border-color: #01547d;
+  border-color: #061015;
 }
 
 .btn-base:hover {
-  background-color: #005a86 !important;
-  border-color: #005884 !important;
+  background-color: #112835 !important;
+  border-color: #0e2833 !important;
+}
+
+.btn-orange{
+  background-color: var(--orange) !important;
+  color: #fff !important;
+  border-color: #b85c10;
+}
+
+.btn-orange:hover {
+  background-color: #de741d !important;
+  border-color: #d16d1b !important;
+}
+
+.btn-green{
+  background-color: var(--green) !important;
+  color: #fff !important;
+  border-color: #0a8642;
+}
+
+.btn-green:hover {
+  background-color: #0e8443 !important;
+  border-color: #0e8644 !important;
 }
 
 [tabindex="-1"]:focus {
@@ -4795,8 +4821,8 @@ input[type="submit"].btn-block {
 .page-item.active .page-link {
   z-index: 1;
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: var(--base);
+  border-color: #04202e;
 }
 .page-item.disabled .page-link {
   color: #858796;

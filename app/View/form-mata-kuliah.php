@@ -29,7 +29,7 @@
                         <input required type="text" name="jumlahSKS" class="form-control" id="inputJumlahSKS" placeholder="3" value="">
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-base" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
                         <a type="button" class="btn btn-danger" href="data-mata-kuliah.php">

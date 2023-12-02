@@ -67,7 +67,7 @@ include 'includes/navbar.php';
             </form>
           </div>
           <div class="card-header py-3">
-            <button type="submit" class="btn btn-base" name="aksi" value="">Simpan</button>
+            <button type="submit" class="btn btn-green mr-1" name="aksi" value="">Simpan</button>
             <a type="button" class="btn btn-danger" href="index.php">Kembali</a>
           </div>
         </div>
