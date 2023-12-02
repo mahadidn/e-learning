@@ -10,7 +10,7 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">Data Kelas</h1>
             <p class="mb-4">Berikut merupakan data kelas yang telah terdaftar pada semester ini.</p>
-            <a type="button" class="btn btn-base" href="form-kelas.php">Tambah Data</a>
+            <a type="button" class="btn btn-base" href="/kelas/admin/tambah">Tambah Data</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

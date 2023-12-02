@@ -10,9 +10,9 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">Kelas Mata Kuliah</h1>
             <p class="mb-4">Dosen Pengampu : </p>
-            <a href="mahasiswa-kelas.php" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
-            <a href="mahasiswa-nilai-akhir.php" class="btn btn-base">Lihat Nilai Akhir</a>
-            <a href="penilaian.php" class="btn btn-dark">Penilaian</a>
+            <a href="/kelas/mahasiswa" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
+            <a href="/kelas/mahasiswa/detail/nilaiakhir" class="btn btn-base">Lihat Nilai Akhir</a>
+            <a href="/kelas/mahasiswa/detail/penilaian" class="btn btn-dark">Penilaian</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

@@ -22,13 +22,21 @@
 
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Selamat Datang di Beranda Admin</h1>
+
+  <?php if($model['usertype'] == "admin"){ ?>
+    <h1 class="h3 mb-0 text-gray-800">Selamat Datang di Beranda <?= $model['username'] ?></h1>
+  <?php }?>
+  <?php if($model['usertype'] != "admin"){ ?>
+    <h1 class="h3 mb-0 text-gray-800">Selamat Datang di Beranda <?= $model['nama'] ?></h1>
+  <?php }?>
+
   </div>
 
   <!-- Content Row -->
   <div class="row">
 
     <!-- Earnings (Monthly) Card Example -->
+    <?php if($model['usertype'] == "admin"){ ?>
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100 py-2">
           <div class="card-body">
@@ -46,6 +54,7 @@
           </div>
         </div>
       </div>
+      <?php } ?>
 
       <!-- Earnings (Monthly) Card Example -->
       <div class="col-xl-3 col-md-6 mb-4">
@@ -84,6 +93,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

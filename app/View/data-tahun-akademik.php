@@ -1,6 +1,6 @@
 <?php
-    include 'includes/header.php';
-    include 'includes/navbar.php';
+  include 'includes/header.php';
+  include 'includes/navbar.php';
 ?>
 
 <!-- Begin Page Content -->
@@ -10,7 +10,7 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">Data Tahun Akademik</h1>
             <p class="mb-4">Berikut merupakan data tahun akademik yang telah terdaftar pada sistem.</p>
-            <a type="button" class="btn btn-base" href="form-tahun-akademik.php">Tambah Data</a>
+            <a type="button" class="btn btn-base" href="/tahunakademik/tambah">Tambah Data</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -30,7 +30,7 @@
                             <td></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-orange btn-sm mr-2" href="form-tahun-akademik.php?">Edit</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="/tahunakademik/tambah">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="fungsi.php?">Hapus</a>
                                 </div>
                             </td>
@@ -44,7 +44,7 @@
 <!-- /.container-fluid -->
 
 <!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script src="/assets/js/sweetalert.min.js"></script>
 
 <?php
 include 'includes/scripts.php';

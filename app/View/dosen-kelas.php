@@ -16,13 +16,13 @@
 
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card shadow" style="max-width: 20rem;">
-            <img class="card-img-top" src="img/background.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/assets/img/background.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="text-dark font-weight-bold">Kelas Mata Kuliah</h5>
                 <p class="text-dark">Kapasitas: 50</p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="dosen-data-kelas.php" class="btn btn-warning">Masuk</a>
+                <a href="/kelas/dosen/detail" class="btn btn-warning">Masuk</a>
             </div>
         </div>
     </div>
@@ -30,13 +30,13 @@
     
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card shadow" style="max-width: 20rem;">
-            <img class="card-img-top" src="img/background.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/assets/img/background.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="text-dark font-weight-bold">Kelas Mata Kuliah</h5>
                 <p class="text-dark">Kapasitas: 50</p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="dosen-data-kelas.php" class="btn btn-warning">Masuk</a>
+                <a href="/kelas/dosen/detail" class="btn btn-warning">Masuk</a>
             </div>
         </div>
     </div>
@@ -44,13 +44,13 @@
     
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card shadow" style="max-width: 20rem;">
-            <img class="card-img-top" src="img/background.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/assets/img/background.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="text-dark font-weight-bold">Kelas Mata Kuliah</h5>
                 <p class="text-dark">Kapasitas: 50</p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="dosen-data-kelas.php" class="btn btn-warning">Masuk</a>
+                <a href="/kelas/dosen/detail" class="btn btn-warning">Masuk</a>
             </div>
         </div>
     </div>

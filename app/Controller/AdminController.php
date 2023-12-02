@@ -62,6 +62,106 @@ class AdminController {
 
     }
 
+    // data pribadi
+    public function dataPribadi(){
+        $admin = $this->loginService->current();
+        View::render('data-pribadi', [
+            "title" => "Data Pribadi Admin",
+            'usertype' => $admin->userType,
+            'username' => $admin->username,
+            'email' => $admin->email
+        ]);
+    }
+
+    // edit profil
+    public function editProfil(){
+        $admin = $this->loginService->current();
+        View::render('keloladata-pribadi', [
+            "title" => "Data Pribadi Admin",
+            'usertype' => $admin->userType,
+            'username' => $admin->username,
+            'email' => $admin->email
+        ]);
+    }
+
+    // tahun akademik
+    public function tahunAkademik(){
+        View::render('data-tahun-akademik', [
+            "title" => "Tahun Akademik",
+            'usertype' => "admin"
+        ]);
+    }
+
+    // tambah tahun akademik
+    public function tambahTahunAkademik(){
+        View::render('form-tahun-akademik', [
+            "title" => "Tambah Tahun Akademik",
+            'usertype' => "admin"
+        ]);
+    }
+
+    // data prodi
+    public function dataProdi(){
+        View::render('data-prodi', [
+            'title' => 'Data Prodi',
+            'usertype' => 'admin'
+        ]);
+    }
+
+    // tambah data prodi
+    public function tambahDataProdi(){
+        View::render('form-prodi', [
+            'title' => 'Tambah Data Prodi',
+            'usertype' => 'admin'
+        ]);
+    }
+
+    // matakuliah
+    public function matakuliah(){
+        View::render('data-mata-kuliah', [
+            'title' => 'Matakuliah',
+            'usertype' => 'admin'
+        ]);
+    }
+
+    public function tambahMatakuliah(){
+        View::render('form-mata-kuliah', [
+            'title' => 'Tambah Matakuliah',
+            'usertype' => 'admin'
+        ]);
+    }
+
+    // kelas
+    public function kelasAdmin(){
+        View::render('data-kelas', [
+            'title' => 'Kelola Kelas',
+            'usertype' => 'admin'
+        ]);
+    }
+
+    // tambah kelas admin
+    public function tambahKelasAdmin(){
+        View::render('form-kelas', [
+            'title' => 'Kelola Kelas',
+            'usertype' => 'admin'
+        ]);
+    }
+
+    // arsip mata kuliah
+    public function arsipMataKuliah(){
+        View::render('arsip-nilai-mata-kuliah', [
+            'title' => 'Arsip Nilai Matakuliah',
+            'usertype' => 'admin'
+        ]);
+    }
+
+    // edit arsip mata kuliah
+    public function editArsipMataKuliah(){
+        View::render('form-arsip-nilai', [
+            'title' => 'Edit Arsip Nilai Matakuliah',
+            'usertype' => 'admin'
+        ]);
+    }
 
 }
 

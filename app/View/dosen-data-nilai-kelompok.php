@@ -10,9 +10,9 @@
             <!-- Page Heading -->
             <h1 class="h3 text-gray-800">Data Nilai Kelompok</h1>
             <h1 class="h5 mb-4 text-gray-800">Kelas Mata Kuliah</h1>
-            <a href="dosen-data-kelas.php" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
-            <a href="form-nilai-kelompok.php" class="btn btn-base mr-1">Tambah Data</a>
-            <a href="form-kriteria-penilaian.php" class="btn btn-dark">Kelola Kriteria Penilaian</a>
+            <a href="/kelas/dosen/detail" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
+            <a href="/kelas/dosen/detail/nilaikelompok/tambah" class="btn btn-base mr-1">Tambah Data</a>
+            <a href="/kelas/dosen/detail/nilaikelompok/kriteria" class="btn btn-dark">Kelola Kriteria Penilaian</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

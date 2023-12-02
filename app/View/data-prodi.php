@@ -10,7 +10,7 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">Data Prodi</h1>
             <p class="mb-4">Berikut merupakan data prodi yang telah terdaftar pada sistem.</p>
-            <a type="button" class="btn btn-base" href="form-prodi.php">Tambah Data</a>
+            <a type="button" class="btn btn-base" href="/dataprodi/tambah">Tambah Data</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -45,7 +45,7 @@
 </div>
 <!-- /.container-fluid -->
 <!-- SweetAlert -->
-<script src="../admin/js/sweetalert.min.js"></script>
+<script src="/assets/js/sweetalert.min.js"></script>
 
 <?php
 include 'includes/scripts.php';

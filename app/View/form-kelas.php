@@ -40,7 +40,7 @@
                         <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
-                        <a type="button" class="btn btn-danger" href="data-kelas.php">
+                        <a type="button" class="btn btn-danger" href="/kelas/admin">
                             Kembali
                         </a>
                     </div>

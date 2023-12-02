@@ -9,11 +9,11 @@
         <div class="card-header py-3">
             <!-- Page Heading -->
             <h1 class="h3 mb-4 text-gray-800">Kelas Mata Kuliah</h1>
-            <a href="dosen-kelas.php" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
-            <a href="dosen-data-kelompok.php" class="btn btn-base mr-1">Data Kelompok</a>
-            <a href="dosen-data-nilai-mk.php" class="btn btn-dark mr-1">Nilai Mata Kuliah</a>
-            <a href="dosen-data-nilai-kelompok.php" class="btn btn-dark mr-1">Nilai Kelompok</a>
-            <a href="dosen-nilai-akhir.php" class="btn btn-secondary mr-1">Nilai Akhir</a>
+            <a href="/kelas/dosen" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
+            <a href="/kelas/dosen/detail/kelompok" class="btn btn-base mr-1">Data Kelompok</a>
+            <a href="/kelas/dosen/detail/nilaimk" class="btn btn-dark mr-1">Nilai Mata Kuliah</a>
+            <a href="/kelas/dosen/detail/nilaikelompok" class="btn btn-dark mr-1">Nilai Kelompok</a>
+            <a href="/kelas/dosen/detail/nilaiakhir" class="btn btn-secondary mr-1">Nilai Akhir</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

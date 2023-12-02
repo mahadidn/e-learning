@@ -39,7 +39,7 @@
                         <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
-                        <a type="button" class="btn btn-danger" href="data-tahun-akademik.php">
+                        <a type="button" class="btn btn-danger" href="/tahunakademik">
                             Kembali
                         </a>
                     </div>

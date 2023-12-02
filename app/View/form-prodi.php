@@ -32,7 +32,7 @@
                         <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
-                        <a type="button" class="btn btn-danger" href="data-prodi.php">
+                        <a type="button" class="btn btn-danger" href="/dataprodi">
                             Kembali
                         </a>
                     </div>

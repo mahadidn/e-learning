@@ -18,57 +18,59 @@ include 'includes/navbar.php';
         <div class="card mb-4">
           <!-- Card Body -->
           <div class="card-body">
-            <form method="POST" action="proses.php" enctype="multipart/form-data">
+            <?php if($model['usertype'] == 'mahasiswa' || $model['usertype'] == 'dosen'){ ?>
               <div class="form-group">
                 <label for="inputNama">Nama Lengkap</label>
-                <input required type="text" name="nama_mhs" class="form-control" id="inputNama" placeholder="John Doe" />
+                <input type="text" name="nama_mhs" class="form-control" id="inputNama" disabled value="<?= $model['nama'] ?>" />
               </div>
               <div class="form-group">
                 <label for="inputJenisKelamin">Jenis Kelamin</label>
-                <select class="form-control" id="opsiJenisKelamin">
-                  <option value="">Laki-Laki</option>
-                  <option value="">Perempuan</option>
-                </select>
+                <input type="text" name="nama_mhs" class="form-control" id="inputNama" disabled value="<?= $model['jenis_kelamin'] ?>" />
               </div>
+            <?php } ?>
+
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputUsername">Username</label>
-                  <input required type="text" name="username" class="form-control" id="inputUsername" placeholder="johndoe21" />
+                  <input type="text" name="nama_mhs" class="form-control" id="inputNama" disabled value="<?= $model['username'] ?>" />
                 </div>
                 <div class="form-group col-md-6">
-                <label for="inputNim">Nim/Nidn</label>
-                <input required type="number" name="nim" class="form-control" id="inputNim" placeholder="2101020000" />
+                <?php if($model['usertype'] == 'mahasiswa'){ ?>
+                  <label for="inputNim">Nim</label>
+                  <input type="text" name="nama_mhs" class="form-control" id="inputNama" disabled value="<?= $model['nim'] ?>" />
+                <?php }?>
+                <?php if($model['usertype'] == 'dosen'){ ?>
+                  <label for="inputNim">nidn</label>
+                  <input type="text" name="nama_mhs" class="form-control" id="inputNama" disabled value="<?= $model['nidn'] ?>" />
+                <?php }?>
               </div>
+
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputEmail">Email</label>
-                  <input required type="email" name="email" class="form-control" id="inputEmail" placeholder="2101020000@gmail.com" />
+                  <input type="text" name="nama_mhs" class="form-control" id="inputNama" disabled value="<?= $model['email'] ?>" />
                 </div>
+                <?php if($model['usertype'] == 'mahasiswa' || $model['usertype'] == 'dosen'){ ?>
                 <div class="form-group col-md-6">
                   <label for="inputProdi">Prodi</label>
-                  <select class="form-control" id="opsiProdi">
-                    <option value="">Teknik Informatika</option>
-                    <option value="">Teknik Elektro</option>
-                    <option value="">Teknik Perkapalan</option>
-                  </select>
+                  <input type="text" name="nama_mhs" class="form-control" id="inputNama" disabled value="<?= $model['prodi'] ?>" />
                 </div>
+                <?php } ?>
               </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputPassword">Password Baru</label>
-                  <input required type="password" name="password" class="form-control" id="inputPassword" placeholder="" />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputKonfirmasiPassword">Konfirmasi Password Baru</label>
-                  <input required type="password" name="konfirmasiPassword" class="form-control" id="inputKonfirmasiPassword" placeholder="" />
-                </div>
-              </div>
-            </form>
+              
           </div>
           <div class="card-header py-3">
-            <button type="submit" class="btn btn-green mr-1" name="aksi" value="">Simpan</button>
-            <a type="button" class="btn btn-danger" href="index.php">Kembali</a>
+            <?php if ($model['usertype'] == "mahasiswa"){ ?>
+            <a type="submit" class="btn btn-green mr-1" href="/data/editmahasiswa">Edit Profil</a>
+            <?php } ?>
+            <?php if ($model['usertype'] == "dosen"){ ?>
+            <a type="submit" class="btn btn-green mr-1" href="/data/editdosen">Edit Profil</a>
+            <?php } ?>
+            <?php if ($model['usertype'] == "admin"){ ?>
+            <a type="submit" class="btn btn-green mr-1" href="/data/editadmin">Edit Profil</a>
+            <?php } ?>
+            <a type="button" class="btn btn-danger" href="/">Kembali</a>
           </div>
         </div>
       </div>
@@ -77,7 +79,7 @@ include 'includes/navbar.php';
         <div class="card mb-4">
           <!-- Card Body -->
           <div class="card-body">
-            <img class="card-img-top img-fluid p-xl-3" src="img/user.png" alt="Card image cap" />
+            <img class="card-img-top img-fluid p-xl-3" src="/assets/img/user.png" alt="Card image cap" />
             <div class="card-body">
               <div class="form-group">
                 <input type="file" name="foto" class="form-control-file mb-1" id="foto" accept="image/*" />
@@ -93,7 +95,7 @@ include 'includes/navbar.php';
 <!-- /.container-fluid -->
 
 <!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script src="/assets/js/sweetalert.min.js"></script>
 
 <?php
 include 'includes/scripts.php';

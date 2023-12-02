@@ -9,8 +9,8 @@
         <div class="card-header py-3">
             <!-- Page Heading -->
             <h1 class="h3 mb-4 text-gray-800">Data Nilai Mata Kuliah</h1>
-            <a href="dosen-data-kelas.php" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
-            <a href="form-nilai-mk.php" class="btn btn-base">Tambah Data</a>
+            <a href="/kelas/dosen/detail" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
+            <a href="/kelas/dosen/detail/tambahnilaimk" class="btn btn-base">Tambah Data</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

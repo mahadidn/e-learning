@@ -31,7 +31,7 @@
                         <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
-                        <a type="button" class="btn btn-danger" href="dosen-data-nilai-kelompok.php">
+                        <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/nilaikelompok">
                             Kembali
                         </a>
                     </div>
@@ -43,7 +43,7 @@
 <!-- container-fluid -->
 
 <!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script src="/assets/js/sweetalert.min.js"></script>
 
 <?php
 include 'includes/scripts.php';

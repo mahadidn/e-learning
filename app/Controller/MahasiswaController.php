@@ -66,6 +66,95 @@ class MahasiswaController {
 
     }
 
+    public function dataPribadi(){
+        $mahasiswa = $this->loginService->current();
+        View::render('data-pribadi', [
+            "title" => "Data Pribadi Mahasiswa",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin
+        ]);
+    }
+
+    // edit data pribadi
+     public function editProfil(){
+        $mahasiswa = $this->loginService->current();
+        View::render('keloladata-pribadi', [
+            "title" => "Data Pribadi Mahasiswa",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin
+        ]);
+    }
+
+    // kelas Mahasiswa
+    public function kelasMahasiswa(){
+        $mahasiswa = $this->loginService->current();
+        View::render('mahasiswa-kelas', [
+            "title" => "Kelas Mahasiswa",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin
+        ]);
+    }
+
+    // detail kelas mahasiswa
+    public function detailKelasMahasiswa(){
+        $mahasiswa = $this->loginService->current();
+        View::render('mahasiswa-data-kelas', [
+            "title" => "Detail Kelas Mahasiswa",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin
+        ]);
+    }
+
+    // lihat nilai akhir
+    public function nilaiAkhir(){
+        $mahasiswa = $this->loginService->current();
+        View::render('mahasiswa-nilai-akhir', [
+            "title" => "Kelas Mahasiswa Nilai Akhir",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin
+        ]);
+    }
+
+    // penilaian
+    public function penilaian(){
+        $mahasiswa = $this->loginService->current();
+        View::render('penilaian', [
+            "title" => "Kelas Mahasiswa Penilaian",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin
+        ]);
+    }
+
     public function logout(){
         $this->loginService->destroy();
         View::redirect("/");

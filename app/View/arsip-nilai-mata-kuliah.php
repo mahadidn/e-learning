@@ -12,7 +12,7 @@
             <h1 class="h5 text-gray-800 mb-4">Mata Kuliah</h1>
         </div>
         <div class="d-sm-flex align-items-center justify-content-start">
-            <a href="data-mata-kuliah.php" class="btn btn-warning ml-2 py-0"><i class="fa fa-reply-all text-light" style="font-size: 15px"></i><a>
+            <a href="/matakuliah" class="btn btn-warning ml-2 py-0"><i class="fa fa-reply-all text-light" style="font-size: 15px"></i><a>
             <div class="dropdown show p-2">
                  <a class="btn btn-base btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Semester Ganji 2023/2024</a>
 
@@ -42,7 +42,7 @@
                             <td></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-orange btn-sm mr-2" href="form-arsip-nilai.php">Edit</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="/matakuliah/arsip/edit">Edit</a>
                                     <a class="btn btn-danger btn-sm" href="fungsi.php?">Hapus</a>
                                 </div>
                             </td>

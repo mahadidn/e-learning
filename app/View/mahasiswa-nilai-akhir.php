@@ -10,7 +10,7 @@
             <!-- Page Heading -->
             <h1 class="h3 text-gray-800">Nilai Akhir</h1>
             <p class="mb-4">Mata Kuliah</p>
-            <a href="mahasiswa-data-kelas.php" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
+            <a href="/kelas/mahasiswa/detail" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

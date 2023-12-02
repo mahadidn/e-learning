@@ -14,8 +14,11 @@
 
   <!-- Nav Item - Beranda -->
   <!-- Role: Admin, Dosen, Mahasiswa -->
-  <li class="nav-item active">
-    <a class="nav-link" href="index.php">
+  <?php if (strstr($model['title'], "Dashboard")){
+    $light = "active";
+  }else {$light = "";} ?>
+  <li class="nav-item <?= $light ?>">
+    <a class="nav-link" href="/">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Beranda</span></a>
   </li>
@@ -31,45 +34,94 @@
   
   <!-- Data Pribadi -->
   <!-- Role: Admin, Dosen, Mahasiswa -->
-  <li class="nav-item">
-    <a class="nav-link" href="data-pribadi.php">
+  <?php if (strstr($model['title'], "Data Pribadi")){
+    $light = "active";
+  }else {$light = "";} ?>
+  <li class="nav-item <?= $light ?>">
+    <!-- <a class="nav-link" href="data-pribadi.php"> -->
+  <?php if($model['usertype'] == "mahasiswa"){ ?>
+    <a class="nav-link" href="/data/mahasiswa">
+  <?php } ?>
+  <?php if($model['usertype'] == "dosen"){ ?>
+    <a class="nav-link" href="/data/dosen">
+  <?php } ?>
+  <?php if($model['usertype'] == "admin"){ ?>
+    <a class="nav-link " href="/data/admin">
+  <?php } ?>
       <i class="fas fa-address-card"></i>
       <span>Data Pribadi</span></a>
   </li>
 
   <!-- Data Tahun Akademik -->
   <!-- Role: Admin -->
-  <li class="nav-item">
-    <a class="nav-link" href="data-tahun-akademik.php">
-      <i class="fas fa-book"></i>
-      <span>Tahun Akademik</span></a>
-  </li>
+  <?php if($model['usertype'] == "admin"){ ?>
+  <?php if (strstr($model['title'], "Tahun Akademik")){
+    $light = "active";
+  }else {$light = "";} ?>
+    <li class="nav-item <?= $light ?>">
+      <a class="nav-link" href="/tahunakademik">
+        <i class="fas fa-book"></i>
+        <span>Tahun Akademik</span></a>
+    </li>
+  <?php } ?>
 
   <!-- Data Prodi-->
   <!-- Role: Admin -->
-  <li class="nav-item">
-    <a class="nav-link" href="data-prodi.php">
+  <?php if ($model['usertype'] == 'admin'){ ?>
+  <?php if (strstr($model['title'], "Data Prodi")){
+    $light = "active";
+  }else {$light = "";} ?>
+  <li class="nav-item <?= $light ?>">
+    <a class="nav-link" href="/dataprodi">
       <i class="fas fa-users"></i>
       <span>Prodi</span></a>
   </li>
+  <?php } ?>
 
   <!-- Data Mata Kuliah -->
   <!-- Role: Admin -->
-  <li class="nav-item">
-    <a class="nav-link" href="data-mata-kuliah.php">
+  <?php if ($model['usertype'] == 'admin'){ ?>
+  <?php if (strstr($model['title'], "Matakuliah")){
+    $light = "active";
+  }else {$light = "";} ?>
+  <li class="nav-item <?= $light ?>">
+    <a class="nav-link" href="/matakuliah">
       <i class="fas fa-book"></i>
       <span>Mata Kuliah</span></a>
   </li>
+  <?php } ?>
 
   <!-- Data Kelas Mata Kuliah -->
   <!-- Role: Admin, Dosen, Mahasiswa -->
-  <li class="nav-item">
-    <a class="nav-link" href="data-kelas.php">
-      <!-- untuk role dosen menuju ke file dosen-kelas.php -->
-      <!-- untuk role mahasiswa menuju ke file mahasiswa-kelas.php -->
-      <i class="fas fa-school"></i>
-      <span>Kelas Mata Kuliah</span></a>
+  <?php if (strstr($model['title'], "Kelas")){
+    $light = "active";
+  }else {$light = "";} ?>
+  <li class="nav-item <?= $light ?>">
+    <!-- untuk role dosen menuju ke file dosen-kelas.php -->
+    <?php if($model['usertype'] == 'dosen'){ ?>
+      <a class="nav-link" href="/kelas/dosen">
+        <i class="fas fa-school"></i>
+        <span>Kelas Mata Kuliah</span>
+      </a>
+    <?php } ?>
+
+    <!-- untuk role mahasiswa menuju ke file mahasiswa-kelas.php -->
+    <?php if($model['usertype'] == 'mahasiswa'){ ?>
+      <a class="nav-link" href="/kelas/mahasiswa">
+        <i class="fas fa-school"></i>
+        <span>Kelas Mata Kuliah</span>
+      </a>
+    <?php } ?>
+
+    <!-- role admin (data-kelas.php) -->
+    <?php if($model['usertype'] == 'admin'){ ?>
+      <a class="nav-link" href="/kelas/admin">
+        <i class="fas fa-school"></i>
+        <span>Kelas Mata Kuliah</span>
+      </a>
+    <?php } ?>
   </li>
+
 
   <!-- Tambahan Fitur Kelas -->
   <!-- Role: Dosen dan Mahasiswa -->
