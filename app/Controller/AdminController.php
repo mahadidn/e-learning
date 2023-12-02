@@ -16,5 +16,11 @@ class AdminController {
         View::redirect("/");
     }
 
+    public function registerAdmin(){
+        View::render('registrasiAdmin', [
+            "title" => "Register Admin"
+        ]);
+    }
+
 }
 

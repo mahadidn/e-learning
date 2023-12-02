@@ -2,6 +2,7 @@
 
 namespace Klp1\ELearning\Repository;
 
+use Klp1\ELearning\Model\Domain\Admin;
 use Klp1\ELearning\Model\Register;
 
 class RegisterRepository {
@@ -25,12 +26,21 @@ class RegisterRepository {
         return $register;
     }
 
+    public function saveAdmin(Admin $register): Admin{
+        $statement = $this->connection->prepare("INSERT INTO admin(username, password, email) VALUE (?, ?, ?)");
+        $statement->execute([$register->username, $register->password, $register->email]);
+        return $register;
+    }
+
     public function findByUsername(string $username): ?Register{
         $statementMahasiswa = $this->connection->prepare("SELECT nim, username, password, nama, email, prodi, jenis_kelamin FROM mahasiswa WHERE username = ?");
         $statementMahasiswa->execute([$username]);
 
         $statementDosen = $this->connection->prepare("SELECT nidn, username, password, nama, email, prodi, jenis_kelamin FROM dosen WHERE username = ?");
         $statementDosen->execute([$username]);
+
+        $statementAdmin = $this->connection->prepare("SELECT username, password, email FROM admin WHERE username = ?");
+        $statementAdmin->execute([$username]);
 
         try {
             if ($row = $statementMahasiswa->fetch()){
@@ -53,6 +63,13 @@ class RegisterRepository {
                 $dosen->jurusan = $row['prodi'];
                 $dosen->jenisKelamin = $row['jenis_kelamin'];
                 return $dosen;
+            }else if ($row = $statementAdmin->fetch()){
+
+                $admin = new Admin();
+                $admin->username = $row["username"];
+                $admin->email = $row["email"];
+                $admin->password = $row["password"];
+                return $admin;
             }else {
                 return null;
             }
@@ -66,6 +83,7 @@ class RegisterRepository {
     public function deleteAll(): void {
         $this->connection->exec("DELETE FROM mahasiswa");
         $this->connection->exec("DELETE FROM dosen");
+        $this->connection->exec("DELETE FROM admin");
     }
 
 }

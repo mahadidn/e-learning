@@ -27,7 +27,7 @@
                 <div class="col-lg-6">
                   <div class="p-5">
                     <div class="text-center">
-                      <h1 class="h4 text-gray-900 mb-4">Registrasi Dosen</h1>
+                      <h1 class="h4 text-gray-900 mb-4">Registrasi Admin</h1>
                       <?php if(isset($model['error'])){ ?>
                         <div class="row">
                             <div class="alert alert-danger" role="alert">
@@ -38,35 +38,12 @@
                     </div>
                     <form method="POST" action="/register/dosen" class="user">
                       <div class="form-group">
-                        <input required type="text" name="nama" autocomplete="off" class="form-control form-control-lg " style="border-radius: 20px; font-size: 13px;" id="inputNama" placeholder="Nama Lengkap" />
+                        <input required type="text" name="username" autocomplete="off" class="form-control form-control-lg " style="border-radius: 20px; font-size: 13px;" id="inputNama" placeholder="Username" />
                       </div>
                       <div class="form-group">
-                        <select class="form-control form-control-lg" name="jenisKelamin" id="jenisKelamin" style="border-radius: 20px; font-size: 13px;"> 
-                          <option value="" disabled selected class="">Jenis Kelamin</option>
-                          <option value="laki-laki">Laki-Laki</option>
-                          <option value="perempuan">Perempuan</option>
-                        </select>
+                        <input required type="text" name="email" autocomplete="off" class="form-control form-control-lg " style="border-radius: 20px; font-size: 13px;" id="inputNama" placeholder="Email" />
                       </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <input required type="text" name="username" class="form-control form-control-lg" style="border-radius: 20px; font-size: 13px;" id="inputUsername" placeholder="Username" />
-                        </div>
-                        <div class="form-group col-md-6">
-                        <input required type="number" name="nidn" class="form-control form-control-lg" style="border-radius: 20px; font-size: 13px;" id="inputNidn" placeholder="Nidn" />
-                      </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <input required type="email" name="email" class="form-control form-control-lg" style="border-radius: 20px; font-size: 13px;" id="inputEmail" placeholder="Email" />
-                        </div>
-                        <div class="form-group col-md-6">
-                          <select class="form-control form-control-lg" name="jurusan" style="border-radius: 20px; font-size: 13px;" id="jurusan">
-                            <option value="Teknik Informatika">Teknik Informatika</option>
-                            <option value="Teknik Elektro">Teknik Elektro</option>
-                            <option value="Teknik Perkapalan">Teknik Perkapalan</option>
-                          </select>
-                        </div>
-                      </div>
+                      
                       <div class="form-row">
                         <div class="form-group col-md-6">
                           <input required type="password" name="password" class="form-control form-control-lg" style="border-radius: 20px; font-size: 13px;" id="inputPassword" placeholder="Password" />
@@ -79,8 +56,8 @@
                       <hr/>
                     </form>
                     <div class="text-center">
-                      <p class="small"><a class="font-weight-bold" href="/register/admin">Daftar sebagai Admin</a></p>
                       <p class="small"><a class="font-weight-bold" href="/register/mahasiswa">Daftar sebagai Mahasiswa</a></p>
+                      <p class="small"><a class="font-weight-bold" href="/register/mahasiswa">Daftar sebagai Dosen</a></p>
                       <p class="small">Sudah mempunyai Akun? <a class="font-weight-bold" href="/">Login</a></p>
                     </div>
                   </div>

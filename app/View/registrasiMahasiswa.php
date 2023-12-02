@@ -80,6 +80,7 @@
                     </form>
                     <div class="text-center">
                       <p class="small"><a class="font-weight-bold" href="/register/dosen">Daftar sebagai dosen</a></p>
+                      <p class="small"><a class="font-weight-bold" href="/register/admin">Daftar sebagai Admin</a></p>
                       <p class="small">Sudah mempunyai Akun? <a class="font-weight-bold" href="/">Login</a></p>
                     </div>
                   </div>

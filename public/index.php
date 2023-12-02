@@ -30,5 +30,6 @@ Router::add('POST', '/logout', DosenController::class, 'logout', []);
 // Admin Controller
 Router::add('GET', '/dashboard/admin', AdminController::class, 'dashboard', []);
 Router::add('POST', '/logout', AdminController::class, 'logout', []);
+Router::add('GET', '/register/admin', AdminController::class, 'registerAdmin', []);
 
 Router::run();
