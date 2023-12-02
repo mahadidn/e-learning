@@ -10,7 +10,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
-
+    <link rel="icon" type="image/x-icon"  href="/assets/img/app-icon.png">
   </head>
   <body class="bg-basecolor">
     <div class="container">

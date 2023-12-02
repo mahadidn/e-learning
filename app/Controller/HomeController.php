@@ -22,11 +22,21 @@ class HomeController {
 
     
     public function index(): void {
-        
-        View::render('login', [
-            "title" => "login"
+        $user = $this->loginService->current();
+        if ($user == null){
+            View::render('login', [
+            'title' => 'login'
         ]);
+        }else if ($user->userType == "admin"){
+            View::redirect('/dashboard/admin');
+        }else if ($user->userType == "dosen"){
+            View::redirect('/dashboard/dosen');
+        }else if ($user->userType == "mahasiswa"){
+            View::redirect('/dashboard/mahasiswa');
+        }
+        
     }
+
 
     public function postLogin(){
         $loginRequest = new Login();
@@ -36,10 +46,18 @@ class HomeController {
         try{
             $loginResponse = $this->loginService->login($loginRequest);
             if ($loginResponse->userType == "dosen"){
+                
+                $this->loginService->createSession($loginResponse->username);
                 View::redirect('/dashboard/dosen');
+
             }else if ($loginResponse->userType == "mahasiswa"){
+
+                $this->loginService->createSession($loginResponse->username);
                 View::redirect('/dashboard/mahasiswa');
+
             }else if ($loginResponse->userType == "admin"){
+
+                $this->loginService->createSession($loginResponse->username);
                 View::redirect('/dashboard/admin');
             }
         }catch (\Exception $exception){
