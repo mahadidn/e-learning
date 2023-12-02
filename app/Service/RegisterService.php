@@ -4,6 +4,7 @@ namespace Klp1\ELearning\Service;
 
 use Exception;
 use Klp1\ELearning\Config\Database;
+use Klp1\ELearning\Model\Domain\Admin;
 use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\RegisterRepository;
 
@@ -91,6 +92,39 @@ class RegisterService {
         ){
             throw new Exception("Form registrasi tidak boleh ada yang kosong");
         }
+    }
+
+    public function registerAdmin(Admin $registerAdmin): Admin {
+        $this->validateRegisterAdmin($registerAdmin);
+
+        try {
+            Database::beginTransaction();
+            $user = $this->registerRepository->findByUsername($registerAdmin->username);
+            if($user != null){
+                throw new \Exception ("User telah digunakan!");
+            }
+
+            $newAdmin = new Admin();
+            $newAdmin->username = $registerAdmin->username;
+            $newAdmin->email = $registerAdmin->email;
+            $newAdmin->password = password_hash($registerAdmin->password, PASSWORD_BCRYPT);
+
+            $this->registerRepository->saveAdmin($newAdmin);
+
+            Database::commitTransaction();  
+            return $newAdmin;
+        }catch(\Exception $exception){
+            Database::rollbackTransaction();
+            throw $exception;
+        }
+    } 
+
+
+    public function validateRegisterAdmin(Admin $registerAdmin){
+        if ($registerAdmin->username == null || $registerAdmin->password == null || $registerAdmin->email == null
+            || trim($registerAdmin->username) == "" || trim($registerAdmin->password) == "" || trim($registerAdmin->email) == ""){
+                throw new Exception("Form registrasi tidak boleh ada yang kosong");
+            }
     }
 
 }

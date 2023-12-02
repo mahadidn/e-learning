@@ -3,6 +3,7 @@
 namespace Klp1\ELearning\Service;
 
 use Klp1\ELearning\Config\Database;
+use Klp1\ELearning\Model\Domain\Admin;
 use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\RegisterRepository;
 use PHPUnit\Framework\TestCase;
@@ -55,6 +56,21 @@ class RegisterServiceTest extends TestCase {
 
         self::assertTrue(password_verify($register->password, $response->password));
 
+    }
+
+    public function testRegisterAdminSuccess(){
+        $registerAdmin = new Admin();
+        $registerAdmin->username = "mahadi123";
+        $registerAdmin->email = "Asdfgh@gmail.com";
+        $registerAdmin->password = "hadi123";
+
+        $response = $this->registerService->registerAdmin($registerAdmin);
+
+        self::assertEquals($registerAdmin->username, $response->username);
+        self::assertEquals($registerAdmin->email, $response->email);
+
+        self::assertTrue(password_verify($registerAdmin->password, $response->password));
+        
     }
 
     
