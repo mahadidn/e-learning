@@ -4,9 +4,12 @@ namespace Klp1\ELearning\Controller;
 
 use Klp1\ELearning\App\View;
 use Klp1\ELearning\Config\Database;
+use Klp1\ELearning\Model\Domain\Dosen;
 use Klp1\ELearning\Model\Register;
+use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
+use Klp1\ELearning\Service\KelolaDataPribadiService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -14,13 +17,19 @@ class DosenController {
 
     private RegisterService $registerService;
     private LoginService $loginService;
+    private KelolaDataPribadiService $kelolaDataPribadiService;
 
     public function __construct(){
         $connection = Database::getConnection();
+        // repo
         $registerRepository = new RegisterRepository($connection);
-        $this->registerService = new RegisterService($registerRepository);
         $loginRepository = new LoginRepository($connection);
+        $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
+        
+        // service
+        $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
+        $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
     }
 
     public function dashboard(): void{
@@ -66,7 +75,8 @@ class DosenController {
 
     }
 
-    public function dataPribadi(){
+    // kelola data pribadi
+    public function kelolaDataPribadi(){
         $dosen = $this->loginService->current();
         View::render('data-pribadi', [
             "title" => "Data Pribadi Dosen",
@@ -76,8 +86,38 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
         ]);
+    }
+
+    public function postKelolaDataPribadi(){
+        $request = new Dosen();
+        $request->username = $_POST['username'];
+        $request->password = $_POST['password'];
+        $request->name = $_POST['nama'];
+        $request->email = $_POST['email'];
+        $request->jurusan = $_POST['prodi'];
+        $request->jenisKelamin = $_POST['jenis_kelamin'];
+        $request->nidn = $_POST['nidn'];
+
+        try {
+            $this->kelolaDataPribadiService->ubahDataDosen($request);
+            View::redirect('/data/dosen');
+        }catch (\Exception $e){
+            $dosen = $this->loginService->current();
+            View::render('keloladata-pribadi', [
+                "title" => "Data Pribadi Dosen",
+                'usertype' => $dosen->userType,
+                'username' => $dosen->username,
+                'nidn' => $dosen->nidn,
+                'nama' => $dosen->name,
+                'jenis_kelamin' => $dosen->jenisKelamin,
+                'email' => $dosen->email,
+                'prodi' => $dosen->jurusan,
+                'error' => $e->getMessage()
+            ]);
+        }
+
     }
 
     public function editProfil(){
@@ -90,7 +130,8 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'password' => $dosen->password
         ]);
     }
 

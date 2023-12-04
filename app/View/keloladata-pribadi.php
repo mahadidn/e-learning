@@ -9,6 +9,13 @@ include 'includes/navbar.php';
     <div class="card-header py-3">
       <!-- Page Heading -->
       <h1 class="h3 mb-2 text-gray-800">Edit Data Pribadi</h1>
+      <?php if(isset($model['error'])){ ?>
+        <div class="row">
+            <div class="alert alert-danger" role="alert">
+                <?= $model['error'] ?>
+            </div>
+        </div>
+      <?php } ?>
       <p class="mb-4">Berikut merupakan data pribadi Anda.</p>
     </div>
 
@@ -18,18 +25,25 @@ include 'includes/navbar.php';
         <div class="card mb-4">
           <!-- Card Body -->
           <div class="card-body">
-            <form method="POST" action="proses.php" enctype="multipart/form-data">
-              
+            <?php if($model['usertype'] == 'mahasiswa'){ ?>
+              <form method="POST" action="/data/mahasiswa" enctype="multipart/form-data">
+            <?php } ?> 
+            <?php if($model['usertype'] == 'admin'){ ?>
+              <form method="POST" action="/data/admin" enctype="multipart/form-data">
+            <?php } ?> 
+            <?php if($model['usertype'] == 'dosen'){ ?>
+              <form method="POST" action="/data/dosen" enctype="multipart/form-data">
+            <?php } ?>
             <?php if($model['usertype'] == 'dosen' || $model['usertype'] == 'mahasiswa'){ ?>
               <div class="form-group">
                 <label for="inputNama">Nama Lengkap</label>
-                <input required type="text" name="nama_mhs" class="form-control" id="inputNama" placeholder="<?= $model['nama'] ?>" />
+                <input required type="text" name="nama" class="form-control" id="inputNama" value="<?= $model['nama'] ?>" />
               </div>
               <div class="form-group">
                 <label for="inputJenisKelamin">Jenis Kelamin</label>
-                <select class="form-control" id="opsiJenisKelamin">
-                  <option value="">Laki-Laki</option>
-                  <option value="">Perempuan</option>
+                <select class="form-control" id="opsiJenisKelamin" name="jenis_kelamin">
+                  <option value="laki-laki">Laki-Laki</option>
+                  <option value="perempuan">Perempuan</option>
                 </select>
               </div>
             <?php } ?>
@@ -38,17 +52,17 @@ include 'includes/navbar.php';
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputUsername">Username</label>
-                  <input required type="text" name="username" class="form-control" id="inputUsername" placeholder="<?= $model['username'] ?>" />
+                  <input required type="text" name="username" class="form-control" id="inputUsername" value="<?= $model['username'] ?>" />
                 </div>
                 <div class="form-group col-md-6">
 
               <?php if($model['usertype'] == 'mahasiswa'){ ?>
                 <label for="inputNim">Nim</label>
-                <input required type="number" name="nim" class="form-control" id="inputNim" placeholder="<?= $model['nim'] ?>" />
+                <input required type="number" name="nim" class="form-control" id="inputNim" value="<?= $model['nim'] ?>" />
               <?php }?>
               <?php if($model['usertype'] == 'dosen'){ ?>
                 <label for="inputNim">Nidn</label>
-                <input required type="number" name="nim" class="form-control" id="inputNim" placeholder="<?= $model['nidn'] ?>" />
+                <input required type="number" name="nidn" class="form-control" id="inputNim" value="<?= $model['nidn'] ?>" />
               <?php }?>
               
               </div>
@@ -56,16 +70,16 @@ include 'includes/navbar.php';
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputEmail">Email</label>
-                  <input required type="email" name="email" class="form-control" id="inputEmail" placeholder="<?= $model['email'] ?>" />
+                  <input required type="email" name="email" class="form-control" id="inputEmail" value="<?= $model['email'] ?>" />
                 </div>
 
                 <?php if($model['usertype'] == 'dosen' || $model['usertype'] == 'mahasiswa'){ ?>
                   <div class="form-group col-md-6">
                     <label for="inputProdi">Prodi</label>
-                    <select class="form-control" id="opsiProdi">
-                      <option value="">Teknik Informatika</option>
-                      <option value="">Teknik Elektro</option>
-                      <option value="">Teknik Perkapalan</option>
+                    <select class="form-control" id="opsiProdi" name="prodi">
+                      <option value="Teknik Informatika">Teknik Informatika</option>
+                      <option value="Teknik Elektro">Teknik Elektro</option>
+                      <option value="Teknik Perkapalan">Teknik Perkapalan</option>
                     </select>
                   </div>
                 <?php } ?>

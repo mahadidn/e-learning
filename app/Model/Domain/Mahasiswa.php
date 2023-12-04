@@ -3,6 +3,7 @@
 namespace Klp1\ELearning\Model\Domain;
 
 class Mahasiswa {
+    public ?int $id = null;
     public string $userType = "mahasiswa";
     public string $nim;
     public string $username;

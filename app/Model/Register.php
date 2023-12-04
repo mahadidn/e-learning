@@ -3,6 +3,7 @@
 namespace Klp1\ELearning\Model;
 
 class Register {
+    public ?int $id = null;
     public ?string $namaLengkap = null;
     public ?string $jenisKelamin = null;
     public string $username;

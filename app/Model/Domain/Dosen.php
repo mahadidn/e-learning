@@ -3,6 +3,7 @@
 namespace Klp1\ELearning\Model\Domain;
 
 class Dosen {
+    public ?int $id = null;
     public string $userType = "dosen";
     public string $nidn;
     public string $username;

@@ -51,7 +51,7 @@ class LoginServiceTest extends TestCase{
     public function testLoginMahasiswaSuccess(){
         $loginRequest = new Login();
         $loginRequest->username = "mahadidn";
-        $loginRequest->password = "mahadi123";
+        $loginRequest->password = "hadi123";
         $result = $this->loginService->login($loginRequest);
 
         self::assertEquals($loginRequest->username, $result->username);

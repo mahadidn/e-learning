@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2023 at 01:22 PM
+-- Generation Time: Dec 05, 2023 at 01:56 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -28,10 +28,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`, `email`) VALUES
+(1, 'admin15', '$2y$10$VBrVZN1iJqQ0DbJCZnU4b.qbIDv5xE7a5H07pb8g4oQ55XM4E4HOe', 'admin15@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -78,6 +86,7 @@ CREATE TABLE `daftar_matakuliah` (
 --
 
 CREATE TABLE `dosen` (
+  `id` int(11) NOT NULL,
   `nidn` varchar(20) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -88,6 +97,14 @@ CREATE TABLE `dosen` (
   `id_nilai_kelompok` int(11) DEFAULT NULL,
   `id_matakuliah` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dosen`
+--
+
+INSERT INTO `dosen` (`id`, `nidn`, `username`, `password`, `nama`, `jenis_kelamin`, `email`, `prodi`, `id_nilai_kelompok`, `id_matakuliah`) VALUES
+(2, '123123', 'dosen21', '$2y$10$i6ZQhKi4vFrRamysJB4xdOVxwyIVlF2QPUnTabcdnfEASJvb6kvca', 'dosen21', 'perempuan', 'dosen21@gmail.com', 'Teknik Informatika', NULL, NULL),
+(3, '12312312', 'dosen1', '$2y$10$TC1IAETd3Jrw/TMJfUq02.o.LTKJdidyJNj8Rt7WtNLI5Vj1Zx28u', 'dosen1', 'laki-laki', 'dosen1@gmail.com', 'Teknik Informatika', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,6 +140,7 @@ CREATE TABLE `kelompok` (
 --
 
 CREATE TABLE `mahasiswa` (
+  `id` int(11) NOT NULL,
   `nim` varchar(20) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -133,6 +151,13 @@ CREATE TABLE `mahasiswa` (
   `id_kelompok` int(11) DEFAULT NULL,
   `id_matakuliah` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`id`, `nim`, `username`, `password`, `nama`, `email`, `prodi`, `jenis_kelamin`, `id_kelompok`, `id_matakuliah`) VALUES
+(1, '2101020065', 'mahadi_dn', '$2y$10$QsQrI.kz/G/IxPcOubSRcOyf9v2899YQVY99BBHnNFOsa23Wub8dy', 'Mahadi Dwi Nugraha', 'mahadidwinugraha@gmail.com', 'Teknik Informatika', 'laki-laki', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -205,7 +230,8 @@ CREATE TABLE `prodi` (
 
 CREATE TABLE `session_admin` (
   `username_session` varchar(50) NOT NULL,
-  `user_id` varchar(255) NOT NULL
+  `user_id` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -216,7 +242,8 @@ CREATE TABLE `session_admin` (
 
 CREATE TABLE `session_dosen` (
   `username_session` varchar(255) NOT NULL,
-  `user_id` varchar(255) NOT NULL
+  `user_id` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -226,9 +253,17 @@ CREATE TABLE `session_dosen` (
 --
 
 CREATE TABLE `session_mahasiswa` (
+  `id` int(11) NOT NULL,
   `username_session` varchar(50) NOT NULL,
   `user_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `session_mahasiswa`
+--
+
+INSERT INTO `session_mahasiswa` (`id`, `username_session`, `user_id`) VALUES
+(1, 'mahadi_dn', '656e1f83b700a');
 
 -- --------------------------------------------------------
 
@@ -250,7 +285,7 @@ CREATE TABLE `tahun_akademik` (
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`username`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `anggota_kelompok`
@@ -275,7 +310,7 @@ ALTER TABLE `daftar_matakuliah`
 -- Indexes for table `dosen`
 --
 ALTER TABLE `dosen`
-  ADD PRIMARY KEY (`username`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_dosen_nilaikelompok` (`id_nilai_kelompok`),
   ADD KEY `fk_dosen_matakuliah` (`id_matakuliah`);
 
@@ -297,7 +332,7 @@ ALTER TABLE `kelompok`
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`username`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_mahasiswa_kelompok` (`id_kelompok`),
   ADD KEY `fk_mahasiswa_matakuliah` (`id_matakuliah`);
 
@@ -336,19 +371,22 @@ ALTER TABLE `prodi`
 -- Indexes for table `session_admin`
 --
 ALTER TABLE `session_admin`
-  ADD KEY `username_index` (`username_session`);
+  ADD KEY `username_index` (`username_session`),
+  ADD KEY `fk_sessionadmin_admin` (`id`);
 
 --
 -- Indexes for table `session_dosen`
 --
 ALTER TABLE `session_dosen`
-  ADD KEY `username_index` (`username_session`);
+  ADD KEY `username_index` (`username_session`),
+  ADD KEY `fk_sessiondosen_dosen` (`id`);
 
 --
 -- Indexes for table `session_mahasiswa`
 --
 ALTER TABLE `session_mahasiswa`
-  ADD KEY `username_index` (`username_session`);
+  ADD KEY `username_index` (`username_session`),
+  ADD KEY `fk_sessionmahasiswa_mahasiswa` (`id`);
 
 --
 -- Indexes for table `tahun_akademik`
@@ -359,6 +397,12 @@ ALTER TABLE `tahun_akademik`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `anggota_kelompok`
@@ -373,6 +417,12 @@ ALTER TABLE `arsip_nilai`
   MODIFY `id_arsip` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `dosen`
+--
+ALTER TABLE `dosen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -383,6 +433,12 @@ ALTER TABLE `kelas`
 --
 ALTER TABLE `kelompok`
   MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mahasiswa`
+--
+ALTER TABLE `mahasiswa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `matakuliah`
@@ -460,19 +516,19 @@ ALTER TABLE `nilai`
 -- Constraints for table `session_admin`
 --
 ALTER TABLE `session_admin`
-  ADD CONSTRAINT `fk_sessionadmin_admin` FOREIGN KEY (`username_session`) REFERENCES `admin` (`username`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_sessionadmin_admin` FOREIGN KEY (`id`) REFERENCES `admin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `session_dosen`
 --
 ALTER TABLE `session_dosen`
-  ADD CONSTRAINT `fk_sessiondosen_dosen` FOREIGN KEY (`username_session`) REFERENCES `dosen` (`username`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_sessiondosen_dosen` FOREIGN KEY (`id`) REFERENCES `dosen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `session_mahasiswa`
 --
 ALTER TABLE `session_mahasiswa`
-  ADD CONSTRAINT `fk_sessionmahasiswa_mahasiswa` FOREIGN KEY (`username_session`) REFERENCES `mahasiswa` (`username`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_sessionmahasiswa_mahasiswa` FOREIGN KEY (`id`) REFERENCES `mahasiswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
