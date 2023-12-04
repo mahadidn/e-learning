@@ -50,9 +50,6 @@
 })
 </script>
 
-<!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
-
 <?php
 include 'includes/scripts.php';
 include 'includes/footer.php';
