@@ -12,7 +12,7 @@ class RegisterRepositoryTest extends TestCase {
 
     protected function setUp(): void{
         $this->registerRepository = new RegisterRepository(Database::getConnection());
-        $this->registerRepository->deleteAll();
+        // $this->registerRepository->deleteAll();
     }
 
     public function testSave(){

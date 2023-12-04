@@ -33,13 +33,13 @@ class RegisterRepository {
     }
 
     public function findByUsername(string $username): ?Register{
-        $statementMahasiswa = $this->connection->prepare("SELECT nim, username, password, nama, email, prodi, jenis_kelamin FROM mahasiswa WHERE username = ?");
+        $statementMahasiswa = $this->connection->prepare("SELECT id, nim, username, password, nama, email, prodi, jenis_kelamin FROM mahasiswa WHERE username = ?");
         $statementMahasiswa->execute([$username]);
 
-        $statementDosen = $this->connection->prepare("SELECT nidn, username, password, nama, email, prodi, jenis_kelamin FROM dosen WHERE username = ?");
+        $statementDosen = $this->connection->prepare("SELECT id, nidn, username, password, nama, email, prodi, jenis_kelamin FROM dosen WHERE username = ?");
         $statementDosen->execute([$username]);
 
-        $statementAdmin = $this->connection->prepare("SELECT username, password, email FROM admin WHERE username = ?");
+        $statementAdmin = $this->connection->prepare("SELECT id, username, password, email FROM admin WHERE username = ?");
         $statementAdmin->execute([$username]);
 
         try {
@@ -52,6 +52,7 @@ class RegisterRepository {
                 $mahasiswa->email = $row['email'];
                 $mahasiswa->jurusan = $row['prodi'];
                 $mahasiswa->jenisKelamin = $row['jenis_kelamin'];
+                $mahasiswa->id = $row['id'];
                 return $mahasiswa;
             }else if($row = $statementDosen->fetch()){
                 $dosen = new Register();
@@ -62,6 +63,7 @@ class RegisterRepository {
                 $dosen->email = $row['email'];
                 $dosen->jurusan = $row['prodi'];
                 $dosen->jenisKelamin = $row['jenis_kelamin'];
+                $dosen->id = $row['id'];
                 return $dosen;
             }else if ($row = $statementAdmin->fetch()){
 
@@ -69,6 +71,7 @@ class RegisterRepository {
                 $admin->username = $row["username"];
                 $admin->email = $row["email"];
                 $admin->password = $row["password"];
+                $admin->id = $row['id'];
                 return $admin;
             }else {
                 return null;

@@ -47,17 +47,17 @@ class HomeController {
             $loginResponse = $this->loginService->login($loginRequest);
             if ($loginResponse->userType == "dosen"){
                 
-                $this->loginService->createSession($loginResponse->username);
+                $this->loginService->createSession($loginResponse->id, $loginResponse->username);
                 View::redirect('/dashboard/dosen');
 
             }else if ($loginResponse->userType == "mahasiswa"){
 
-                $this->loginService->createSession($loginResponse->username);
+                $this->loginService->createSession($loginResponse->id, $loginResponse->username);
                 View::redirect('/dashboard/mahasiswa');
 
             }else if ($loginResponse->userType == "admin"){
 
-                $this->loginService->createSession($loginResponse->username);
+                $this->loginService->createSession($loginResponse->id, $loginResponse->username);
                 View::redirect('/dashboard/admin');
             }
         }catch (\Exception $exception){

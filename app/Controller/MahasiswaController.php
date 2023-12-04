@@ -4,9 +4,12 @@ namespace Klp1\ELearning\Controller;
 
 use Klp1\ELearning\App\View;
 use Klp1\ELearning\Config\Database;
+use Klp1\ELearning\Model\Domain\Mahasiswa;
 use Klp1\ELearning\Model\Register;
+use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
+use Klp1\ELearning\Service\KelolaDataPribadiService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -14,13 +17,19 @@ class MahasiswaController {
 
     private RegisterService $registerService;
     private LoginService $loginService;
+    private KelolaDataPribadiService $kelolaDataPribadiService;
 
     public function __construct(){
         $connection = Database::getConnection();
+        // repo
         $registerRepository = new RegisterRepository($connection);
-        $this->registerService = new RegisterService($registerRepository);
         $loginRepository = new LoginRepository($connection);
+        $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
+
+        // service
+        $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
+        $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
     }
 
     public function dashboard(): void{
@@ -38,6 +47,7 @@ class MahasiswaController {
         ]);
     }
 
+    // register
     public function registerMahasiswa(): void {
         View::render('registrasiMahasiswa', [
             "title" => "Daftar Akun Mahasiswa"
@@ -66,7 +76,8 @@ class MahasiswaController {
 
     }
 
-    public function dataPribadi(){
+    // kelola data pribadi
+    public function kelolaDataPribadi(){
         $mahasiswa = $this->loginService->current();
         View::render('data-pribadi', [
             "title" => "Data Pribadi Mahasiswa",
@@ -78,6 +89,36 @@ class MahasiswaController {
             'prodi' => $mahasiswa->prodi,
             'jenis_kelamin' => $mahasiswa->jenisKelamin
         ]);
+    }
+
+    public function postKelolaDataPribadi(){
+        $request = new Mahasiswa();
+        $request->username = $_POST['username'];
+        $request->password = $_POST['password'];
+        $request->nama = $_POST['nama'];
+        $request->email = $_POST['email'];
+        $request->prodi = $_POST['prodi'];
+        $request->jenisKelamin = $_POST['jenis_kelamin'];
+        $request->nim = $_POST['nim'];
+
+        try {
+            $this->kelolaDataPribadiService->ubahDataMahasiswa($request);
+            View::redirect('/data/mahasiswa');
+        }catch (\Exception $e){
+            $mahasiswa = $this->loginService->current();
+            View::render('keloladata-pribadi', [
+                "title" => "Data Pribadi Mahasiswa",
+                'usertype' => $mahasiswa->userType,
+                'username' => $mahasiswa->username,
+                'nim' => $mahasiswa->nim,
+                'nama' => $mahasiswa->nama,
+                'email' => $mahasiswa->email,
+                'prodi' => $mahasiswa->prodi,
+                'jenis_kelamin' => $mahasiswa->jenisKelamin,
+                'error' => $e->getMessage()
+            ]);
+        }
+
     }
 
     // edit data pribadi

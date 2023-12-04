@@ -32,16 +32,19 @@ class LoginService {
                 $loginResponse = $user;
                 $loginResponse->userType = $user->userType;
                 $loginResponse->nama = $user->name;
+                $loginResponse->id = $user->id;
                 return $loginResponse;
             }else if ($user->userType == "mahasiswa"){
                 $loginResponse = $user;
                 $loginResponse->userType = $user->userType;
                 $loginResponse->nama = $user->nama;
+                $loginResponse->id = $user->id;
                 return $loginResponse;
             }else if ($user->userType == "admin"){
                 $loginResponse = $user;
                 $loginResponse->userType = $user->userType;
                 $loginResponse->username = $user->username;
+                $loginResponse->id = $user->id;
                 return $loginResponse;
             }
         }else {
@@ -57,11 +60,12 @@ class LoginService {
     }
 
     // create session
-    public function createSession(string $usernameSession): SessionAdmin|SessionDosen|SessionMahasiswa {
+    public function createSession(int $id, string $usernameSession): SessionAdmin|SessionDosen|SessionMahasiswa {
         $user = $this->loginRepository->findByUsername($usernameSession);
 
         if ($user->userType == "admin"){
             $session = new SessionAdmin();
+            $session->id = $id;
             $session->userId = uniqid();
             $session->usernameSession = $usernameSession;
 
@@ -71,6 +75,7 @@ class LoginService {
             return $session;
         }else if ($user->userType == "dosen"){
             $session = new SessionDosen();
+            $session->id = $id;
             $session->userId = uniqid();
             $session->usernameSession = $usernameSession;
 
@@ -80,6 +85,7 @@ class LoginService {
             return $session;
         }else if($user->userType == "mahasiswa"){
             $session = new SessionMahasiswa();
+            $session->id = $id;
             $session->userId = uniqid();
             $session->usernameSession = $usernameSession;
 
@@ -104,7 +110,7 @@ class LoginService {
         if ($session == null){
             return null;
         }
-        return $this->loginRepository->findByUsername($session->usernameSession);
+        return $this->loginRepository->findBySession($session->userType, $session->id);
 
     }
 
