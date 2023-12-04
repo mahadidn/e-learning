@@ -26,7 +26,7 @@
 
   <!-- Multiple Select Plugin -->
   <link rel="stylesheet" href="/assets/css/multiple-select.css" type="text/css">
-  <script src="js/multiple-select.js"></script>
+  <script src="/assets/js/multiple-select.js"></script>
 
   <link rel="icon" type="image/x-icon"  href="/assets/img/app-icon.png">
 
