@@ -8,11 +8,10 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <!-- Page Heading -->
-            <h1 class="h3 text-gray-800">Data Nilai Kelompok</h1>
-            <h1 class="h5 mb-4 text-gray-800">Kelas Mata Kuliah</h1>
-            <a href="/kelas/dosen/detail" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
-            <a href="/kelas/dosen/detail/nilaikelompok/tambah" class="btn btn-base mr-1">Tambah Data</a>
-            <a href="/kelas/dosen/detail/nilaikelompok/kriteria" class="btn btn-dark">Kelola Kriteria Penilaian</a>
+            <h1 class="h3 mb-2 text-gray-800">Data Penilaian Kinerja</h1>
+            <p class="mb-4">Anda adalah Kelompok 1</p>
+            <a href="/kelas/mahasiswa/detail" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
+            <a href="/kelas/mahasiswa/detail/formpenilaian" class="btn btn-base">Penilaian</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -21,12 +20,11 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama Mahasiswa</th>
+                            <th>NIM</th>
                             <th>Nilai Kriteria 1</th>
                             <th>Nilai Kriteria 2</th>
+                            <th>Nilai Total</th>
                             <th>Komentar</th>
-                            <th>Total Nilai Kinerja</th>
-                            <th>Nilai Kelompok</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,12 +36,6 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>
-                                <div class="d-flex justify-content-center">
-                                    <a class="btn btn-orange btn-sm mr-2" href="form-nilai-kelompok.php">Edit</a>
-                                    <a class="btn btn-danger btn-sm" href="proses.php?">Hapus</a>
-                                </div>
-                            </td>
                         </tr>
                     </tbody>
                 </table>

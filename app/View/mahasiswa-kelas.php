@@ -23,7 +23,7 @@
                 <p class="text-dark">Kapasitas: 50</p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="/kelas/mahasiswa/detail" class="btn btn-warning">Gabung</a>
+                <a href="/kelas/mahasiswa/detail" class="btn btn-warning join-class">Gabung</a>
             </div>
         </div>
     </div>
@@ -53,10 +53,10 @@
             </div>
         </div>
     </div>
-
   </div>
 </div>
 </div>
+
 
 <?php
   include 'includes/scripts.php';

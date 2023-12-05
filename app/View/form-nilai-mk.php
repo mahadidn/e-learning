@@ -24,17 +24,35 @@
                             <option value="">Kelompok 3</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="inputTugas">Tugas</label>
-                        <input required type="text" name="tugas" class="form-control" id="inputTugas" placeholder="Skala 0 -100" value="">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputTugas">Tugas</label>
+                            <input required type="text" name="tugas" class="form-control" id="inputTugas" placeholder="Skala 0 -100" value="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPresentase">Persentase</label>
+                            <input required disabled type="text" name="Persentase" class="form-control" id="inputPersentase" placeholder="30%" value="">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputUTS">UTS</label>
-                        <input required type="text" name="uts" class="form-control" id="inputUTS" placeholder="Skala 0 -100" value="">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUTS">UTS</label>
+                            <input required type="text" name="uts" class="form-control" id="inputUTS" placeholder="Skala 0 -100" value="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPresentase">Persentase</label>
+                            <input required disabled type="text" name="Persentase" class="form-control" id="inputPersentase" placeholder="30%" value="">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputUAS">UAS</label>
-                        <input required type="text" name="uas" class="form-control" id="inputUAS" placeholder="Skala 0 -100" value="">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUAS">UAS</label>
+                            <input required type="text" name="uas" class="form-control" id="inputUAS" placeholder="Skala 0 -100" value="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPresentase">Persentase</label>
+                            <input required disabled type="text" name="Persentase" class="form-control" id="inputPersentase" placeholder="40%" value="">
+                        </div>
                     </div>
                     <div class="card-header py-3"> 
                         <button type="submit" class="btn btn-green mr-1" name="" value="">
