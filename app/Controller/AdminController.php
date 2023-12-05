@@ -5,10 +5,13 @@ namespace Klp1\ELearning\Controller;
 use Klp1\ELearning\App\View;
 use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Admin;
+use Klp1\ELearning\Model\Domain\TahunAkademik;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KontrolTahunAkademikRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KontrolTahunAkademikService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -17,6 +20,7 @@ class AdminController {
     private RegisterService $registerService;
     private LoginService $loginService;
     private KelolaDataPribadiService $kelolaDataPribadiService;
+    private KontrolTahunAkademikService $kontrolTahunAkademikService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -25,11 +29,13 @@ class AdminController {
         $registerRepository = new RegisterRepository($connection);
         $loginRepository = new LoginRepository($connection);
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
-        
+        $kontrolTahunAkademikRepository = new KontrolTahunAkademikRepository($connection);
+
         // service
         $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
+        $this->kontrolTahunAkademikService = new KontrolTahunAkademikService($kontrolTahunAkademikRepository);
     }
     
     public function dashboard(){
@@ -118,11 +124,13 @@ class AdminController {
     // tahun akademik
     public function tahunAkademik(){
         $admin = $this->loginService->current();
+        $tahunAkademik = $this->kontrolTahunAkademikService->getTahunAkademik();
         View::render('data-tahun-akademik', [
             "title" => "Tahun Akademik",
             'usertype' => $admin->userType,
             'username' => $admin->username,
-            'email' => $admin->email
+            'email' => $admin->email,
+            'tahunAkademik' => $tahunAkademik
         ]);
     }
 
@@ -135,6 +143,54 @@ class AdminController {
             'username' => $admin->username,
             'email' => $admin->email
         ]);
+    }
+    
+
+    public function postTambahTahunAkademik(){  
+        $tahunAkademik = new TahunAkademik();
+        $tahunAkademik->nama_semester = $_POST['nama_semester'];
+        $tahunAkademik->tahun = $_POST['tahun'];
+        $tahunAkademik->status = $_POST['status'];
+
+        $this->kontrolTahunAkademikService->tambahTahun($tahunAkademik);
+        View::redirect('/tahunakademik');
+    }
+
+    // edit tahun akademik
+    public function editTahunAkademik(){
+        $path = $_SERVER['PATH_INFO'];
+        $semester = explode("/", $path);
+        $id_semester = (int)$semester[4];
+        $admin = $this->loginService->current();
+        $tahunAkademik = new TahunAkademik();
+        $tahunAkademik = $this->kontrolTahunAkademikService->getSemesterById($id_semester);
+        View::render('form-edit-tahun-akademik ', [
+            "title" => "Tambah Tahun Akademik",
+            'usertype' => $admin->userType,
+            'username' => $admin->username,
+            'email' => $admin->email,
+            'tahun' => $tahunAkademik->tahun,
+        ]);
+    }
+
+    public function postTahunAkademik(){
+        $path = $_SERVER['PATH_INFO'];
+        $semester = explode("/", $path);
+        $id_semester = $semester[4];
+        $tahunAkademik = new TahunAkademik();
+        $tahunAkademik->nama_semester = $_POST['nama_semester'];
+        $tahunAkademik->tahun = $_POST['tahun'];
+        $tahunAkademik->status = $_POST['status'];
+        $this->kontrolTahunAkademikService->editTahun($tahunAkademik, $id_semester);
+        View::redirect('/tahunakademik');
+    }
+
+    public function hapusTahunAkademik(){
+        $path = $_SERVER['PATH_INFO'];
+        $semester = explode("/", $path);
+        $id_semester = $semester[4];
+        $this->kontrolTahunAkademikService->hapusSemester($id_semester);
+        View::redirect('/tahunakademik');
     }
 
     // data prodi
