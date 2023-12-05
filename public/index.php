@@ -34,7 +34,8 @@ Router::add('GET', '/data/editmahasiswa', MahasiswaController::class, 'editProfi
 Router::add('GET', '/kelas/mahasiswa', MahasiswaController::class, 'kelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/detail', MahasiswaController::class, 'detailKelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/detail/nilaiakhir', MahasiswaController::class, 'nilaiAkhir', [MustLoginMahasiswaMiddleware::class]);
-Router::add('GET', '/kelas/mahasiswa/detail/penilaian', MahasiswaController::class, 'penilaian', [MustLoginMahasiswaMiddleware::class]);
+Router::add('GET', '/kelas/mahasiswa/detail/formpenilaian', MahasiswaController::class, 'formPenilaian', [MustLoginMahasiswaMiddleware::class]);
+Router::add('GET', '/kelas/mahasiswa/detail/datapenilaian', MahasiswaController::class, 'dataPenilaian', [MustLoginMahasiswaMiddleware::class]);
 
 // Dosen Controller
 Router::add('GET', '/register/dosen', DosenController::class, 'registerDosen', []);

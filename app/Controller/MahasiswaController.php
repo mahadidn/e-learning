@@ -182,10 +182,25 @@ class MahasiswaController {
     }
 
     // penilaian
-    public function penilaian(){
+    public function formPenilaian(){
         $mahasiswa = $this->loginService->current();
-        View::render('penilaian', [
+        View::render('form-penilaian-kinerja', [
             "title" => "Kelas Mahasiswa Penilaian",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin
+        ]);
+    }
+
+    //hasil penilaian
+    public function dataPenilaian(){
+        $mahasiswa = $this->loginService->current();
+        View::render('mahasiswa-penilaian-kinerja', [
+            "title" => "Data Penilaian Kinerja",
             'usertype' => $mahasiswa->userType,
             'username' => $mahasiswa->username,
             'nim' => $mahasiswa->nim,
