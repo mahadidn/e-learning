@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2023 at 01:56 AM
+-- Generation Time: Dec 05, 2023 at 05:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -136,6 +136,20 @@ CREATE TABLE `kelompok` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kinerja_kelompok`
+--
+
+CREATE TABLE `kinerja_kelompok` (
+  `id_kinerja_kelompok` int(11) NOT NULL,
+  `nama_kelompok` varchar(255) NOT NULL,
+  `nama_anggota` varchar(255) NOT NULL,
+  `nilai_kriteria1` int(11) NOT NULL,
+  `nilai_kriteria2` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mahasiswa`
 --
 
@@ -157,7 +171,7 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `username`, `password`, `nama`, `email`, `prodi`, `jenis_kelamin`, `id_kelompok`, `id_matakuliah`) VALUES
-(1, '2101020065', 'mahadi_dn', '$2y$10$QsQrI.kz/G/IxPcOubSRcOyf9v2899YQVY99BBHnNFOsa23Wub8dy', 'Mahadi Dwi Nugraha', 'mahadidwinugraha@gmail.com', 'Teknik Informatika', 'laki-laki', NULL, NULL);
+(1, '2101020065', 'mahadi_dn', '$2y$10$TGBiPCRvdKWYeLp5V71VCO2Agx4R2HpK2Lfs3DGpS5FhFYUSXcG3W', 'Mahadi Dwi Nugraha', 'mahadidwinugraha@gmail.com', 'Teknik Informatika', 'laki-laki', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,6 +248,13 @@ CREATE TABLE `session_admin` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `session_admin`
+--
+
+INSERT INTO `session_admin` (`username_session`, `user_id`, `id`) VALUES
+('admin15', '656eb9b1917b5', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -263,7 +284,7 @@ CREATE TABLE `session_mahasiswa` (
 --
 
 INSERT INTO `session_mahasiswa` (`id`, `username_session`, `user_id`) VALUES
-(1, 'mahadi_dn', '656e1f83b700a');
+(1, 'mahadi_dn', '656ee39090eb7');
 
 -- --------------------------------------------------------
 
@@ -274,7 +295,8 @@ INSERT INTO `session_mahasiswa` (`id`, `username_session`, `user_id`) VALUES
 CREATE TABLE `tahun_akademik` (
   `id_semester` int(11) NOT NULL,
   `nama_semester` varchar(100) NOT NULL,
-  `tahun` int(11) NOT NULL
+  `tahun` varchar(20) NOT NULL,
+  `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -327,6 +349,12 @@ ALTER TABLE `kelas`
 ALTER TABLE `kelompok`
   ADD PRIMARY KEY (`id_kelompok`),
   ADD KEY `fk_kelompok_nilaikelompok` (`id_nilai_kelompok`);
+
+--
+-- Indexes for table `kinerja_kelompok`
+--
+ALTER TABLE `kinerja_kelompok`
+  ADD PRIMARY KEY (`id_kinerja_kelompok`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -435,6 +463,12 @@ ALTER TABLE `kelompok`
   MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `kinerja_kelompok`
+--
+ALTER TABLE `kinerja_kelompok`
+  MODIFY `id_kinerja_kelompok` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -468,7 +502,7 @@ ALTER TABLE `prodi`
 -- AUTO_INCREMENT for table `tahun_akademik`
 --
 ALTER TABLE `tahun_akademik`
-  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

@@ -9,27 +9,32 @@
     
         <div class="card-header py-3">
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Form Data Tahun Akademik</h1>
+            <h1 class="h3 mb-2 text-gray-800">Edit Data Tahun Akademik</h1>
         </div>
 
         <!-- DataTales Example -->
         <div class="card mb-4">
             <div class="card-body">
-                <form method="POST" action="/tahunakademik/tambah" enctype="multipart/form-data">
+                <?php $path = $_SERVER['PATH_INFO'];
+                    $semester = explode("/", $path);
+                ?>
+                <form method="POST" action="/tahunakademik/edit/semester/<?= $semester[4] ?>" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="inputSemester">Semester</label>
                         <select class="form-control" id="opsiSemester" name="nama_semester">
+                            <option selected>Pilih Semester</option>
                             <option value="Ganjil">Semester Ganjil</option>
                             <option value="Genap">Semester Genap</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="inputTahun">Tahun</label>
-                        <input required type="text" name="tahun" class="form-control" id="inputTahun" placeholder="2023/2024" >
+                        <input required type="text" name="tahun" class="form-control" id="inputTahun" value="<?= $model['tahun'] ?>" >
                     </div>
                     <div class="form-group">
                         <label for="inputStatus">Status</label>
                         <select class="form-control" id="opsiStatus" name="status">
+                            <option selected>Pilih Status</option>
                             <option value="Aktif">Aktif</option>
                             <option value="Perbaikan">Perbaikan</option>
                             <option value="Tidak Aktif">Tidak Aktif</option>

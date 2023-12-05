@@ -17,24 +17,26 @@
                 <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>No.</th>
+                            <th>Tahun</th>
                             <th>Semester</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach ($model['tahunAkademik'] as $key => $value) { ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= $value['tahun'] ?></td>
+                            <td><?= $value['nama_semester'] ?></td>
+                            <td><?= $value['status'] ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-orange btn-sm mr-2" href="/tahunakademik/tambah">Edit</a>
-                                    <a class="btn btn-danger btn-sm" href="fungsi.php?">Hapus</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="/tahunakademik/edit/semester/<?= $value['id_semester'] ?>">Edit</a>
+                                    <a class="btn btn-danger btn-sm" href="/tahunakademik/hapus/semester/<?= $value['id_semester'] ?>">Hapus</a>
                                 </div>
                             </td>
                         </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
