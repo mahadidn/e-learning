@@ -26,7 +26,7 @@
                         <input required type="text" name="nilai" class="form-control" id="inputNilai" placeholder="Skala 0 -100" value="">
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-green mr-1" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi()" name="" value="">
                             Simpan
                         </button>
                         <a type="button" class="btn btn-danger" href="/matakuliah/arsip">
@@ -40,8 +40,25 @@
 </div>
 <!-- container-fluid -->
 
-<!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script>
+    function konfirmasi() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin mengedit data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0c974a',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            
+                window.location.href = "/matakuliah/arsip";
+            }
+        });
+    }
+</script>
 
 <?php
 include 'includes/scripts.php';

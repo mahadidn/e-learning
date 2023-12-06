@@ -54,6 +54,7 @@ Router::add('GET', '/kelas/dosen/detail/tambahnilaimk', DosenController::class, 
 Router::add('GET', '/kelas/dosen/detail/nilaikelompok', DosenController::class, 'nilaiKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/nilaikelompok/tambah', DosenController::class, 'tambahNilaiKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/nilaikelompok/kriteria', DosenController::class, 'kriteriaNilai', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/nilaimk/kriteria', DosenController::class, 'kriteriaNilaiMK', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/nilaiakhir', DosenController::class, 'nilaiAkhir', [MustLoginDosenMiddleware::class]);
 
 // Admin Controller

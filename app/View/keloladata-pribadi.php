@@ -94,7 +94,7 @@ include 'includes/navbar.php';
                   <input required type="password" name="konfirmasiPassword" class="form-control" id="inputKonfirmasiPassword" placeholder="" />
                 </div>
               </div>
-              <button type="submit" class="btn btn-green mr-1" name="aksi" value="">Simpan</button>
+              <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi()" name="aksi" value="">Simpan</button>
             </form>
           </div>
           <div class="card-header py-0">
@@ -131,8 +131,27 @@ include 'includes/navbar.php';
 </div>
 <!-- /.container-fluid -->
 
-<!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script>
+    function konfirmasi() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin mengedit data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0c974a',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Simpan'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            
+                window.location.href = "/data/dosen";
+                // window.location.href = "/data/mahasiswa";
+                // window.location.href = "/data/administrator";
+            }
+        });
+    }
+</script>
 
 <?php
 include 'includes/scripts.php';

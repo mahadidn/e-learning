@@ -43,7 +43,7 @@
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-orange btn-sm mr-2" href="/matakuliah/arsip/edit">Edit</a>
-                                    <a class="btn btn-danger btn-sm" href="fungsi.php?">Hapus</a>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
                                 </div>
                             </td>
                         </tr>
@@ -55,8 +55,25 @@
 </div>
 <!-- /.container-fluid -->
 
-<!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script>
+    function konfirmasi() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin menghapus data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0c974a',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            
+                window.location.href = "/matakuliah/arsip";
+            }
+        });
+    }
+</script>
 
 <?php
 include 'includes/scripts.php';

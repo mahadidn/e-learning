@@ -33,7 +33,7 @@
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-orange btn-sm mr-2" href="form-prodi.php?">Edit</a>
-                                    <a class="btn btn-danger btn-sm" href="proses.php?">Hapus</a>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
                                 </div>
                             </td>
                         </tr>
@@ -44,8 +44,26 @@
     </div>
 </div>
 <!-- /.container-fluid -->
-<!-- SweetAlert -->
-<script src="/assets/js/sweetalert.min.js"></script>
+
+<script>
+    function konfirmasi() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin menghapus data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0c974a',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            
+                window.location.href = "/dataprodi";
+            }
+        });
+    }
+</script>
 
 <?php
 include 'includes/scripts.php';
