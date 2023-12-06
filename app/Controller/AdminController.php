@@ -157,10 +157,7 @@ class AdminController {
     }
 
     // edit tahun akademik
-    public function editTahunAkademik(){
-        $path = $_SERVER['PATH_INFO'];
-        $semester = explode("/", $path);
-        $id_semester = (int)$semester[4];
+    public function editTahunAkademik($id_semester){
         $admin = $this->loginService->current();
         $tahunAkademik = new TahunAkademik();
         $tahunAkademik = $this->kontrolTahunAkademikService->getSemesterById($id_semester);

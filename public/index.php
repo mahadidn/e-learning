@@ -13,11 +13,6 @@ use Klp1\ELearning\Middleware\MustLoginDosenMiddleware;
 use Klp1\ELearning\Middleware\MustLoginMahasiswaMiddleware;
 
 Database::getConnection("prod");
-if (isset($_SERVER['PATH_INFO'])){
-    $pattern = $_SERVER['PATH_INFO'];
-    
-    $semester = explode("/", $pattern);
-}
 
 // Home Controller
 Router::add('GET', '/', HomeController::class, 'index', []);
@@ -66,13 +61,9 @@ Router::add('GET', '/data/editadmin', AdminController::class, 'editProfil', [Mus
 Router::add('GET', '/tahunakademik', AdminController::class, 'tahunAkademik', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/tahunakademik/tambah', AdminController::class, 'tambahTahunAkademik', [MustLoginAdminMiddleware::class]);
 Router::add('POST', '/tahunakademik/tambah', AdminController::class, 'postTambahTahunAkademik', [MustLoginAdminMiddleware::class]);
-
-if (isset($semester[4])){
-    Router::add('GET', '/tahunakademik/edit/semester/' . $semester[4], AdminController::class, 'editTahunAkademik', [MustLoginAdminMiddleware::class]);
-    Router::add('POST', '/tahunakademik/edit/semester/' . $semester[4], AdminController::class, 'postTahunAkademik', [MustLoginAdminMiddleware::class]);
-    Router::add('GET', '/tahunakademik/hapus/semester/' . $semester[4], AdminController::class, 'hapusTahunAkademik', [MustLoginAdminMiddleware::class]);
-}
-
+Router::add('GET', '/tahunakademik/edit/semester/([0-9]*)'  , AdminController::class, 'editTahunAkademik', [MustLoginAdminMiddleware::class]);
+Router::add('POST', '/tahunakademik/edit/semester/([0-9]*)' , AdminController::class, 'postTahunAkademik', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/tahunakademik/hapus/semester/([0-9]*)' , AdminController::class, 'hapusTahunAkademik', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/dataprodi', AdminController::class, 'dataProdi', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/dataprodi/tambah', AdminController::class, 'tambahDataProdi', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah', AdminController::class, 'matakuliah', [MustLoginAdminMiddleware::class]);
