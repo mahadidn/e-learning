@@ -42,7 +42,6 @@
                             <td></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-orange btn-sm mr-2" href="/matakuliah/arsip/edit">Edit</a>
                                     <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
                                 </div>
                             </td>
