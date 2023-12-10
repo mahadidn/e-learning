@@ -7,11 +7,11 @@ use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Admin;
 use Klp1\ELearning\Model\Domain\TahunAkademik;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
-use Klp1\ELearning\Repository\KontrolTahunAkademikRepository;
+use Klp1\ELearning\Repository\KelolaTahunAkademikRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
-use Klp1\ELearning\Service\KontrolTahunAkademikService;
+use Klp1\ELearning\Service\KelolaTahunAkademikService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -20,7 +20,7 @@ class AdminController {
     private RegisterService $registerService;
     private LoginService $loginService;
     private KelolaDataPribadiService $kelolaDataPribadiService;
-    private KontrolTahunAkademikService $kontrolTahunAkademikService;
+    private KelolaTahunAkademikService $kelolaTahunAkademikService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -29,13 +29,13 @@ class AdminController {
         $registerRepository = new RegisterRepository($connection);
         $loginRepository = new LoginRepository($connection);
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
-        $kontrolTahunAkademikRepository = new KontrolTahunAkademikRepository($connection);
+        $kontrolTahunAkademikRepository = new KelolaTahunAkademikRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
-        $this->kontrolTahunAkademikService = new KontrolTahunAkademikService($kontrolTahunAkademikRepository);
+        $this->kelolaTahunAkademikService = new KelolaTahunAkademikService($kontrolTahunAkademikRepository);
     }
     
     public function dashboard(){
@@ -124,7 +124,7 @@ class AdminController {
     // tahun akademik
     public function tahunAkademik(){
         $admin = $this->loginService->current();
-        $tahunAkademik = $this->kontrolTahunAkademikService->getTahunAkademik();
+        $tahunAkademik = $this->kelolaTahunAkademikService->getTahunAkademik();
         View::render('data-tahun-akademik', [
             "title" => "Tahun Akademik",
             'usertype' => $admin->userType,
@@ -152,7 +152,7 @@ class AdminController {
         $tahunAkademik->tahun = $_POST['tahun'];
         $tahunAkademik->status = $_POST['status'];
 
-        $this->kontrolTahunAkademikService->tambahTahun($tahunAkademik);
+        $this->kelolaTahunAkademikService->tambahTahun($tahunAkademik);
         View::redirect('/tahunakademik');
     }
 
@@ -160,7 +160,7 @@ class AdminController {
     public function editTahunAkademik($id_semester){
         $admin = $this->loginService->current();
         $tahunAkademik = new TahunAkademik();
-        $tahunAkademik = $this->kontrolTahunAkademikService->getSemesterById($id_semester);
+        $tahunAkademik = $this->kelolaTahunAkademikService->getSemesterById($id_semester);
         View::render('form-edit-tahun-akademik ', [
             "title" => "Tambah Tahun Akademik",
             'usertype' => $admin->userType,
@@ -178,7 +178,7 @@ class AdminController {
         $tahunAkademik->nama_semester = $_POST['nama_semester'];
         $tahunAkademik->tahun = $_POST['tahun'];
         $tahunAkademik->status = $_POST['status'];
-        $this->kontrolTahunAkademikService->editTahun($tahunAkademik, $id_semester);
+        $this->kelolaTahunAkademikService->editTahun($tahunAkademik, $id_semester);
         View::redirect('/tahunakademik');
     }
 
@@ -186,7 +186,7 @@ class AdminController {
         $path = $_SERVER['PATH_INFO'];
         $semester = explode("/", $path);
         $id_semester = $semester[4];
-        $this->kontrolTahunAkademikService->hapusSemester($id_semester);
+        $this->kelolaTahunAkademikService->hapusSemester($id_semester);
         View::redirect('/tahunakademik');
     }
 

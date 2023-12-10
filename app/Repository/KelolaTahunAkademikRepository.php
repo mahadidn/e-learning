@@ -4,7 +4,7 @@ namespace Klp1\ELearning\Repository;
 
 use Klp1\ELearning\Model\Domain\TahunAkademik;
 
-class KontrolTahunAkademikRepository {
+class KelolaTahunAkademikRepository {
 
     private \PDO $connection;
 

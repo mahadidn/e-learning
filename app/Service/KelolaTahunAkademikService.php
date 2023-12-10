@@ -4,13 +4,13 @@ namespace Klp1\ELearning\Service;
 
 use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\TahunAkademik;
-use Klp1\ELearning\Repository\KontrolTahunAkademikRepository;
+use Klp1\ELearning\Repository\KelolaTahunAkademikRepository;
 
-class KontrolTahunAkademikService {
+class KelolaTahunAkademikService {
 
-    private KontrolTahunAkademikRepository $kontrolTahunAkademikRepository;
+    private KelolaTahunAkademikRepository $kontrolTahunAkademikRepository;
     
-    public function __construct(KontrolTahunAkademikRepository $kontrolTahunAkademikRepository){
+    public function __construct(KelolaTahunAkademikRepository $kontrolTahunAkademikRepository){
         $this->kontrolTahunAkademikRepository = $kontrolTahunAkademikRepository;
     }
 
