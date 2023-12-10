@@ -36,16 +36,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($variable as $key => $value) { ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= $i ?></td>
+                            <td><?= $value['nama_mahasiswa'] ?></td>
+                            <td><?= $value['nim'] ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
                                 </div>
                             </td>
                         </tr>
+                    <?php $i++; } ?>
                     </tbody>
                 </table>
             </div>

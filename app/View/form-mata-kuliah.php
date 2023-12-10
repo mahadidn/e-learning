@@ -15,18 +15,20 @@
         <!-- DataTales Example -->
         <div class="card mb-4">
             <div class="card-body">
+
+            <?php if(strstr(strtolower($model['title']), "edit")){ ?>
                 <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="inputKodeMK">Kode Mata Kuliah</label>
-                        <input required type="text" name="kodeMK" class="form-control" id="inputKodeMK" placeholder="INF12001" value="">
+                        <label for="inputKodeMK">Jadwal Mata Kuliah</label>
+                        <input required type="date" name="jadwal" class="form-control" id="inputKodeMK">
                     </div>
                     <div class="form-group">
                         <label for="inputNamaMK">Nama Mata Kuliah</label>
-                        <input required type="text" name="namaMK" class="form-control" id="inputNamaMK" placeholder="Perancangan dan Implementasi Perangkat Lunak" value="">
+                        <input required type="text" name="namaMK" class="form-control" id="inputNamaMK" value="<?= $model['matakuliah']['nama_mk'] ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputSKS">Beban SKS</label>
-                        <input required type="text" name="jumlahSKS" class="form-control" id="inputJumlahSKS" placeholder="3" value="">
+                        <input required type="number" name="jumlahSKS" class="form-control" id="inputJumlahSKS" value="<?= $model['matakuliah']['sks'] ?>">
                     </div>
                     <div class="card-header py-3"> 
                         <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('tambah')" name="" value="">
@@ -40,6 +42,33 @@
                         </a>
                     </div>
                 </form>
+            <?php }else { ?>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="inputKodeMK">Jadwal Mata Kuliah</label>
+                        <input required type="date" name="jadwal" class="form-control" id="inputKodeMK" placeholder="INF12001" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputNamaMK">Nama Mata Kuliah</label>
+                        <input required type="text" name="namaMK" class="form-control" id="inputNamaMK" placeholder="Perancangan dan Implementasi Perangkat Lunak" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSKS">Beban SKS</label>
+                        <input required type="number" name="jumlahSKS" class="form-control" id="inputJumlahSKS" placeholder="3" value="">
+                    </div>
+                    <div class="card-header py-3"> 
+                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('tambah')" name="" value="">
+                            Simpan
+                        </button>
+                        <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit')" name="" value="">
+                            Simpan
+                        </button> -->
+                        <a type="button" class="btn btn-danger" href="/matakuliah">
+                            Kembali
+                        </a>
+                    </div>
+                </form>
+            <?php } ?>
             </div>
         </div>
     </div>

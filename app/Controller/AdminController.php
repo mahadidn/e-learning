@@ -5,12 +5,15 @@ namespace Klp1\ELearning\Controller;
 use Klp1\ELearning\App\View;
 use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Admin;
+use Klp1\ELearning\Model\Domain\Matakuliah;
 use Klp1\ELearning\Model\Domain\TahunAkademik;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 use Klp1\ELearning\Repository\KelolaTahunAkademikRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaMataKuliahService;
 use Klp1\ELearning\Service\KelolaTahunAkademikService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
@@ -21,6 +24,7 @@ class AdminController {
     private LoginService $loginService;
     private KelolaDataPribadiService $kelolaDataPribadiService;
     private KelolaTahunAkademikService $kelolaTahunAkademikService;
+    private KelolaMataKuliahService $kelolaMatakuliahService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -30,12 +34,14 @@ class AdminController {
         $loginRepository = new LoginRepository($connection);
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
         $kontrolTahunAkademikRepository = new KelolaTahunAkademikRepository($connection);
+        $kelolaMatakuliahRepository = new KelolaMataKuliahRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
         $this->kelolaTahunAkademikService = new KelolaTahunAkademikService($kontrolTahunAkademikRepository);
+        $this->kelolaMatakuliahService = new KelolaMataKuliahService($kelolaMatakuliahRepository);
     }
     
     public function dashboard(){
@@ -215,11 +221,13 @@ class AdminController {
     // matakuliah
     public function matakuliah(){
         $admin = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliah();
         View::render('data-mata-kuliah', [
             'title' => 'Matakuliah',
             'usertype' => $admin->userType,
             'username' => $admin->username,
-            'email' => $admin->email
+            'email' => $admin->email,
+            'matakuliah' => $row
         ]);
     }
 
@@ -231,6 +239,41 @@ class AdminController {
             'username' => $admin->username,
             'email' => $admin->email
         ]);
+    }
+
+    // post tambah matakuliah admin
+    public function postTambahMatakuliah(){
+
+        $matakuliah = new Matakuliah();
+        $matakuliah->nama_mk = $_POST['namaMK'];
+        $matakuliah->jadwal_mk = (string)$_POST['jadwal'];
+        $matakuliah->sks = (int)$_POST['jumlahSKS'];
+
+        $this->kelolaMatakuliahService->tambahDataMatakuliah($matakuliah);
+
+        View::redirect('/matakuliah');
+
+    }
+
+    // edit
+    public function editMatakuliah($id_mk){
+        $admin = $this->loginService->current();
+        $matakuliah = $this->kelolaMatakuliahService->tampilkanMatakuliahSatu($id_mk);
+
+        View::render("form-mata-kuliah", [
+            'title' => 'Edit Matakuliah',
+            'usertype' => $admin->userType,
+            'username' => $admin->username,
+            'email' => $admin->email,
+            'matakuliah' => $matakuliah
+        ]);
+
+    }
+
+    // hapus
+    public function hapusMatakuliah($id_mk){
+        $this->kelolaMatakuliahService->hapusMatakuliah($id_mk);
+        View::redirect('/matakuliah');
     }
 
     // kelas
@@ -258,24 +301,20 @@ class AdminController {
     // arsip mata kuliah
     public function arsipMataKuliah(){
         $admin = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanArsipNilai();
+        
         View::render('arsip-nilai-mata-kuliah', [
             'title' => 'Arsip Nilai Matakuliah',
             'usertype' => $admin->userType,
             'username' => $admin->username,
-            'email' => $admin->email
+            'email' => $admin->email,
+            'arsip_nilai' => $row,
         ]);
     }
 
-    // edit arsip mata kuliah
-    public function editArsipMataKuliah(){
-        $admin = $this->loginService->current();
-        View::render('form-arsip-nilai', [
-            'title' => 'Edit Arsip Nilai Matakuliah',
-            'usertype' => $admin->userType,
-            'username' => $admin->username,
-            'email' => $admin->email
-        ]);
-    }
+    // 
+   
 
 }
+
 
