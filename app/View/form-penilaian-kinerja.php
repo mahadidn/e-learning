@@ -39,6 +39,9 @@
                         <button type="submit" class="btn btn-green mr-1" name="" value="">
                            Selanjutnya
                         </button>
+                        <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi()" name="" value="">
+                           Simpan
+                        </button> -->
                         <a type="button" class="btn btn-danger" href="/kelas/mahasiswa/detail/datapenilaian">
                             Kembali
                         </a>
@@ -50,8 +53,25 @@
 </div>
 <!-- container-fluid -->
 
-<!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script>
+    function konfirmasi() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin menyimpan data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0c974a',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Simpan'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            
+                window.location.href = "/kelas/mahasiswa/detail/datapenilaian";
+            }
+        });
+    }
+</script>
 
 <?php
 include 'includes/scripts.php';

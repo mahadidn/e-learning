@@ -255,10 +255,25 @@ class DosenController {
         ]);
     }
 
-    // kriteria nilai
+    // kriteria nilai kinerja
     public function kriteriaNilai(){
         $dosen = $this->loginService->current();
         View::render('form-kriteria-penilaian', [
+            "title" => "Kelas Dosen Kriteria Penilaian",
+            'usertype' => $dosen->userType,
+            'username' => $dosen->username,
+            'nidn' => $dosen->nidn,
+            'nama' => $dosen->name,
+            'jenis_kelamin' => $dosen->jenisKelamin,
+            'email' => $dosen->email,
+            'prodi' => $dosen->jurusan
+        ]);
+    }
+
+    // kriteria nilai mata kuliah
+    public function kriteriaNilaiMK(){
+        $dosen = $this->loginService->current();
+        View::render('form-kriteria-penilaianmk', [
             "title" => "Kelas Dosen Kriteria Penilaian",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
