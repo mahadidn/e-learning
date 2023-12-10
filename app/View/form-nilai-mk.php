@@ -24,22 +24,43 @@
                             <option value="">Kelompok 3</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="inputTugas">Tugas</label>
-                        <input required type="text" name="tugas" class="form-control" id="inputTugas" placeholder="Skala 0 -100" value="">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputTugas">Tugas</label>
+                            <input required type="text" name="tugas" class="form-control" id="inputTugas" placeholder="Skala 0 -100" value="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPresentase">Persentase</label>
+                            <input required disabled type="text" name="Persentase" class="form-control" id="inputPersentase" placeholder="30%" value="">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputUTS">UTS</label>
-                        <input required type="text" name="uts" class="form-control" id="inputUTS" placeholder="Skala 0 -100" value="">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUTS">UTS</label>
+                            <input required type="text" name="uts" class="form-control" id="inputUTS" placeholder="Skala 0 -100" value="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPresentase">Persentase</label>
+                            <input required disabled type="text" name="Persentase" class="form-control" id="inputPersentase" placeholder="30%" value="">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputUAS">UAS</label>
-                        <input required type="text" name="uas" class="form-control" id="inputUAS" placeholder="Skala 0 -100" value="">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputUAS">UAS</label>
+                            <input required type="text" name="uas" class="form-control" id="inputUAS" placeholder="Skala 0 -100" value="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPresentase">Persentase</label>
+                            <input required disabled type="text" name="Persentase" class="form-control" id="inputPersentase" placeholder="40%" value="">
+                        </div>
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-green mr-1" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('tambah')" name="" value="">
                             Simpan
                         </button>
+                        <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit')" name="" value="">
+                            Simpan
+                        </button> -->
                         <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/nilaimk">
                             Kembali
                         </a>
@@ -51,8 +72,41 @@
 </div>
 <!-- container-fluid -->
 
-<!-- SweetAlert -->
-<script src="/assets/js/sweetalert.min.js"></script>
+<script>
+
+    function konfirmasi(action) {
+        let text, confirmButtonText;
+
+        if (action === 'tambah') {
+            text = 'Apakah Anda yakin ingin tambah data?';
+            confirmButtonText = 'Tambah';
+        } else if(action === 'edit') {
+            text = 'Apakah Anda yakin ingin edit data?';
+            confirmButtonText = 'Edit';
+        }
+
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: text,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0c974a',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: action
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (action === 'tambah') {
+                    // Handle tambah action
+                    window.location.href = "/kelas/dosen/detail/nilaimk";
+                } else if (action === 'edit') {
+                    // Handle edit action
+                    window.location.href = "/kelas/dosen/detail/nilaimk";
+                }
+            }
+        });
+    }
+</script>
 
 <?php
 include 'includes/scripts.php';

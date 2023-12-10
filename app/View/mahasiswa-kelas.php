@@ -23,7 +23,7 @@
                 <p class="text-dark">Kapasitas: 50</p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="/kelas/mahasiswa/detail" class="btn btn-warning">Gabung</a>
+                <button class="btn btn-warning" onclick="konfirmasi()">Gabung</button> 
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
                 <p class="text-dark">Kapasitas: 50</p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="/kelas/mahasiswa/detail" class="btn btn-warning">Gabung</a>
+                <button class="btn btn-warning" onclick="konfirmasi()">Gabung</button> 
             </div>
         </div>
     </div>
@@ -49,14 +49,34 @@
                 <p class="text-dark">Kapasitas: 50</p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="/kelas/mahasiswa/detail" class="btn btn-warning">Gabung</a>
+                <button class="btn btn-warning" onclick="konfirmasi()">Gabung</button> 
             </div>
         </div>
     </div>
-
   </div>
 </div>
 </div>
+
+<script>
+    function konfirmasi() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin gabung ke kelas ini?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#f6c23e',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Gabung'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //disini logika agar pilihan kelas mahasiswa disimpan di db
+
+                window.location.href = "/kelas/mahasiswa/detail";
+            }
+        });
+    }
+</script>
 
 <?php
   include 'includes/scripts.php';

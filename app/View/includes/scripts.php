@@ -23,3 +23,5 @@
   <!-- Page level custom scripts -->
   <script src="<?= '/assets/js/demo/datatables-demo.js' ?>"></script>
   <script src="<?= '/assets/js/multiple-select.js' ?>"></script>
+
+  <script src="<?= '/assets/js/sweetalert2.all.min.js' ?>"></script>

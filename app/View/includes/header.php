@@ -30,6 +30,8 @@
 
   <link rel="icon" type="image/x-icon"  href="/assets/img/app-icon.png">
 
+  <link rel="stylesheet" href="/assets/css/sweetalert2.min.css">
+
 </head>
 
 <body id="page-top">

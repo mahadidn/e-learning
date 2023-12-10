@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <!-- nama anggota akan tampil dari yang pertama, ketika tombol selanjutnya ditekan maka yang tampil adalah nama anggota kedua. begitu seterusnya, hingga anggota habis. -->
                         <label for="inputAnggota">Anggota 1</label>
-                        <input required type="text" name="anggota" class="form-control" id="inputAnggota" placeholder="John Doe" value="">
+                        <input required type="text" disabled name="anggota" class="form-control" id="inputAnggota" placeholder="John Doe" value="">
                     </div>
                     <div class="form-group">
                         <label for="inputNilaiK1">Nilai Kriteria 1</label>
@@ -39,7 +39,10 @@
                         <button type="submit" class="btn btn-green mr-1" name="" value="">
                            Selanjutnya
                         </button>
-                        <a type="button" class="btn btn-danger" href="/kelas/mahasiswa/detail">
+                        <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi()" name="" value="">
+                           Simpan
+                        </button> -->
+                        <a type="button" class="btn btn-danger" href="/kelas/mahasiswa/detail/datapenilaian">
                             Kembali
                         </a>
                     </div>
@@ -50,8 +53,25 @@
 </div>
 <!-- container-fluid -->
 
-<!-- SweetAlert -->
-<script src="js/sweetalert.min.js"></script>
+<script>
+    function konfirmasi() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin ingin menyimpan data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0c974a',
+            cancelButtonColor: '#e74a3b',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Simpan'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            
+                window.location.href = "/kelas/mahasiswa/detail/datapenilaian";
+            }
+        });
+    }
+</script>
 
 <?php
 include 'includes/scripts.php';
