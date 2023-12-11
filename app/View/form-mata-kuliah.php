@@ -31,7 +31,7 @@
                         <input required type="number" name="jumlahSKS" class="form-control" id="inputJumlahSKS" value="<?= $model['matakuliah']['sks'] ?>">
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('tambah')" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit', <?= (int)$model['matakuliah']['id_mk'] ?>)" name="" value="">
                             Simpan
                         </button>
                         <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit')" name="" value="">
@@ -101,10 +101,10 @@
             if (result.isConfirmed) {
                 if (action === 'tambah') {
                     // Handle tambah action
-                    window.location.href = "/matakuliah";
+                    window.location.href = "/matakuliah/edit/";
                 } else if (action === 'edit') {
                     // Handle edit action
-                    window.location.href = "/matakuliah";
+                    window.location.href = "/matakuliah/edit/";
                 }
             }
         });

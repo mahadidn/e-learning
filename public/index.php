@@ -68,10 +68,15 @@ Router::add('POST', '/tahunakademik/edit/semester/([0-9]*)' , AdminController::c
 Router::add('GET', '/tahunakademik/hapus/semester/([0-9]*)' , AdminController::class, 'hapusTahunAkademik', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/dataprodi', AdminController::class, 'dataProdi', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/dataprodi/tambah', AdminController::class, 'tambahDataProdi', [MustLoginAdminMiddleware::class]);
+Router::add('POST', '/dataprodi/tambah', AdminController::class, 'postTambahDataProdi', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/dataprodi/edit/([0-9]*)', AdminController::class, 'editProdi', [MustLoginAdminMiddleware::class]);
+Router::add('POST', '/dataprodi/edit/([0-9]*)', AdminController::class, 'postEditProdi', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/dataprodi/hapus/([0-9]*)', AdminController::class, 'hapusProdi', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah', AdminController::class, 'matakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/tambah', AdminController::class, 'tambahMatakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('POST', '/matakuliah/tambah', AdminController::class, 'postTambahMatakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/edit/([0-9]*)', AdminController::class, 'editMatakuliah', [MustLoginAdminMiddleware::class]);
+Router::add('POST', '/matakuliah/edit/([0-9]*)', AdminController::class, 'postEditMatakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/hapus/([0-9]*)', AdminController::class, 'hapusMatakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/kelas/admin', AdminController::class, 'kelasAdmin', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/kelas/admin/tambah', AdminController::class, 'tambahKelasAdmin', [MustLoginAdminMiddleware::class]);

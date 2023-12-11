@@ -37,7 +37,7 @@
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-dark btn-sm mr-2" href="/matakuliah/arsip">Arsip</a>
                                     <a class="btn btn-orange btn-sm mr-2" href="/matakuliah/edit/<?= $value['id_mk'] ?>">Edit</a>
-                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= (int)$value['id_mk'] ?>)">Hapus</button>
                                 </div>
                                 <?php $i++; $hapus[] = $value['id_mk']; } ?>
                             </td>
@@ -51,7 +51,7 @@
 <!-- /.container-fluid -->
 
 <script>
-    function konfirmasi() {
+    function konfirmasi(number) {
         Swal.fire({
             title: 'Konfirmasi',
             text: 'Apakah Anda yakin ingin menghapus data?',
@@ -64,7 +64,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                                         
-                window.location.href = "/matakuliah/hapus/<?= $value['id_mk'] ?>";
+                window.location.href = `/matakuliah/hapus/${number}`;
             }
         });
     }

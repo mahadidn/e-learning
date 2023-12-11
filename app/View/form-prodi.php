@@ -15,11 +15,33 @@
         <!-- DataTales Example -->
         <div class="card mb-4">
             <div class="card-body">
+
+            <?php if(strstr(strtolower($model['title']), "edit")){ ?>
+
                 <form method="POST" action="" enctype="multipart/form-data">
+                    
                     <div class="form-group">
-                        <label for="inputKodeProdi">Kode Prodi</label>
-                        <input required type="text" name="kodeProdi" class="form-control" id="inputKodeProdi" placeholder="INF12001" value="">
+                        <label for="inputNamaProdi">Nama Prodi</label>
+                        <input required type="text" name="namaProdi" class="form-control" id="inputNamaProdi" value="<?= $model['prodi']['nama_prodi'] ?>">
                     </div>
+                    <div class="form-group">
+                        <label for="inputJumlahMhs">Jumlah Mahasiswa</label>
+                        <input required type="text" name="jumlahMhs" class="form-control" id="inputJumlahMhs" value="<?= $model['prodi']['jumlah_mhs'] ?>">
+                    </div>
+                    <div class="card-header py-3"> 
+                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit')" name="" value="">
+                            Simpan
+                        </button>
+                        <a type="button" class="btn btn-danger" href="/dataprodi">
+                            Kembali
+                        </a>
+                    </div>
+                </form>
+
+            <?php } else { ?>
+            
+                <form method="POST" action="" enctype="multipart/form-data">
+                    
                     <div class="form-group">
                         <label for="inputNamaProdi">Nama Prodi</label>
                         <input required type="text" name="namaProdi" class="form-control" id="inputNamaProdi" placeholder="Teknik Informatika" value="">
@@ -40,6 +62,9 @@
                         </a>
                     </div>
                 </form>
+
+            <?php } ?>
+
             </div>
         </div>
     </div>
@@ -75,7 +100,7 @@
                     window.location.href = "/prodi";
                 } else if (action === 'edit') {
                     // Handle edit action
-                    window.location.href = "/prodi";
+                    window.location.href = "/dataprodi/edit/<?= $model['prodi']['id_prodi'] ?>";
                 }
             }
         });
