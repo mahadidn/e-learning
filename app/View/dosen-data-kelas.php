@@ -8,7 +8,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <!-- Page Heading -->
-            <h1 class="h3 mb-4 text-gray-800">Kelas Mata Kuliah</h1>
+            <h1 class="h3 mb-4 text-gray-800">Kelas <?= $model['matakuliah'][0]['nama_mk'] ?></h1>
             <a href="/kelas/dosen" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
             <a href="/kelas/dosen/detail/kelompok" class="btn btn-base mr-1">Data Kelompok</a>
             <a href="/kelas/dosen/detail/nilaimk" class="btn btn-dark mr-1">Nilai Mata Kuliah</a>
@@ -26,11 +26,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($model['mahasiswa'] as $key => $value) { ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= $i ?></td>
+                            <td><?= $value['nama'] ?></td>
+                            <td><?= $value['nim'] ?></td>
                         </tr>
+                    <?php $i++; } ?>
                     </tbody>
                 </table>
             </div>

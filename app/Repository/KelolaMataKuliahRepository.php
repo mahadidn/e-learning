@@ -53,6 +53,22 @@ class KelolaMataKuliahRepository {
         return $row;
     }
 
+    public function tampilkanMatakuliahDanKelasIDKelas($id_kelas){
+        $statement = $this->connection->prepare("select * from matakuliah JOIN kelas ON (matakuliah.nama_mk = kelas.matakuliah) WHERE id_kelas = ?");
+        $statement->execute([$id_kelas]);
+
+        $row = $statement->fetchAll();
+        return $row;
+    }
+
+    public function tampilkanMahasiswa($id_kelas){
+        $statement = $this->connection->prepare("select mahasiswa.nama, mahasiswa.nim from mahasiswa_kelas JOIN kelas ON (mahasiswa_kelas.id_kelas = kelas.id_kelas) Join mahasiswa ON (mahasiswa_kelas.id_mahasiswa = mahasiswa.id) where kelas.id_kelas = ?");
+        $statement->execute([$id_kelas]);
+
+        $row = $statement->fetchAll();
+        return $row;
+    }
+
     public function arsipMataKuliah(){
         $statement = $this->connection->prepare("SELECT * FROM arsip_nilai");
         $statement->execute();

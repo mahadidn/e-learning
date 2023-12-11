@@ -159,9 +159,11 @@ class DosenController {
     }
 
     // kelas dosen detail
-    public function kelasDosenDetail(){
+    public function kelasDosenDetail($id_kelas){
         $dosen = $this->loginService->current();
-        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
+        $mahasiswa = $this->kelolaMatakuliahService->tampilkanMahasiswa($id_kelas);
+        
         View::render('dosen-data-kelas', [
             "title" => "Kelas Dosen Detail",
             'usertype' => $dosen->userType,
@@ -172,6 +174,7 @@ class DosenController {
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
             'matakuliah' => $row,
+            'mahasiswa' => $mahasiswa,
         ]);
     }
 
