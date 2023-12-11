@@ -14,46 +14,21 @@
   <!-- Content Row -->
   <div class="row">
 
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card shadow" style="max-width: 20rem;">
-            <img class="card-img-top" src="/assets/img/background.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="text-dark font-weight-bold">Kelas Mata Kuliah</h5>
-                <p class="text-dark">Kapasitas: 50</p>
-            </div>
-            <div class="card-footer d-flex justify-content-end">
-                <a href="/kelas/dosen/detail" class="btn btn-warning">Masuk</a>
-            </div>
-        </div>
-    </div>
 
-    
+    <?php foreach ($model['matakuliah'] as $key => $value) { ?>
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card shadow" style="max-width: 20rem;">
             <img class="card-img-top" src="/assets/img/background.jpg" alt="Card image cap">
             <div class="card-body">
-                <h5 class="text-dark font-weight-bold">Kelas Mata Kuliah</h5>
-                <p class="text-dark">Kapasitas: 50</p>
+                <h5 class="text-dark font-weight-bold"><?= $value['nama_mk'] ?></h5>
+                <p class="text-dark">Kapasitas: <?= $value['kapasitas'] ?></p>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <a href="/kelas/dosen/detail" class="btn btn-warning">Masuk</a>
+                <a href="/kelas/dosen/detail/<?= $value['id_kelas'] ?>" class="btn btn-warning">Masuk</a>
             </div>
         </div>
     </div>
-
-    
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card shadow" style="max-width: 20rem;">
-            <img class="card-img-top" src="/assets/img/background.jpg" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="text-dark font-weight-bold">Kelas Mata Kuliah</h5>
-                <p class="text-dark">Kapasitas: 50</p>
-            </div>
-            <div class="card-footer d-flex justify-content-end">
-                <a href="/kelas/dosen/detail" class="btn btn-warning">Masuk</a>
-            </div>
-        </div>
-    </div>
+    <?php } ?>
 
   </div>
 </div>

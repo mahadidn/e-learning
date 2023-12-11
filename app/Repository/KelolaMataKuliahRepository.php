@@ -45,6 +45,14 @@ class KelolaMataKuliahRepository {
         return $row;
     }
 
+    public function tampilkanMatakuliahDanKelas($nama_dosen){
+        $statement = $this->connection->prepare("select * from matakuliah JOIN kelas ON (matakuliah.nama_mk = kelas.matakuliah) WHERE nama_dosen = ?");
+        $statement->execute([$nama_dosen]);
+
+        $row = $statement->fetchAll();
+        return $row;
+    }
+
     public function arsipMataKuliah(){
         $statement = $this->connection->prepare("SELECT * FROM arsip_nilai");
         $statement->execute();

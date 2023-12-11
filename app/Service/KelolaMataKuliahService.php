@@ -37,5 +37,9 @@ class KelolaMataKuliahService {
         return $this->kelolaMataKuliahRepository->arsipMataKuliah();
     }
 
+    public function tampilkanMatakuliahDanKelas($nama_dosen){
+        return $this->kelolaMataKuliahRepository->tampilkanMatakuliahDanKelas($nama_dosen);
+    }
+
 }
 

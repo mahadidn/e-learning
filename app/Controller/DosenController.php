@@ -7,9 +7,11 @@ use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Dosen;
 use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaMataKuliahService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -18,6 +20,7 @@ class DosenController {
     private RegisterService $registerService;
     private LoginService $loginService;
     private KelolaDataPribadiService $kelolaDataPribadiService;
+    private KelolaMataKuliahService $kelolaMatakuliahService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -25,11 +28,13 @@ class DosenController {
         $registerRepository = new RegisterRepository($connection);
         $loginRepository = new LoginRepository($connection);
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
+        $kelolaMatakuliahRepository = new KelolaMataKuliahRepository($connection);
         
         // service
         $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
+        $this->kelolaMatakuliahService = new KelolaMataKuliahService($kelolaMatakuliahRepository);
     }
 
     public function dashboard(): void{
@@ -138,6 +143,8 @@ class DosenController {
     // kelas dosen
     public function kelasDosen(){
         $dosen = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
+
         View::render('dosen-kelas', [
             "title" => "Kelas Dosen",
             'usertype' => $dosen->userType,
@@ -146,13 +153,15 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'matakuliah' => $row,
         ]);
     }
 
     // kelas dosen detail
     public function kelasDosenDetail(){
         $dosen = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
         View::render('dosen-data-kelas', [
             "title" => "Kelas Dosen Detail",
             'usertype' => $dosen->userType,
@@ -161,7 +170,8 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'matakuliah' => $row,
         ]);
     }
 
