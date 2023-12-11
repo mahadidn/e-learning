@@ -18,25 +18,27 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Kode Prodi</th>
                             <th>Nama Prodi</th>
                             <th>Jumlah Mahasiswa</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $i = 1;?>
+                    <?php foreach ($model['prodi'] as $key => $value) { ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= $i ?></td>
+                            <td><?= $value['nama_prodi'] ?></td>
+                            <td><?= $value['jumlah_mhs'] ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-orange btn-sm mr-2" href="form-prodi.php?">Edit</a>
-                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
+                                    <a class="btn btn-orange btn-sm mr-2" href="/dataprodi/edit/<?= $value['id_prodi'] ?>">Edit</a>
+                                    <a href="/dataprodi/hapus/<?= $value['id_prodi'] ?>" class="linkhapus" style="display:none;"></a>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= (int)$value['id_prodi'] ?>)">Hapus</button>
                                 </div>
                             </td>
                         </tr>
+                    <?php $i++; $k++; } ?>
                     </tbody>
                 </table>
             </div>
@@ -44,9 +46,10 @@
     </div>
 </div>
 <!-- /.container-fluid -->
-
 <script>
-    function konfirmasi() {
+
+
+    function konfirmasi(number) {
         Swal.fire({
             title: 'Konfirmasi',
             text: 'Apakah Anda yakin ingin menghapus data?',
@@ -58,12 +61,14 @@
             confirmButtonText: 'Hapus'
         }).then((result) => {
             if (result.isConfirmed) {
-            
-                window.location.href = "/dataprodi";
+                                
+                window.location.href = `/dataprodi/hapus/${number}`;
+                                
             }
         });
     }
 </script>
+
 
 <?php
 include 'includes/scripts.php';

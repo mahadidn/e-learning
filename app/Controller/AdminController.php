@@ -8,14 +8,17 @@ use Klp1\ELearning\Model\Domain\Admin;
 use Klp1\ELearning\Model\Domain\Dosen;
 use Klp1\ELearning\Model\Domain\Kelas;
 use Klp1\ELearning\Model\Domain\Matakuliah;
+use Klp1\ELearning\Model\Domain\Prodi;
 use Klp1\ELearning\Model\Domain\TahunAkademik;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KelolaDataProdiRepository;
 use Klp1\ELearning\Repository\KelolaKelasRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 use Klp1\ELearning\Repository\KelolaTahunAkademikRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaDataProdiService;
 use Klp1\ELearning\Service\KelolaKelasService;
 use Klp1\ELearning\Service\KelolaMataKuliahService;
 use Klp1\ELearning\Service\KelolaTahunAkademikService;
@@ -30,6 +33,7 @@ class AdminController {
     private KelolaTahunAkademikService $kelolaTahunAkademikService;
     private KelolaMataKuliahService $kelolaMatakuliahService;
     private KelolaKelasService $kelolaKelasService;
+    private KelolaDataProdiService $kelolaDataProdiService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -41,6 +45,7 @@ class AdminController {
         $kontrolTahunAkademikRepository = new KelolaTahunAkademikRepository($connection);
         $kelolaMatakuliahRepository = new KelolaMataKuliahRepository($connection);
         $kelolaKelasRepository = new KelolaKelasRepository($connection);
+        $kelolaDataProdiRepository = new KelolaDataProdiRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
@@ -49,6 +54,7 @@ class AdminController {
         $this->kelolaTahunAkademikService = new KelolaTahunAkademikService($kontrolTahunAkademikRepository);
         $this->kelolaMatakuliahService = new KelolaMataKuliahService($kelolaMatakuliahRepository);
         $this->kelolaKelasService = new KelolaKelasService($kelolaKelasRepository);
+        $this->kelolaDataProdiService = new KelolaDataProdiService($kelolaDataProdiRepository);
     }
     
     public function dashboard(){
@@ -206,11 +212,13 @@ class AdminController {
     // data prodi
     public function dataProdi(){
         $admin = $this->loginService->current();
+        $row = $this->kelolaDataProdiService->getAllProdi();
         View::render('data-prodi', [
             'title' => 'Data Prodi',
             'usertype' => $admin->userType,
             'username' => $admin->username,
-            'email' => $admin->email
+            'email' => $admin->email,
+            'prodi' => $row,
         ]);
     }
 
@@ -223,6 +231,46 @@ class AdminController {
             'username' => $admin->username,
             'email' => $admin->email
         ]);
+    }
+
+    // post tambah prodi
+    public function postTambahDataProdi(){
+        $prodi = new Prodi();
+        $prodi->nama_prodi = $_POST['namaProdi'];
+        $prodi->jumlah_mhs = $_POST['jumlahMhs'];
+
+        $this->kelolaDataProdiService->tambahData($prodi);
+        View::redirect('/dataprodi');
+    }
+
+    // edit prodi
+    public function editProdi($id_prodi){
+        $admin = $this->loginService->current();
+        $row = $this->kelolaDataProdiService->getSatuProdi($id_prodi);
+        View::render('form-prodi', [
+            'title' => 'Edit Data Prodi',
+            'usertype' => $admin->userType,
+            'username' => $admin->username,
+            'email' => $admin->email,
+            'prodi' => $row,
+        ]);
+    }
+
+    // post edit prodi
+    public function postEditProdi($id_prodi){
+
+        $prodi = new Prodi();
+        $prodi->nama_prodi = $_POST['namaProdi'];
+        $prodi->jumlah_mhs = $_POST['jumlahMhs'];
+
+        $this->kelolaDataProdiService->editProdi($prodi, $id_prodi);
+        View::redirect('/dataprodi');
+    }
+
+    // hapus prodi
+    public function hapusProdi($id_prodi){
+        $this->kelolaDataProdiService->hapusProdi($id_prodi);
+        View::redirect('/dataprodi');
     }
 
     // matakuliah
@@ -281,6 +329,16 @@ class AdminController {
 
     }
 
+    public function postEditMatakuliah($id_mk){
+        $matakuliah = new Matakuliah();
+        $matakuliah->jadwal_mk = $_POST['jadwal'];
+        $matakuliah->nama_mk = (string)$_POST['namaMK'];
+        $matakuliah->sks = (int)$_POST['jumlahSKS'];
+
+        $this->kelolaMatakuliahService->editDataMatakuliah($matakuliah, $id_mk);
+        View::redirect('/matakuliah');
+    }
+
     // hapus
     public function hapusMatakuliah($id_mk){
         $this->kelolaMatakuliahService->hapusMatakuliah($id_mk);
@@ -305,12 +363,14 @@ class AdminController {
     public function tambahKelasAdmin(){
         $admin = $this->loginService->current();
         $dosen = $this->kelolaKelasService->getAllDosen();
+        $getMK = $this->kelolaMatakuliahService->tampilkanMatakuliah();
         View::render('form-kelas', [
             'title' => 'Kelola Kelas',
             'usertype' => $admin->userType,
             'username' => $admin->username,
             'email' => $admin->email,
-            'dosen' => $dosen
+            'dosen' => $dosen,
+            'matakuliah' => $getMK,
         ]);
     }
 
@@ -319,6 +379,7 @@ class AdminController {
         $admin = $this->loginService->current();
         $dosen = $this->kelolaKelasService->getAllDosen();
         $kelas = $this->kelolaKelasService->getSatuKelas($id_kelas);
+        $getMK = $this->kelolaMatakuliahService->tampilkanMatakuliah();
         View::render('form-kelas', [
             'title' => 'Edit Kelola Kelas',
             'usertype' => $admin->userType,
@@ -326,6 +387,7 @@ class AdminController {
             'email' => $admin->email,
             'dosen' => $dosen,
             'kelas' => $kelas,
+            'matakuliah' => $getMK,
         ]);
     }
 
@@ -336,6 +398,7 @@ class AdminController {
         $kelas->nama_kelas = $_POST['namaKelas'];
         $kelas->kapasitas = $_POST['kapasitas'];
         $kelas->nama_dosen = $_POST['nama_dosen'];
+        $kelas->matakuliah = $_POST['nama_mk'];
 
         $this->kelolaKelasService->tambahDataKelas($kelas);
         View::redirect('/kelas/admin');
@@ -347,6 +410,7 @@ class AdminController {
         $kelas->nama_kelas = $_POST['namaKelas'];
         $kelas->kapasitas = $_POST['kapasitas'];
         $kelas->nama_dosen = $_POST['nama_dosen'];
+        $kelas->matakuliah = $_POST['nama_mk'];
 
         $this->kelolaKelasService->editKelas($kelas, $id_kelas);
         View::redirect('/kelas/admin');

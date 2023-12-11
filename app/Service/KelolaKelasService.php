@@ -30,7 +30,7 @@ class KelolaKelasService {
 
     // hapus kelas
     public function hapusKelas($id_kelas){
-        $statement = $this->kelolaKelasRepository->hapus($id_kelas);
+        $this->kelolaKelasRepository->hapus($id_kelas);
     }
 
 

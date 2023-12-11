@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $i = 0; ?>
+                    <?php $i = 1; ?>
                     <?php foreach ($model['kelas'] as $key => $value) { ?>
                         <tr>
                             <td><?= $i ?></td>
@@ -37,7 +37,7 @@
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-orange btn-sm mr-2" href="/kelas/admin/edit/<?= $value['id_kelas'] ?>">Edit</a>
-                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= (int)$value['id_kelas'] ?>)">Hapus</button>
                                 </div>
                             </td>
                         </tr>
@@ -51,7 +51,7 @@
 <!-- /.container-fluid -->
 
 <script>
-    function konfirmasi() {
+    function konfirmasi(number) {
         Swal.fire({
             title: 'Konfirmasi',
             text: 'Apakah Anda yakin ingin menghapus data?',
@@ -64,7 +64,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
             
-                window.location.href = "/kelas/admin/hapus/<?= $value['id_kelas'] ?>";
+                window.location.href = `/kelas/admin/hapus/${number}`;
             }
         });
     }

@@ -9,5 +9,6 @@ class Kelas {
     public int $kapasitas;
     public ?string $nama_mk;
     public string $nama_dosen;
+    public string $matakuliah;
 }
 

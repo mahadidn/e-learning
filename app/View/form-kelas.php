@@ -35,6 +35,15 @@
                         <?php } ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="inputDosen">Kelas Matakuliah</label>
+                        <select class="form-control" id="opsiDosen" name="nama_mk">
+                            <option selected>Pilih Mata Kuliah</option>
+                        <?php foreach ($model['matakuliah'] as $key => $value) { ?>
+                            <option value="<?= $value['nama_mk'] ?>"><?= $value['nama_mk'] ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
                     <div class="card-header py-3"> 
                         <button type="submit" class="btn btn-green mr-1">
                             Simpan
@@ -58,8 +67,18 @@
                     <div class="form-group">
                         <label for="inputDosen">Dosen Pengampu</label>
                         <select class="form-control" id="opsiDosen" name="nama_dosen">
+                            <option selected>Pilih Dosen</option>
                         <?php foreach ($model['dosen'] as $key => $value) { ?>
                             <option value="<?= $value['nama'] ?>"><?= $value['nama'] ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDosen">Kelas Matakuliah</label>
+                        <select class="form-control" id="opsiDosen" name="nama_mk">
+                            <option selected>Pilih Mata Kuliah</option>
+                        <?php foreach ($model['matakuliah'] as $key => $value) { ?>
+                            <option value="<?= $value['nama_mk'] ?>"><?= $value['nama_mk'] ?></option>
                         <?php } ?>
                         </select>
                     </div>
