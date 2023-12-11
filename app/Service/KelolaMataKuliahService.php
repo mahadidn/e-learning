@@ -41,5 +41,13 @@ class KelolaMataKuliahService {
         return $this->kelolaMataKuliahRepository->tampilkanMatakuliahDanKelas($nama_dosen);
     }
 
+    public function tampilkanMatakuliahDanKelasIDKelas($id_kelas){
+        return $this->kelolaMataKuliahRepository->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
+    }
+
+    public function tampilkanMahasiswa($id_kelas){
+        return $this->kelolaMataKuliahRepository->tampilkanMahasiswa($id_kelas);
+    }
+
 }
 
