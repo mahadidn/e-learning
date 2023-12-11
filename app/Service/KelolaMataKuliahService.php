@@ -2,7 +2,6 @@
 
 namespace Klp1\ELearning\Service;
 
-use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Matakuliah;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 

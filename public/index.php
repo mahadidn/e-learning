@@ -75,6 +75,10 @@ Router::add('GET', '/matakuliah/edit/([0-9]*)', AdminController::class, 'editMat
 Router::add('GET', '/matakuliah/hapus/([0-9]*)', AdminController::class, 'hapusMatakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/kelas/admin', AdminController::class, 'kelasAdmin', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/kelas/admin/tambah', AdminController::class, 'tambahKelasAdmin', [MustLoginAdminMiddleware::class]);
+Router::add('POST', '/kelas/admin/tambah', AdminController::class, 'postTambahKelasAdmin', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/kelas/admin/edit/([0-9]*)', AdminController::class, 'editKelasAdmin', [MustLoginAdminMiddleware::class]);
+Router::add('POST', '/kelas/admin/edit/([0-9]*)', AdminController::class, 'postEditKelasAdmin', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/kelas/admin/hapus/([0-9]*)', AdminController::class, 'hapusKelas', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/arsip', AdminController::class, 'arsipMataKuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/arsip/edit', AdminController::class, 'editArsipMataKuliah', [MustLoginAdminMiddleware::class]);
 Router::run();

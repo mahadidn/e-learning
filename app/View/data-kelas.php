@@ -26,19 +26,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $i = 0; ?>
+                    <?php foreach ($model['kelas'] as $key => $value) { ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= $i ?></td>
+                            <td><?= $value['id_kelas'] ?></td>
+                            <td><?= $value['nama_kelas'] ?></td>
+                            <td><?= $value['kapasitas'] ?></td>
+                            <td><?= $value['nama_dosen'] ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-orange btn-sm mr-2" href="form-kelas.php">Edit</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="/kelas/admin/edit/<?= $value['id_kelas'] ?>">Edit</a>
                                     <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
                                 </div>
                             </td>
                         </tr>
+                    <?php $i++; } ?>
                     </tbody>
                 </table>
             </div>
@@ -61,7 +64,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
             
-                window.location.href = "/kelas/admin";
+                window.location.href = "/kelas/admin/hapus/<?= $value['id_kelas'] ?>";
             }
         });
     }

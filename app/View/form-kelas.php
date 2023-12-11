@@ -15,11 +15,38 @@
         <!-- DataTales Example -->
         <div class="card mb-4">
             <div class="card-body">
-                <form method="POST" action="" enctype="multipart/form-data">
+            
+            <?php if(strstr(strtolower($model['title']), "edit")){ ?>
+                <form method="POST" action="/kelas/admin/edit/<?= $model['kelas']['id_kelas'] ?>" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="inputKodeKelas">Kode Kelas</label>
-                        <input required type="text" name="kodeKelas" class="form-control" id="inputKodeKelas" placeholder="INF12001" value="">
+                        <label for="inputNamaKelas">Nama Kelas</label>
+                        <input required type="text" name="namaKelas" class="form-control" id="inputKelas" value="<?= $model['kelas']['nama_kelas'] ?>">
                     </div>
+                    <div class="form-group">
+                        <label for="inputKapasitas">Kapasitas</label>
+                        <input required type="text" name="kapasitas" class="form-control" id="inputKapasitas" placeholder="40" value="<?= $model['kelas']['kapasitas'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDosen">Dosen Pengampu</label>
+                        <select class="form-control" id="opsiDosen" name="nama_dosen">
+                            <option selected value="<?= $model['kelas']['nama_dosen'] ?>"><?= $model['kelas']['nama_dosen'] ?></option>
+                        <?php foreach ($model['dosen'] as $key => $value) { ?>
+                            <option value="<?= $value['nama'] ?>"><?= $value['nama'] ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <div class="card-header py-3"> 
+                        <button type="submit" class="btn btn-green mr-1">
+                            Simpan
+                        </button>
+                        <a type="button" class="btn btn-danger" href="/kelas/admin">
+                            Kembali
+                        </a>
+                    </div>
+                </form>
+            <?php }else { ?>
+
+                <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="inputNamaKelas">Nama Kelas</label>
                         <input required type="text" name="namaKelas" class="form-control" id="inputKelas" placeholder="Perancangan dan Implementasi Perangkat Lunak" value="">
@@ -30,10 +57,10 @@
                     </div>
                     <div class="form-group">
                         <label for="inputDosen">Dosen Pengampu</label>
-                        <select class="form-control" id="opsiDosen">
-                            <option value="">Dosen A</option>
-                            <option value="">Dosen B</option>
-                            <option value="">Dosen C</option>
+                        <select class="form-control" id="opsiDosen" name="nama_dosen">
+                        <?php foreach ($model['dosen'] as $key => $value) { ?>
+                            <option value="<?= $value['nama'] ?>"><?= $value['nama'] ?></option>
+                        <?php } ?>
                         </select>
                     </div>
                     <div class="card-header py-3"> 
@@ -48,6 +75,9 @@
                         </a>
                     </div>
                 </form>
+            <?php } ?>
+
+
             </div>
         </div>
     </div>
@@ -81,10 +111,7 @@
                 if (action === 'tambah') {
                     // Handle tambah action
                     window.location.href = "/kelas/admin";
-                } else if (action === 'edit') {
-                    // Handle edit action
-                    window.location.href = "/kelas/admin";
-                }
+                } 
             }
         });
     }
