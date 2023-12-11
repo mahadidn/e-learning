@@ -7,7 +7,6 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <?php var_dump($model['id_kelas']) ?>
             <!-- Page Heading -->
             <h1 class="h3 mb-4 text-gray-800">Kelas <?= $model['matakuliah'][0]['nama_mk'] ?></h1>
             <a href="/kelas/dosen" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>

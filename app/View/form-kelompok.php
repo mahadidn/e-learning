@@ -23,10 +23,11 @@
                     </div>
                     <div class="form-group">
                         <label for="inputMahasiswa">Anggota</label>
-                        <select id="select-mahasiswa" multiple>
-                            <option value="mahasiswa a">mahasiswa a</option>
-                            <option value="mahasiswa b">mahasiswa b</option>
-                            <option value="mahasiswa c">mahasiswa c</option>
+                        <select id="select-mahasiswa" multiple name="Anggota[]">
+                        
+                        <?php foreach ($model['mahasiswa'] as $key => $value) { ?>
+                            <option value="<?= $value['nama'] ?>"><?= $value['nama'] ?></option>
+                        <?php } ?>        
                         </select>
                     </div>
                     <div class="card-header py-3"> 
@@ -36,7 +37,7 @@
                         <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit')" name="" value="">
                             Simpan
                         </button> -->
-                        <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/kelompok">
+                        <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/kelompok">
                             Kembali
                         </a>
                     </div>
@@ -76,7 +77,7 @@
             if (result.isConfirmed) {  
                 if (action === 'tambah') {
                     // Handle tambah action
-                    window.location.href = "/kelas/dosen/detail/kelompok";
+                    window.location.href = "/kelas/dosen/detail/<?= $model['id_kelas'] ?>/kelompokdetail";
                 } else if (action === 'edit') {
                     // Handle edit action
                     window.location.href = "/kelas/dosen/detail/kelompok";
