@@ -5,14 +5,18 @@ namespace Klp1\ELearning\Controller;
 use Klp1\ELearning\App\View;
 use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Admin;
+use Klp1\ELearning\Model\Domain\Dosen;
+use Klp1\ELearning\Model\Domain\Kelas;
 use Klp1\ELearning\Model\Domain\Matakuliah;
 use Klp1\ELearning\Model\Domain\TahunAkademik;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KelolaKelasRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 use Klp1\ELearning\Repository\KelolaTahunAkademikRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaKelasService;
 use Klp1\ELearning\Service\KelolaMataKuliahService;
 use Klp1\ELearning\Service\KelolaTahunAkademikService;
 use Klp1\ELearning\Service\LoginService;
@@ -25,6 +29,7 @@ class AdminController {
     private KelolaDataPribadiService $kelolaDataPribadiService;
     private KelolaTahunAkademikService $kelolaTahunAkademikService;
     private KelolaMataKuliahService $kelolaMatakuliahService;
+    private KelolaKelasService $kelolaKelasService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -35,6 +40,7 @@ class AdminController {
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
         $kontrolTahunAkademikRepository = new KelolaTahunAkademikRepository($connection);
         $kelolaMatakuliahRepository = new KelolaMataKuliahRepository($connection);
+        $kelolaKelasRepository = new KelolaKelasRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
@@ -42,6 +48,7 @@ class AdminController {
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
         $this->kelolaTahunAkademikService = new KelolaTahunAkademikService($kontrolTahunAkademikRepository);
         $this->kelolaMatakuliahService = new KelolaMataKuliahService($kelolaMatakuliahRepository);
+        $this->kelolaKelasService = new KelolaKelasService($kelolaKelasRepository);
     }
     
     public function dashboard(){
@@ -233,11 +240,15 @@ class AdminController {
 
     public function tambahMatakuliah(){
         $admin = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliah();
+        
+
         View::render('form-mata-kuliah', [
             'title' => 'Tambah Matakuliah',
             'usertype' => $admin->userType,
             'username' => $admin->username,
-            'email' => $admin->email
+            'email' => $admin->email,
+            'dosen' => $row,
         ]);
     }
 
@@ -279,23 +290,72 @@ class AdminController {
     // kelas
     public function kelasAdmin(){
         $admin = $this->loginService->current();
+        $row = $this->kelolaKelasService->getDataKelas();
+
         View::render('data-kelas', [
             'title' => 'Kelola Kelas',
             'usertype' => $admin->userType,
             'username' => $admin->username,
-            'email' => $admin->email
+            'email' => $admin->email,
+            'kelas' => $row,
         ]);
     }
 
     // tambah kelas admin
     public function tambahKelasAdmin(){
         $admin = $this->loginService->current();
+        $dosen = $this->kelolaKelasService->getAllDosen();
         View::render('form-kelas', [
             'title' => 'Kelola Kelas',
             'usertype' => $admin->userType,
             'username' => $admin->username,
-            'email' => $admin->email
+            'email' => $admin->email,
+            'dosen' => $dosen
         ]);
+    }
+
+    // edit kelas admin
+    public function editKelasAdmin($id_kelas){
+        $admin = $this->loginService->current();
+        $dosen = $this->kelolaKelasService->getAllDosen();
+        $kelas = $this->kelolaKelasService->getSatuKelas($id_kelas);
+        View::render('form-kelas', [
+            'title' => 'Edit Kelola Kelas',
+            'usertype' => $admin->userType,
+            'username' => $admin->username,
+            'email' => $admin->email,
+            'dosen' => $dosen,
+            'kelas' => $kelas,
+        ]);
+    }
+
+    // post tambah kelas
+    public function postTambahKelasAdmin(){
+
+        $kelas = new Kelas();
+        $kelas->nama_kelas = $_POST['namaKelas'];
+        $kelas->kapasitas = $_POST['kapasitas'];
+        $kelas->nama_dosen = $_POST['nama_dosen'];
+
+        $this->kelolaKelasService->tambahDataKelas($kelas);
+        View::redirect('/kelas/admin');
+    }
+
+    // post edit kelas
+    public function postEditKelasAdmin($id_kelas){
+        $kelas = new Kelas();
+        $kelas->nama_kelas = $_POST['namaKelas'];
+        $kelas->kapasitas = $_POST['kapasitas'];
+        $kelas->nama_dosen = $_POST['nama_dosen'];
+
+        $this->kelolaKelasService->editKelas($kelas, $id_kelas);
+        View::redirect('/kelas/admin');
+    }
+
+    // hapus kelas
+    public function hapusKelas($id_kelas){
+        $this->kelolaKelasService->hapusKelas($id_kelas);
+        View::redirect('/kelas/admin');
     }
 
     // arsip mata kuliah
