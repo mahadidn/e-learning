@@ -43,7 +43,7 @@ class DosenController {
         $this->kelolaKelompokService = new KelolaKelompokService($kelolaKelompokRepository);
     }
 
-    public function dashboard(): void{
+    public function beranda(): void{
         $dosen = $this->loginService->current();
         View::render('index', [
             "title" => "Dashboard Dosen",
@@ -87,7 +87,7 @@ class DosenController {
     }
 
     // kelola data pribadi
-    public function kelolaDataPribadi(){
+    public function menuDataPribadi(){
         $dosen = $this->loginService->current();
         View::render('data-pribadi', [
             "title" => "Data Pribadi Dosen",
@@ -101,7 +101,7 @@ class DosenController {
         ]);
     }
 
-    public function postKelolaDataPribadi(){
+    public function postMenuDataPribadi(){
         $request = new Dosen();
         $request->username = $_POST['username'];
         $request->password = $_POST['password'];
@@ -147,7 +147,7 @@ class DosenController {
     }
 
     // kelas dosen
-    public function kelasDosen(){
+    public function tampilkanDaftarMatakuliah(){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
 

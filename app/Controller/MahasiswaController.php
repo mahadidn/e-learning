@@ -32,7 +32,7 @@ class MahasiswaController {
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
     }
 
-    public function dashboard(): void{
+    public function beranda(): void{
         $mahasiswa = $this->loginService->current();
         View::render('index', [
             "title" => "Dashboard Mahasiswa",
@@ -77,7 +77,7 @@ class MahasiswaController {
     }
 
     // kelola data pribadi
-    public function kelolaDataPribadi(){
+    public function menuDataPribadi(){
         $mahasiswa = $this->loginService->current();
         View::render('data-pribadi', [
             "title" => "Data Pribadi Mahasiswa",
@@ -91,7 +91,7 @@ class MahasiswaController {
         ]);
     }
 
-    public function postKelolaDataPribadi(){
+    public function postMenuDataPribadi(){
         $request = new Mahasiswa();
         $request->username = $_POST['username'];
         $request->password = $_POST['password'];

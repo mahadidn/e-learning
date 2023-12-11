@@ -57,7 +57,7 @@ class AdminController {
         $this->kelolaDataProdiService = new KelolaDataProdiService($kelolaDataProdiRepository);
     }
     
-    public function dashboard(){
+    public function beranda(){
         $admin = $this->loginService->current();
         View::render('index', [
             "title" => "Dashboard Admin",
@@ -97,7 +97,7 @@ class AdminController {
     }
 
     // data pribadi
-    public function kelolaDataPribadi(){
+    public function menuDataPribadi(){
         $admin = $this->loginService->current();
         View::render('data-pribadi', [
             "title" => "Data Pribadi Admin",
@@ -107,7 +107,7 @@ class AdminController {
         ]);
     }
 
-    public function postKelolaDataPribadi(){
+    public function postMenuDataPribadi(){
         $request = new Admin();
         $request->username = $_POST['username'];
         $request->password = $_POST['password'];
