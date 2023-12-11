@@ -70,6 +70,9 @@ Router::add('GET', '/dataprodi', AdminController::class, 'dataProdi', [MustLogin
 Router::add('GET', '/dataprodi/tambah', AdminController::class, 'tambahDataProdi', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah', AdminController::class, 'matakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/tambah', AdminController::class, 'tambahMatakuliah', [MustLoginAdminMiddleware::class]);
+Router::add('POST', '/matakuliah/tambah', AdminController::class, 'postTambahMatakuliah', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/matakuliah/edit/([0-9]*)', AdminController::class, 'editMatakuliah', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/matakuliah/hapus/([0-9]*)', AdminController::class, 'hapusMatakuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/kelas/admin', AdminController::class, 'kelasAdmin', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/kelas/admin/tambah', AdminController::class, 'tambahKelasAdmin', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/arsip', AdminController::class, 'arsipMataKuliah', [MustLoginAdminMiddleware::class]);
