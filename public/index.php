@@ -42,15 +42,15 @@ Router::add('POST', '/data/dosen', DosenController::class, 'postKelolaDataPribad
 Router::add('GET', '/data/editdosen', DosenController::class, 'editProfil', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen', DosenController::class, 'kelasDosen', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)', DosenController::class, 'kelasDosenDetail', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/kelompok', DosenController::class, 'kelasDosenKelompok', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/kelompokdetail', DosenController::class, 'tambahDosenKelompok', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/nilaimk', DosenController::class, 'nilaimk', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/tambahnilaimk', DosenController::class, 'tambahNilaimk', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/nilaikelompok', DosenController::class, 'nilaiKelompok', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/nilaikelompok/tambah', DosenController::class, 'tambahNilaiKelompok', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/nilaikelompok/kriteria', DosenController::class, 'kriteriaNilai', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/nilaimk/kriteria', DosenController::class, 'kriteriaNilaiMK', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/nilaiakhir', DosenController::class, 'nilaiAkhir', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/kelompok', DosenController::class, 'kelasDosenKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/kelompokdetail', DosenController::class, 'tambahDosenKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaimk', DosenController::class, 'nilaimk', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/tambahnilaimk', DosenController::class, 'tambahNilaimk', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok', DosenController::class, 'nilaiKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/tambah', DosenController::class, 'tambahNilaiKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/kriteria', DosenController::class, 'kriteriaNilai', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaimk/kriteria', DosenController::class, 'kriteriaNilaiMK', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaiakhir', DosenController::class, 'nilaiAkhir', [MustLoginDosenMiddleware::class]);
 
 // Admin Controller
 Router::add('GET', '/register/admin', AdminController::class, 'registerAdmin', []);

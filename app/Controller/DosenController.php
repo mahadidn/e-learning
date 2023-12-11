@@ -175,12 +175,15 @@ class DosenController {
             'prodi' => $dosen->jurusan,
             'matakuliah' => $row,
             'mahasiswa' => $mahasiswa,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // kelas dosen kelompok
-    public function kelasDosenKelompok(){
+    public function kelasDosenKelompok($id_kelas){
         $dosen = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
+
         View::render('dosen-data-kelompok', [
             "title" => "Kelas Dosen Kelompok",
             'usertype' => $dosen->userType,
@@ -189,12 +192,14 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'matakuliah' => $row,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // tambah dosen kelompok
-    public function tambahDosenKelompok(){
+    public function tambahDosenKelompok($id_kelas){
         $dosen = $this->loginService->current();
         View::render('form-kelompok', [
             "title" => "Kelas Dosen Tambah Kelompok",
@@ -204,12 +209,13 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // nilai mk
-    public function nilaimk(){
+    public function nilaimk($id_kelas){
         $dosen = $this->loginService->current();
         View::render('dosen-data-nilai-mk', [
             "title" => "Kelas Dosen Nilai Matakuliah",
@@ -219,12 +225,13 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // tambah nilai mk
-    public function tambahNilaimk(){
+    public function tambahNilaimk($id_kelas){
         $dosen = $this->loginService->current();
         View::render('form-nilai-mk', [
             "title" => "Kelas Dosen Tambah Nilai Matakuliah",
@@ -234,12 +241,13 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // nilai kelompok
-    public function nilaiKelompok(){
+    public function nilaiKelompok($id_kelas){
         $dosen = $this->loginService->current();
         View::render('dosen-data-nilai-kelompok', [
             "title" => "Kelas Dosen Nilai Kelompok",
@@ -249,12 +257,13 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // tambah nilai kelompok
-    public function tambahNilaiKelompok(){
+    public function tambahNilaiKelompok($id_kelas){
         $dosen = $this->loginService->current();
         View::render('form-nilai-kelompok', [
             "title" => "Kelas Dosen Nilai Kelompok",
@@ -264,12 +273,13 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // kriteria nilai kinerja
-    public function kriteriaNilai(){
+    public function kriteriaNilai($id_kelas){
         $dosen = $this->loginService->current();
         View::render('form-kriteria-penilaian', [
             "title" => "Kelas Dosen Kriteria Penilaian",
@@ -279,12 +289,13 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 
     // kriteria nilai mata kuliah
-    public function kriteriaNilaiMK(){
+    public function kriteriaNilaiMK($id_kelas){
         $dosen = $this->loginService->current();
         View::render('form-kriteria-penilaianmk', [
             "title" => "Kelas Dosen Kriteria Penilaian",
@@ -294,11 +305,12 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 
-    public function nilaiAkhir(){
+    public function nilaiAkhir($id_kelas){
         $dosen = $this->loginService->current();
         View::render('dosen-nilai-akhir', [
             "title" => "Kelas Dosen Nilai Akhir",
@@ -308,7 +320,8 @@ class DosenController {
             'nama' => $dosen->name,
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
-            'prodi' => $dosen->jurusan
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas
         ]);
     }
 

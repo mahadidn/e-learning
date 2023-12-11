@@ -10,7 +10,7 @@
             <!-- Page Heading -->
             <h1 class="h3 text-gray-800">Data Kelompok</h1>
             <h1 class="h5 mb-4 text-gray-800">Kelas Mata Kuliah</h1>
-            <a href="/kelas/dosen/detail" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
+            <a href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
             <a href="/kelas/dosen/detail/kelompokdetail" class="btn btn-base">Tambah Data</a>
         </div>
         <div class="card-body">
