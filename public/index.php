@@ -41,7 +41,7 @@ Router::add('GET', '/data/dosen', DosenController::class, 'kelolaDataPribadi', [
 Router::add('POST', '/data/dosen', DosenController::class, 'postKelolaDataPribadi', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/data/editdosen', DosenController::class, 'editProfil', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen', DosenController::class, 'kelasDosen', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail', DosenController::class, 'kelasDosenDetail', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)', DosenController::class, 'kelasDosenDetail', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/kelompok', DosenController::class, 'kelasDosenKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/kelompokdetail', DosenController::class, 'tambahDosenKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/nilaimk', DosenController::class, 'nilaimk', [MustLoginDosenMiddleware::class]);
