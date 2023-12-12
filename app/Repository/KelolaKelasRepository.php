@@ -34,6 +34,10 @@ class KelolaKelasRepository {
 
     // hapus data
     public function hapus($id_kelas){
+
+        $statement = $this->connection->prepare("DELETE FROM mahasiswa_kelas WHERE id_kelas = ?");
+        $statement->execute([$id_kelas]);
+
         $statement = $this->connection->prepare("DELETE FROM kelas WHERE id_kelas = ?");
         $statement->execute([$id_kelas]);
     }

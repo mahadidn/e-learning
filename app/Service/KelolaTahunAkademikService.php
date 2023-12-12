@@ -14,7 +14,7 @@ class KelolaTahunAkademikService {
         $this->kontrolTahunAkademikRepository = $kontrolTahunAkademikRepository;
     }
 
-    public function tambahTahun(TahunAkademik $tahunAkademik): TahunAkademik{
+    public function tambahTahun(TahunAkademik $tahunAkademik){
         try {
             Database::beginTransaction();
             
@@ -25,14 +25,13 @@ class KelolaTahunAkademikService {
 
             $this->kontrolTahunAkademikRepository->simpanTahunAkademik($tambahTahunAkademik);
             Database::commitTransaction();
-            return $tambahTahunAkademik;
         }catch (\Exception $e){
             Database::rollbackTransaction();
             throw $e;
         }
     }
 
-    public function editTahun(TahunAkademik $tahunAkademik, int $id_semester): TahunAkademik {
+    public function editTahun(TahunAkademik $tahunAkademik, int $id_semester){
         try {
             Database::beginTransaction();
 
@@ -43,7 +42,6 @@ class KelolaTahunAkademikService {
 
             $this->kontrolTahunAkademikRepository->updateTahunAkademik($editTahunAkademik, $id_semester);
             Database::commitTransaction();
-            return $editTahunAkademik;
         }catch (\Exception $e){
             Database::rollbackTransaction();
             throw $e;

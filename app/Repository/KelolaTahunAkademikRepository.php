@@ -16,7 +16,7 @@ class KelolaTahunAkademikRepository {
         $statement = $this->connection->prepare("INSERT INTO tahun_akademik(nama_semester, tahun, status) VALUES (?, ?, ?)");
         $statement->execute([$tahunAkademik->nama_semester, $tahunAkademik->tahun, $tahunAkademik->status]);
     
-        return $tahunAkademik;
+        
     }
 
 

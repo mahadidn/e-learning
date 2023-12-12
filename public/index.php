@@ -23,7 +23,8 @@ Router::add('GET', '/register/mahasiswa', MahasiswaController::class, 'registerM
 Router::add('POST', '/register/mahasiswa', MahasiswaController::class, 'postRegisterMahasiswa', []);
 Router::add('GET', '/dashboard/mahasiswa', MahasiswaController::class, 'beranda', [MustLoginMahasiswaMiddleware::class]); 
 Router::add('POST', '/mahasiswa/logout', MahasiswaController::class, 'logout', [MustLoginMahasiswaMiddleware::class]);
-Router::add('GET', '/data/mahasiswa', MahasiswaController::class, 'postMenuDataPribadi', [MustLoginMahasiswaMiddleware::class]);
+Router::add('GET', '/data/mahasiswa', MahasiswaController::class, 'menuDataPribadi', [MustLoginMahasiswaMiddleware::class]);
+Router::add('POST', '/data/mahasiswa', MahasiswaController::class, 'postMenuDataPribadi', [MustLoginMahasiswaMiddleware::class]);
 Router::add('POST', '/data/mahasiswa', MahasiswaController::class, 'postKelolaDataPribadi', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/data/editmahasiswa', MahasiswaController::class, 'editProfil', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa', MahasiswaController::class, 'kelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
