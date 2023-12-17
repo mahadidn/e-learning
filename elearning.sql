@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2023 at 04:39 AM
+-- Generation Time: Dec 17, 2023 at 07:56 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -39,7 +39,9 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `email`) VALUES
-(1, 'admin1', '$2y$10$sjyEF08v11kPs5s1bEUFQ.VnJoz268k9lxKz4jY5tABZUfjRacQN.', 'admin1@gmail.com');
+(1, 'admin1', '$2y$10$sjyEF08v11kPs5s1bEUFQ.VnJoz268k9lxKz4jY5tABZUfjRacQN.', 'admin1@gmail.com'),
+(2, 'admin21', '$2y$10$WyUDSeDRNDOZBkUOcNj.TO3nXj4rHxerKHmAYd7Xg7k.mgQcbsE/S', 'admin2@gmail.com'),
+(3, 'admin3', '$2y$10$963wGtbfI2bO0a5rwPPsx.xAOvDE5USlPK0fFlKV8epxuSNOMq75S', 'admin3@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -93,7 +95,8 @@ CREATE TABLE `dosen` (
 
 INSERT INTO `dosen` (`id`, `nidn`, `username`, `password`, `nama`, `jenis_kelamin`, `email`, `prodi`, `id_nilai_kelompok`, `id_matakuliah`) VALUES
 (2, '123123', 'dosen21', '$2y$10$i6ZQhKi4vFrRamysJB4xdOVxwyIVlF2QPUnTabcdnfEASJvb6kvca', 'dosen21', 'perempuan', 'dosen21@gmail.com', 'Teknik Informatika', NULL, NULL),
-(3, '12312312', 'dosen1', '$2y$10$TC1IAETd3Jrw/TMJfUq02.o.LTKJdidyJNj8Rt7WtNLI5Vj1Zx28u', 'dosen1', 'laki-laki', 'dosen1@gmail.com', 'Teknik Informatika', NULL, NULL);
+(3, '1231231', 'dosen12', '$2y$10$cmCFx/oBYKY4IsFEikE.Z.4v0bNqPvPrCaEMA5QRkXK.IVTmYjyFS', 'dosen2', 'perempuan', 'dosen1@gmail.com', 'Teknik Informatika', NULL, NULL),
+(4, '123123', 'dosen3', '$2y$10$KyCNIOQy0i9O8zqodDGzIOdSdUJe0/F2r1LGE6pW0Fs/F11Mm8GL.', 'dosen3', 'laki-laki', 'dosen3@gmail.com', 'Teknik Elektro', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -115,9 +118,11 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kapasitas`, `nama_dosen`, `matakuliah`) VALUES
 (12, 'Ruang 1', 38, 'dosen21', 'Statistika'),
-(13, 'Ruang 2', 44, 'dosen1', 'Perancangan dan Implementasi Perangkat Lunak'),
-(14, 'Ruang 2', 36, 'dosen1', 'Metode Numerik'),
-(15, 'Ruang 2', 38, 'dosen21', 'Pemrograman Web');
+(15, 'Ruang 2', 38, 'dosen21', 'Pemrograman Web'),
+(19, 'Ruang 6', 38, 'dosen2', 'Statistika'),
+(20, 'Ruang 10', 44, 'dosen2', 'Pemrograman Web'),
+(22, 'Ruang 3', 33, 'dosen21', 'B'),
+(23, 'Ruang Elektro', 46, 'dosen3', 'Elektro');
 
 -- --------------------------------------------------------
 
@@ -220,10 +225,6 @@ CREATE TABLE `mahasiswa_kelas` (
 INSERT INTO `mahasiswa_kelas` (`id_mahasiswa_kelas`, `id_kelas`, `id_mahasiswa`) VALUES
 (3, 12, 1),
 (4, 12, 2),
-(5, 13, 2),
-(6, 14, 2),
-(8, 13, 1),
-(9, 14, 1),
 (10, 15, 1);
 
 -- --------------------------------------------------------
@@ -250,7 +251,9 @@ INSERT INTO `matakuliah` (`nama_mk`, `id_mk`, `jadwal_mk`, `sks`, `id_dosen`) VA
 ('Statistika', 10, '2023-12-13', 3, NULL),
 ('Perancangan dan Implementasi Perangkat Lunak', 11, '2023-12-14', 3, NULL),
 ('Pemrograman Web', 12, '2023-12-15', 4, NULL),
-('Masyarakat Cerdas', 13, '2023-12-12', 3, NULL);
+('Masyarakat Cerdas', 13, '2023-12-12', 3, NULL),
+('B', 16, '2023-12-13', 4, NULL),
+('Elektro', 18, '2023-12-12', 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -307,9 +310,9 @@ CREATE TABLE `prodi` (
 --
 
 INSERT INTO `prodi` (`id_prodi`, `nama_prodi`, `jumlah_mhs`) VALUES
-(27, 'Teknik Elektro', 205),
-(31, 'Teknik Perkapalan', 184),
-(32, 'Teknik Informatika', 117);
+(27, 'Teknik Elektro', 210),
+(31, 'Teknik Perkapalan', 190),
+(34, 'Teknik Informatika', 120);
 
 -- --------------------------------------------------------
 
@@ -330,7 +333,10 @@ CREATE TABLE `session_admin` (
 INSERT INTO `session_admin` (`username_session`, `user_id`, `id`) VALUES
 ('admin15', '656f47b2b99b2', 1),
 ('admin1', '6570b264d0269', 1),
-('admin1', '65773d32588c3', 1);
+('admin1', '65773d32588c3', 1),
+('admin1', '65779800295a3', 1),
+('admin1', '6578060bc3e3f', 1),
+('admin1', '657eef7cdefa0', 1);
 
 -- --------------------------------------------------------
 
@@ -349,9 +355,7 @@ CREATE TABLE `session_dosen` (
 --
 
 INSERT INTO `session_dosen` (`username_session`, `user_id`, `id`) VALUES
-('dosen21', '65773d6bedbf6', 2),
-('dosen1', '65773ee9c72e4', 3),
-('dosen21', '6577810b2a95d', 2);
+('dosen3', '657eef636ad1c', 4);
 
 -- --------------------------------------------------------
 
@@ -390,8 +394,8 @@ CREATE TABLE `tahun_akademik` (
 --
 
 INSERT INTO `tahun_akademik` (`id_semester`, `nama_semester`, `tahun`, `status`) VALUES
-(40, 'Ganjil', '2023', 'Aktif'),
-(41, 'Genap', '2024', 'Aktif');
+(41, 'Genap', '2024', 'Aktif'),
+(43, 'Genap', '2021', 'Tidak Aktif');
 
 --
 -- Indexes for dumped tables
@@ -532,7 +536,7 @@ ALTER TABLE `tahun_akademik`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `anggota_kelompok`
@@ -550,25 +554,25 @@ ALTER TABLE `arsip_nilai`
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `kelompok_mahasiswa`
 --
 ALTER TABLE `kelompok_mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `kinerja_kelompok`
@@ -592,7 +596,7 @@ ALTER TABLE `mahasiswa_kelas`
 -- AUTO_INCREMENT for table `matakuliah`
 --
 ALTER TABLE `matakuliah`
-  MODIFY `id_mk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_mk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `nilai`
@@ -610,13 +614,13 @@ ALTER TABLE `nilai_kelompok`
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
-  MODIFY `id_prodi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_prodi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tahun_akademik`
 --
 ALTER TABLE `tahun_akademik`
-  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Constraints for dumped tables
