@@ -12,7 +12,7 @@ class KelolaTahunAkademikRepository {
         $this->connection = $connection;
     }
 
-    public function simpanTahunAkademik(TahunAkademik $tahunAkademik){
+    public function simpanTambah(TahunAkademik $tahunAkademik){
         $statement = $this->connection->prepare("INSERT INTO tahun_akademik(nama_semester, tahun, status) VALUES (?, ?, ?)");
         $statement->execute([$tahunAkademik->nama_semester, $tahunAkademik->tahun, $tahunAkademik->status]);
     
@@ -20,7 +20,7 @@ class KelolaTahunAkademikRepository {
     }
 
 
-    public function updateTahunAkademik(TahunAkademik $tahunAkademik, string $id_semester){
+    public function simpanEdit(TahunAkademik $tahunAkademik, string $id_semester){
         $statement = $this->connection->prepare("UPDATE tahun_akademik SET nama_semester = ?, tahun = ?, status = ? WHERE id_semester = ?");
         $statement->execute([$tahunAkademik->nama_semester, $tahunAkademik->tahun, $tahunAkademik->status, $id_semester]);
     }

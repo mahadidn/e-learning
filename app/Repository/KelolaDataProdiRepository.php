@@ -11,25 +11,25 @@ class KelolaDataProdiRepository {
         $this->connection = $connection;
     }
 
-    public function tambahData(Prodi $prodi){
+    public function simpanTambah(Prodi $prodi){
         $statement = $this->connection->prepare("INSERT INTO prodi (nama_prodi, jumlah_mhs) VALUES (?, ?)");
         $statement->execute([$prodi->nama_prodi, $prodi->jumlah_mhs]);
     }
 
-    public function editProdi(Prodi $prodi, $id_prodi){
+    public function simpanEdit(Prodi $prodi, $id_prodi){
         $statement = $this->connection->prepare("UPDATE prodi SET nama_prodi = ?, jumlah_mhs = ? WHERE id_prodi = ?");
         $statement->execute([$prodi->nama_prodi, $prodi->jumlah_mhs, $id_prodi]);
     }
 
     // hapus data prodi
-    public function hapusProdi($id_prodi){
+    public function hapusDataProdi($id_prodi){
         $statement = $this->connection->prepare("DELETE FROM prodi WHERE id_prodi = ?");
         $statement->execute([$id_prodi]);
     }
 
 
     // get all prodi
-    public function getAllProdi(){
+    public function tampilkanDataProdi(){
         $statement = $this->connection->prepare("SELECT * FROM prodi");
         $statement->execute();
 
@@ -38,7 +38,7 @@ class KelolaDataProdiRepository {
     }
 
     // get satu prodi
-    public function getSatuProdi($id_prodi){
+    public function tampilkanSatuProdi($id_prodi){
         $statement = $this->connection->prepare("SELECT * FROM prodi WHERE id_prodi = ?");
         $statement->execute([$id_prodi]);
 

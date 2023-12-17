@@ -13,35 +13,37 @@ class KelolaKelasService {
         $this->kelolaKelasRepository = $kelolaKelasRepository;
     }
 
-    public function getAllDosen(){
-        $dosen = $this->kelolaKelasRepository->tampilkanDosen();
-
-        return $dosen;
+    public function tambahDataKelas(Kelas $kelas){
+        $this->kelolaKelasRepository->simpanTambah($kelas);
     }
 
-    public function tambahDataKelas(Kelas $kelas){
-        $this->kelolaKelasRepository->simpan($kelas);
+    // tampilkan data kelas
+    public function tampilkanDataKelas(){
+        return $this->kelolaKelasRepository->tampilkanDataKelas();
     }
 
     // edit kelas
-    public function editKelas(Kelas $kelas, $id_kelas){
-        $this->kelolaKelasRepository->editKelas($kelas, $id_kelas);
+    public function editDataKelas(Kelas $kelas, $id_kelas){
+        $this->kelolaKelasRepository->simpanEdit($kelas, $id_kelas);
     }
 
     // hapus kelas
-    public function hapusKelas($id_kelas){
-        $this->kelolaKelasRepository->hapus($id_kelas);
+    public function hapusDataKelas($id_kelas){
+        $this->kelolaKelasRepository->hapusData($id_kelas);
     }
 
 
-    // get data kelas
-    public function getDataKelas(){
-        return $this->kelolaKelasRepository->getDataKelas();
+    
+    // 
+    // tampilkan satu kelas
+    public function tampilkanSatuKelas($id_kelas){
+        return $this->kelolaKelasRepository->tampilkanSatuKelas($id_kelas);
     }
 
-    // get satu kelas
-    public function getSatuKelas($id_kelas){
-        return $this->kelolaKelasRepository->getSatuKelas($id_kelas);
+    public function tampilkanSemuaDosen(){
+        $dosen = $this->kelolaKelasRepository->tampilkanDosen();
+
+        return $dosen;
     }
 
 }

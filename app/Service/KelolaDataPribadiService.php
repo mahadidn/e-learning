@@ -41,7 +41,7 @@ class KelolaDataPribadiService {
             $updateMahasiswa->jenisKelamin = $mahasiswa->jenisKelamin;
             $updateMahasiswa->nim = $mahasiswa->nim;
 
-            $this->kelolaDataPribadiRepository->simpanDataMahasiswa($updateMahasiswa, $mhs->username);
+            $this->kelolaDataPribadiRepository->ubahDataMahasiswa($updateMahasiswa, $mhs->username);
             Database::commitTransaction();
             return $updateMahasiswa;
         }catch(\Exception $exception){
@@ -69,7 +69,7 @@ class KelolaDataPribadiService {
             $updateDosen->jenisKelamin = $dosen->jenisKelamin;
             $updateDosen->nidn = $dosen->nidn;
 
-            $this->kelolaDataPribadiRepository->simpanDataDosen($updateDosen, $dsn->username);
+            $this->kelolaDataPribadiRepository->ubahDataDosen($updateDosen, $dsn->username);
             Database::commitTransaction();
             return $updateDosen;
         }catch(\Exception $exception){
@@ -93,13 +93,25 @@ class KelolaDataPribadiService {
             $updateAdmin->password = password_hash($admin->password, PASSWORD_BCRYPT);
             $updateAdmin->email = $admin->email;
 
-            $this->kelolaDataPribadiRepository->simpanDataAdmin($updateAdmin, $admn->username);
+            $this->kelolaDataPribadiRepository->ubahDataAdmin($updateAdmin, $admn->username);
             Database::commitTransaction();
             return $updateAdmin;
         }catch(\Exception $exception){
             Database::rollbackTransaction();
             throw $exception;
         }
+    }
+
+    public function tampilkanDataAdmin($id): Admin {
+        return $this->kelolaDataPribadiRepository->tampilkanDataAdmin($id);
+    }
+
+    public function tampilkanDataDosen($id): Dosen {
+        return $this->kelolaDataPribadiRepository->tampilkanDataDosen($id);
+    }
+
+    public function tampilkanDataMahasiswa($id): Mahasiswa {
+        return $this->kelolaDataPribadiRepository->tampilkanDataMahasiswa($id);
     }
 
 

@@ -13,36 +13,37 @@ class KelolaMataKuliahService {
         $this->kelolaMataKuliahRepository = $kelolaMataKuliahRepository;
     }
 
+    // admin
     public function tambahDataMatakuliah(Matakuliah $matakuliah){
-        $this->kelolaMataKuliahRepository->simpan($matakuliah);
+        $this->kelolaMataKuliahRepository->simpanTambah($matakuliah);
     }
 
     public function editDataMatakuliah(Matakuliah $matakuliah, $id_mk){
-        $this->kelolaMataKuliahRepository->editSimpan($matakuliah, $id_mk);
+        $this->kelolaMataKuliahRepository->simpanEdit($matakuliah, $id_mk);
     }
 
-    public function tampilkanMatakuliah(){
-        return $this->kelolaMataKuliahRepository->tampilkanMatakuliah();
+    public function tampilkanDataMatakuliah(){
+        return $this->kelolaMataKuliahRepository->tampilkanDataMatakuliah();
     }
 
-    public function tampilkanMatakuliahSatu($id_mk){
-        return $this->kelolaMataKuliahRepository->tampilkanMatakuliahSatu($id_mk);
+    
+    public function hapusDataMatakuliah($id_mk){
+        $this->kelolaMataKuliahRepository->hapusData($id_mk);
     }
 
-    public function hapusMatakuliah($id_mk){
-        $this->kelolaMataKuliahRepository->hapus($id_mk);
-    }
-
-    public function tampilkanArsipNilai(){
-        return $this->kelolaMataKuliahRepository->arsipMataKuliah();
-    }
-
+    // dosen
     public function tampilkanMatakuliahDanKelas($nama_dosen){
         return $this->kelolaMataKuliahRepository->tampilkanMatakuliahDanKelas($nama_dosen);
     }
 
+
     public function tampilkanMatakuliahDanKelasIDKelas($id_kelas){
         return $this->kelolaMataKuliahRepository->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
+    }
+
+    // 
+    public function tampilkanMatakuliahSatu($id_mk){
+        return $this->kelolaMataKuliahRepository->tampilkanMatakuliahSatu($id_mk);
     }
 
     public function tampilkanMahasiswa($id_kelas){

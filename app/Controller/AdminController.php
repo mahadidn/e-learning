@@ -143,7 +143,7 @@ class AdminController {
     // tahun akademik
     public function tahunAkademik(){
         $admin = $this->loginService->current();
-        $tahunAkademik = $this->kelolaTahunAkademikService->getTahunAkademik();
+        $tahunAkademik = $this->kelolaTahunAkademikService->tampilkanTahunAkademik();
         View::render('data-tahun-akademik', [
             "title" => "Tahun Akademik",
             'usertype' => $admin->userType,
@@ -171,7 +171,7 @@ class AdminController {
         $tahunAkademik->tahun = $_POST['tahun'];
         $tahunAkademik->status = $_POST['status'];
 
-        $this->kelolaTahunAkademikService->tambahTahun($tahunAkademik);
+        $this->kelolaTahunAkademikService->tambahTahunAkademik($tahunAkademik);
         View::redirect('/tahunakademik');
     }
 
@@ -197,7 +197,7 @@ class AdminController {
         $tahunAkademik->nama_semester = $_POST['nama_semester'];
         $tahunAkademik->tahun = $_POST['tahun'];
         $tahunAkademik->status = $_POST['status'];
-        $this->kelolaTahunAkademikService->editTahun($tahunAkademik, $id_semester);
+        $this->kelolaTahunAkademikService->editDataTahunAkademik($tahunAkademik, $id_semester);
         View::redirect('/tahunakademik');
     }
 
@@ -205,14 +205,14 @@ class AdminController {
         $path = $_SERVER['PATH_INFO'];
         $semester = explode("/", $path);
         $id_semester = $semester[4];
-        $this->kelolaTahunAkademikService->hapusSemester($id_semester);
+        $this->kelolaTahunAkademikService->hapusDataTahunAkademik($id_semester);
         View::redirect('/tahunakademik');
     }
 
     // data prodi
     public function dataProdi(){
         $admin = $this->loginService->current();
-        $row = $this->kelolaDataProdiService->getAllProdi();
+        $row = $this->kelolaDataProdiService->tampilkanDataProdi();
         View::render('data-prodi', [
             'title' => 'Data Prodi',
             'usertype' => $admin->userType,
@@ -239,14 +239,14 @@ class AdminController {
         $prodi->nama_prodi = $_POST['namaProdi'];
         $prodi->jumlah_mhs = $_POST['jumlahMhs'];
 
-        $this->kelolaDataProdiService->tambahData($prodi);
+        $this->kelolaDataProdiService->tambahDataProdi($prodi);
         View::redirect('/dataprodi');
     }
 
     // edit prodi
     public function editProdi($id_prodi){
         $admin = $this->loginService->current();
-        $row = $this->kelolaDataProdiService->getSatuProdi($id_prodi);
+        $row = $this->kelolaDataProdiService->tampilkanSatuProdi($id_prodi);
         View::render('form-prodi', [
             'title' => 'Edit Data Prodi',
             'usertype' => $admin->userType,
@@ -263,20 +263,20 @@ class AdminController {
         $prodi->nama_prodi = $_POST['namaProdi'];
         $prodi->jumlah_mhs = $_POST['jumlahMhs'];
 
-        $this->kelolaDataProdiService->editProdi($prodi, $id_prodi);
+        $this->kelolaDataProdiService->editDataProdi($prodi, $id_prodi);
         View::redirect('/dataprodi');
     }
 
     // hapus prodi
     public function hapusProdi($id_prodi){
-        $this->kelolaDataProdiService->hapusProdi($id_prodi);
+        $this->kelolaDataProdiService->hapusDataProdi($id_prodi);
         View::redirect('/dataprodi');
     }
 
     // matakuliah
     public function matakuliah(){
         $admin = $this->loginService->current();
-        $row = $this->kelolaMatakuliahService->tampilkanMatakuliah();
+        $row = $this->kelolaMatakuliahService->tampilkanDataMatakuliah();
         View::render('data-mata-kuliah', [
             'title' => 'Matakuliah',
             'usertype' => $admin->userType,
@@ -288,7 +288,7 @@ class AdminController {
 
     public function tambahMatakuliah(){
         $admin = $this->loginService->current();
-        $row = $this->kelolaMatakuliahService->tampilkanMatakuliah();
+        $row = $this->kelolaMatakuliahService->tampilkanDataMatakuliah();
         
 
         View::render('form-mata-kuliah', [
@@ -341,14 +341,14 @@ class AdminController {
 
     // hapus
     public function hapusMatakuliah($id_mk){
-        $this->kelolaMatakuliahService->hapusMatakuliah($id_mk);
+        $this->kelolaMatakuliahService->hapusDataMatakuliah($id_mk);
         View::redirect('/matakuliah');
     }
 
     // kelas
     public function kelasAdmin(){
         $admin = $this->loginService->current();
-        $row = $this->kelolaKelasService->getDataKelas();
+        $row = $this->kelolaKelasService->tampilkanDataKelas();
 
         View::render('data-kelas', [
             'title' => 'Kelola Kelas',
@@ -362,8 +362,8 @@ class AdminController {
     // tambah kelas admin
     public function tambahKelasAdmin(){
         $admin = $this->loginService->current();
-        $dosen = $this->kelolaKelasService->getAllDosen();
-        $getMK = $this->kelolaMatakuliahService->tampilkanMatakuliah();
+        $dosen = $this->kelolaKelasService->tampilkanSemuaDosen();
+        $getMK = $this->kelolaMatakuliahService->tampilkanDataMatakuliah();
         View::render('form-kelas', [
             'title' => 'Kelola Kelas',
             'usertype' => $admin->userType,
@@ -377,9 +377,9 @@ class AdminController {
     // edit kelas admin
     public function editKelasAdmin($id_kelas){
         $admin = $this->loginService->current();
-        $dosen = $this->kelolaKelasService->getAllDosen();
-        $kelas = $this->kelolaKelasService->getSatuKelas($id_kelas);
-        $getMK = $this->kelolaMatakuliahService->tampilkanMatakuliah();
+        $dosen = $this->kelolaKelasService->tampilkanSemuaDosen();
+        $kelas = $this->kelolaKelasService->tampilkanSatuKelas($id_kelas);
+        $getMK = $this->kelolaMatakuliahService->tampilkanDataMatakuliah();
         View::render('form-kelas', [
             'title' => 'Edit Kelola Kelas',
             'usertype' => $admin->userType,
@@ -412,27 +412,28 @@ class AdminController {
         $kelas->nama_dosen = $_POST['nama_dosen'];
         $kelas->matakuliah = $_POST['nama_mk'];
 
-        $this->kelolaKelasService->editKelas($kelas, $id_kelas);
+        $this->kelolaKelasService->editDataKelas($kelas, $id_kelas);
         View::redirect('/kelas/admin');
     }
 
     // hapus kelas
     public function hapusKelas($id_kelas){
-        $this->kelolaKelasService->hapusKelas($id_kelas);
+        $this->kelolaKelasService->hapusDataKelas($id_kelas);
         View::redirect('/kelas/admin');
     }
 
     // arsip mata kuliah
     public function arsipMataKuliah(){
         $admin = $this->loginService->current();
-        $row = $this->kelolaMatakuliahService->tampilkanArsipNilai();
+        // bikin arsip baru lagi nanti
+        // $row = $this->kelolaMatakuliahService->tampilkanArsipNilai();
         
         View::render('arsip-nilai-mata-kuliah', [
             'title' => 'Arsip Nilai Matakuliah',
             'usertype' => $admin->userType,
             'username' => $admin->username,
             'email' => $admin->email,
-            'arsip_nilai' => $row,
+            // 'arsip_nilai' => $row,
         ]);
     }
 

@@ -14,7 +14,7 @@ class KelolaTahunAkademikService {
         $this->kontrolTahunAkademikRepository = $kontrolTahunAkademikRepository;
     }
 
-    public function tambahTahun(TahunAkademik $tahunAkademik){
+    public function tambahTahunAkademik(TahunAkademik $tahunAkademik){
         try {
             Database::beginTransaction();
             
@@ -23,7 +23,7 @@ class KelolaTahunAkademikService {
             $tambahTahunAkademik->tahun = $tahunAkademik->tahun;
             $tambahTahunAkademik->status = $tahunAkademik->status;
 
-            $this->kontrolTahunAkademikRepository->simpanTahunAkademik($tambahTahunAkademik);
+            $this->kontrolTahunAkademikRepository->simpanTambah($tambahTahunAkademik);
             Database::commitTransaction();
         }catch (\Exception $e){
             Database::rollbackTransaction();
@@ -31,7 +31,7 @@ class KelolaTahunAkademikService {
         }
     }
 
-    public function editTahun(TahunAkademik $tahunAkademik, int $id_semester){
+    public function editDataTahunAkademik(TahunAkademik $tahunAkademik, int $id_semester){
         try {
             Database::beginTransaction();
 
@@ -40,7 +40,7 @@ class KelolaTahunAkademikService {
             $editTahunAkademik->tahun = $tahunAkademik->tahun;
             $editTahunAkademik->status = $tahunAkademik->status;
 
-            $this->kontrolTahunAkademikRepository->updateTahunAkademik($editTahunAkademik, $id_semester);
+            $this->kontrolTahunAkademikRepository->simpanEdit($editTahunAkademik, $id_semester);
             Database::commitTransaction();
         }catch (\Exception $e){
             Database::rollbackTransaction();
@@ -48,7 +48,7 @@ class KelolaTahunAkademikService {
         }
     }
 
-    public function getTahunAkademik(){
+    public function tampilkanTahunAkademik(){
 
         $tahunAkademik = $this->kontrolTahunAkademikRepository->getTahunAkademik();
 
@@ -70,7 +70,7 @@ class KelolaTahunAkademikService {
         return $tahunAkademik;
     }
 
-    public function hapusSemester($id_semester){
+    public function hapusDataTahunAkademik($id_semester){
 
         $this->kontrolTahunAkademikRepository->hapusData($id_semester);
     }

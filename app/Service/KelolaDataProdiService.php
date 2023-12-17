@@ -12,28 +12,28 @@ class KelolaDataProdiService {
         $this->kelolaDataProdiRepository = $kelolaDataProdiRepository;
     }
 
-    public function tambahData(Prodi $prodi){
-        $this->kelolaDataProdiRepository->tambahData($prodi);
+    public function tambahDataProdi(Prodi $prodi){
+        $this->kelolaDataProdiRepository->simpanTambah($prodi);
     }
 
-    public function editProdi(Prodi $prodi, $id_prodi){
-        $this->kelolaDataProdiRepository->editProdi($prodi, $id_prodi);
+    public function editDataProdi(Prodi $prodi, $id_prodi){
+        $this->kelolaDataProdiRepository->simpanEdit($prodi, $id_prodi);
     }
 
     // hapus prodi
-    public function hapusProdi($id_prodi){
-        $this->kelolaDataProdiRepository->hapusProdi($id_prodi);
+    public function hapusDataProdi($id_prodi){
+        $this->kelolaDataProdiRepository->hapusDataProdi($id_prodi);
     }
 
 
     // get all prodi
-    public function getAllProdi(){
-        return $this->kelolaDataProdiRepository->getAllProdi();
+    public function tampilkanDataProdi(){
+        return $this->kelolaDataProdiRepository->tampilkanDataProdi();
     }
 
     // get satu prodi
-    public function getSatuProdi($id_prodi){
-        return $this->kelolaDataProdiRepository->getSatuProdi($id_prodi);
+    public function tampilkanSatuProdi($id_prodi){
+        return $this->kelolaDataProdiRepository->tampilkanSatuProdi($id_prodi);
     }
 
 }
