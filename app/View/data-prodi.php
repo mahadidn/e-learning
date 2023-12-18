@@ -38,7 +38,7 @@
                                 </div>
                             </td>
                         </tr>
-                    <?php $i++; $k++; } ?>
+                    <?php $i++;} ?>
                     </tbody>
                 </table>
             </div>
