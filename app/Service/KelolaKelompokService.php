@@ -13,22 +13,21 @@ class KelolaKelompokService {
         $this->kelolaKelompokRepository = $kelolaKelompokRepository;
     }
     
-    public function tambahDataKelompok(Kelompok $kelompok, $anggota){
+    public function tambahDataKelompok(Kelompok $kelompok, $anggota, $id_kelas){
 
-        $row = $this->kelolaKelompokRepository->simpanTambah($kelompok);
+        $row = $this->kelolaKelompokRepository->simpanTambah($kelompok, $id_kelas);
         $id_kelompok = (int)$row[0]['id_kelompok'];
 
-
-        $this->kelolaKelompokRepository->simpanKelompokMahasiswa($anggota, $id_kelompok);
+        $this->kelolaKelompokRepository->simpanKelompokMahasiswa($anggota, $id_kelompok, $id_kelas);
 
     }
 
-    public function tampilkanDataKelompok(){
-        return $this->kelolaKelompokRepository->tampilkanDataKelompok();
+    public function tampilkanDataKelompok($id_kelas){
+        return $this->kelolaKelompokRepository->tampilkanDataKelompok($id_kelas);
     }
 
-    public function hapusDataKelompok($hapusKelas, $id_kelompok){
-        $this->kelolaKelompokRepository->simpanHapus($hapusKelas, $id_kelompok);
+    public function hapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok){
+        $this->kelolaKelompokRepository->simpanHapus($id_kelompok, $hapusKelas, $id_kelas);
     }
 
 }

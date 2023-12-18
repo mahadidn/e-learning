@@ -8,10 +8,12 @@ use Klp1\ELearning\Model\Domain\Mahasiswa;
 use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
+use Klp1\ELearning\Repository\KelolaPenilaianRepository;
 use Klp1\ELearning\Repository\KelolaPilihKelasMatakuliahRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaPenilaianService;
 use Klp1\ELearning\Service\KelolaPilihKelasMatakuliahService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
@@ -22,6 +24,7 @@ class MahasiswaController {
     private LoginService $loginService;
     private KelolaDataPribadiService $kelolaDataPribadiService;
     private KelolaPilihKelasMatakuliahService $kelolaPilihKelasMatakuliahService;
+    private KelolaPenilaianService $kelolaPenilaianService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -30,12 +33,14 @@ class MahasiswaController {
         $loginRepository = new LoginRepository($connection);
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
         $kelolaPilihKelasMatakuliahRepository = new KelolaPilihKelasMatakuliahRepository($connection);
+        $kelolaPenilaianRepository = new KelolaPenilaianRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
         $this->kelolaPilihKelasMatakuliahService = new KelolaPilihKelasMatakuliahService($kelolaPilihKelasMatakuliahRepository);
+        $this->kelolaPenilaianService = new KelolaPenilaianService($kelolaPenilaianRepository);
     }
 
     public function beranda(): void{
@@ -186,7 +191,8 @@ class MahasiswaController {
             'email' => $mahasiswa->email,
             'prodi' => $mahasiswa->prodi,
             'jenis_kelamin' => $mahasiswa->jenisKelamin,
-            'kelas' => $kelas
+            'kelas' => $kelas,
+            'id_kelas' => $id_kelas
         ]);
     }
 
@@ -206,8 +212,10 @@ class MahasiswaController {
     }
 
     // penilaian
-    public function formPenilaian(){
+    public function formPenilaian($id_kelas, $id_kinerja_kelompok){
         $mahasiswa = $this->loginService->current();
+        $kinerjaMhs = $this->kelolaPenilaianService->tampilkanEditKinerja($id_kinerja_kelompok, $id_kelas);
+
         View::render('form-penilaian-kinerja', [
             "title" => "Kelas Mahasiswa Penilaian",
             'usertype' => $mahasiswa->userType,
@@ -216,13 +224,28 @@ class MahasiswaController {
             'nama' => $mahasiswa->nama,
             'email' => $mahasiswa->email,
             'prodi' => $mahasiswa->prodi,
-            'jenis_kelamin' => $mahasiswa->jenisKelamin
+            'jenis_kelamin' => $mahasiswa->jenisKelamin,
+            'id_kelas' => $id_kelas,
+            'kinerjaMhs' => $kinerjaMhs,
+            'id_kinerja_kelompok' => $id_kinerja_kelompok,
         ]);
     }
 
+    public function postFormPenilaian($id_kelas, $id_kinerja_kelompok){
+        
+        $this->kelolaPenilaianService->isiFormPenilaian($_POST['nilaiK1'], $_POST['nilaiK2'], $id_kinerja_kelompok, $id_kelas);
+    
+        View::redirect("/kelas/mahasiswa/detail/datapenilaian/$id_kelas");
+    }
+
     //hasil penilaian
-    public function dataPenilaian(){
+    public function dataPenilaian($id_kelas){
         $mahasiswa = $this->loginService->current();
+        $id_kelompok = $this->kelolaPenilaianService->kelompokMhs($mahasiswa->nama, $id_kelas);
+        $kelompok = $this->kelolaPenilaianService->tampilkanPenilaianTersimpan($id_kelompok, $id_kelas);
+        var_dump($id_kelompok);
+        $kelompokKinerja = $this->kelolaPenilaianService->tampilkanPenilaianKinerja($id_kelompok, $id_kelas);
+
         View::render('mahasiswa-penilaian-kinerja', [
             "title" => "Data Penilaian Kinerja",
             'usertype' => $mahasiswa->userType,
@@ -231,7 +254,10 @@ class MahasiswaController {
             'nama' => $mahasiswa->nama,
             'email' => $mahasiswa->email,
             'prodi' => $mahasiswa->prodi,
-            'jenis_kelamin' => $mahasiswa->jenisKelamin
+            'jenis_kelamin' => $mahasiswa->jenisKelamin,
+            'kelompok' => $kelompok,
+            'id_kelas' => $id_kelas,
+            'kinerja_kelompok' => $kelompokKinerja,
         ]);
     }
 
