@@ -7,9 +7,12 @@ use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Mahasiswa;
 use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
+use Klp1\ELearning\Repository\KelolaPilihKelasMatakuliahRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaPilihKelasMatakuliahService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -18,6 +21,7 @@ class MahasiswaController {
     private RegisterService $registerService;
     private LoginService $loginService;
     private KelolaDataPribadiService $kelolaDataPribadiService;
+    private KelolaPilihKelasMatakuliahService $kelolaPilihKelasMatakuliahService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -25,11 +29,13 @@ class MahasiswaController {
         $registerRepository = new RegisterRepository($connection);
         $loginRepository = new LoginRepository($connection);
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
+        $kelolaPilihKelasMatakuliahRepository = new KelolaPilihKelasMatakuliahRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
+        $this->kelolaPilihKelasMatakuliahService = new KelolaPilihKelasMatakuliahService($kelolaPilihKelasMatakuliahRepository);
     }
 
     public function beranda(): void{
@@ -139,21 +145,38 @@ class MahasiswaController {
     // kelas Mahasiswa
     public function kelasMahasiswa(){
         $mahasiswa = $this->loginService->current();
+        $kelas = $this->kelolaPilihKelasMatakuliahService->tampilkanDataKelas();
+        $kelas_mahasiswa = $this->kelolaPilihKelasMatakuliahService->tampilkanKelasMahasiswa($mahasiswa->id);
+        
+
         View::render('mahasiswa-kelas', [
             "title" => "Kelas Mahasiswa",
             'usertype' => $mahasiswa->userType,
+            'id_mhs' => $mahasiswa->id,
             'username' => $mahasiswa->username,
             'nim' => $mahasiswa->nim,
             'nama' => $mahasiswa->nama,
             'email' => $mahasiswa->email,
             'prodi' => $mahasiswa->prodi,
-            'jenis_kelamin' => $mahasiswa->jenisKelamin
+            'jenis_kelamin' => $mahasiswa->jenisKelamin,
+            'kelas' => $kelas,
+            'kelas_mahasiswa' => $kelas_mahasiswa
         ]);
     }
 
+    // pilihKelas
+    public function gabungKelas($id_kelas){
+        $mahasiswa = $this->loginService->current(); 
+        $this->kelolaPilihKelasMatakuliahService->pilihKelas($id_kelas, $mahasiswa->id);
+        View::redirect('/kelas/mahasiswa/' . $id_kelas);
+    }
+
     // detail kelas mahasiswa
-    public function detailKelasMahasiswa(){
+    public function detailKelasMahasiswa($id_kelas){
         $mahasiswa = $this->loginService->current();
+        $kelas = $this->kelolaPilihKelasMatakuliahService->tampilkanKelasId($id_kelas);
+        var_dump($kelas[0]['nama_dosen']);
+
         View::render('mahasiswa-data-kelas', [
             "title" => "Detail Kelas Mahasiswa",
             'usertype' => $mahasiswa->userType,
@@ -162,7 +185,8 @@ class MahasiswaController {
             'nama' => $mahasiswa->nama,
             'email' => $mahasiswa->email,
             'prodi' => $mahasiswa->prodi,
-            'jenis_kelamin' => $mahasiswa->jenisKelamin
+            'jenis_kelamin' => $mahasiswa->jenisKelamin,
+            'kelas' => $kelas
         ]);
     }
 

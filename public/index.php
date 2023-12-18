@@ -28,7 +28,8 @@ Router::add('POST', '/data/mahasiswa', MahasiswaController::class, 'postMenuData
 Router::add('POST', '/data/mahasiswa', MahasiswaController::class, 'postKelolaDataPribadi', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/data/editmahasiswa', MahasiswaController::class, 'editProfil', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa', MahasiswaController::class, 'kelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
-Router::add('GET', '/kelas/mahasiswa/detail', MahasiswaController::class, 'detailKelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
+Router::add('GET', '/kelas/mahasiswa/([0-9]*)', MahasiswaController::class, 'detailKelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
+Router::add('GET', '/kelas/mahasiswa/gabung/([0-9]*)', MahasiswaController::class, 'gabungKelas', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/detail/nilaiakhir', MahasiswaController::class, 'nilaiAkhir', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/detail/formpenilaian', MahasiswaController::class, 'formPenilaian', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/detail/datapenilaian', MahasiswaController::class, 'dataPenilaian', [MustLoginMahasiswaMiddleware::class]);
