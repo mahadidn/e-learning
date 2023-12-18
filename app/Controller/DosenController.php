@@ -189,7 +189,7 @@ class DosenController {
     public function kelasDosenKelompok($id_kelas){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
-        $kelompok = $this->kelolaKelompokService->tampilkanDataKelompok();
+        $kelompok = $this->kelolaKelompokService->tampilkanDataKelompok($id_kelas);
 
         View::render('dosen-data-kelompok', [
             "title" => "Kelas Dosen Kelompok",
@@ -235,7 +235,7 @@ class DosenController {
         
         try {
 
-            $this->kelolaKelompokService->tambahDataKelompok($kelompok, $anggota);
+            $this->kelolaKelompokService->tambahDataKelompok($kelompok, $anggota, $id_kelas);
         }catch(\Exception $e){
 
         }
@@ -246,7 +246,7 @@ class DosenController {
     // hapus dosen kelompok
     public function hapusDosenKelompok($id_kelas, $hapusKelas, $id_kelompok){
         
-        $this->kelolaKelompokService->hapusDataKelompok($hapusKelas, $id_kelompok);
+        $this->kelolaKelompokService->hapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok);
         View::redirect("/kelas/dosen/detail/$id_kelas/kelompok");
     }
 

@@ -12,7 +12,7 @@
             <p class="mb-4">Dosen Pengampu : <?= $model['kelas'][0]['nama_dosen'] ?></p>
             <a href="/kelas/mahasiswa" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
             <a href="/kelas/mahasiswa/detail/nilaiakhir" class="btn btn-base mr-1">Lihat Nilai Akhir</a>
-            <a href="/kelas/mahasiswa/detail/datapenilaian" class="btn btn-dark">Data Penilaian Kinerja</a>
+            <a href="/kelas/mahasiswa/detail/datapenilaian/<?= $model['id_kelas'] ?>" class="btn btn-dark">Data Penilaian Kinerja</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
