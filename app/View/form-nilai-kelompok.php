@@ -18,11 +18,9 @@
             <div class="card-body">
                 <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="inputDosen">Kelompok</label>
+                        <label for="inputDosen">Nama</label>
                         <select class="form-control" id="opsiDosen">
-                            <option value="">Kelompok 1</option>
-                            <option value="">Kelompok 2</option>
-                            <option value="">Kelompok 3</option>
+                            <option value=""><?= $model['kelompok']['nama_mahasiswa'] ?></option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -30,13 +28,10 @@
                         <input required type="number" name="nilaiKelompok" class="form-control" id="inputNilaiKelompok" placeholder="Skala 0 -100" value="">
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('tambah')" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
-                        <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit')" name="" value="">
-                            Simpan
-                        </button> -->
-                        <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/nilaikelompok">
+                        <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok">
                             Kembali
                         </a>
                     </div>
@@ -76,7 +71,7 @@
                     window.location.href = "/kelas/dosen/detail/nilaikelompok";
                 } else if (action === 'edit') {
                     // Handle edit action
-                    window.location.href = "/kelas/dosen/detail/nilaikelompok";
+                    window.location.href = `http://localhost:8081/kelas/dosen/detail/12/nilaikelompok/edit/34`;
                 }
             }
         });

@@ -52,11 +52,20 @@ Router::add('POST', '/kelas/dosen/detail/([0-9]*)/kelompokdetail', DosenControll
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/kelompokdetail/hapus/([0-9]*)/idkelompok/([0-9]*)', DosenController::class, 'hapusDosenKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaimk', DosenController::class, 'nilaimk', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/tambahnilaimk', DosenController::class, 'tambahNilaimk', [MustLoginDosenMiddleware::class]);
+
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok', DosenController::class, 'nilaiKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/edit/([0-9]*)/([0-9]*)', DosenController::class, 'editNilaiKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/tambah/([0-9]*)/([0-9]*)', DosenController::class, 'tambahNilaiKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('POST', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/edit/([0-9]*)/([0-9]*)', DosenController::class, 'postEditNilaiKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('POST', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/tambah/([0-9]*)/([0-9]*)', DosenController::class, 'postTambahNilaiKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/tambah', DosenController::class, 'tambahNilaiKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/kriteria', DosenController::class, 'kriteriaNilai', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok/hapus/([0-9]*)', DosenController::class, 'hapusNilaiKelompok', [MustLoginDosenMiddleware::class]);
+
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaimk/kriteria', DosenController::class, 'kriteriaNilaiMK', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaiakhir', DosenController::class, 'nilaiAkhir', [MustLoginDosenMiddleware::class]);
+
+
 
 // Admin Controller
 Router::add('GET', '/register/admin', AdminController::class, 'registerAdmin', []);
