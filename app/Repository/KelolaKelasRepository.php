@@ -45,6 +45,15 @@ class KelolaKelasRepository {
 
     }
 
+    // lihat nilai akir
+    public function ambilDataNilai($id_kelas, $nama_mhs){
+        $statement = $this->connection->prepare("SELECT * FROM nilai WHERE id_kelas = ? and nama_mhs = ?");
+        $statement->execute([$id_kelas, $nama_mhs]);
+
+        $row = $statement->fetchAll();
+        return $row;
+    }
+
     // 
     // tampilkan satu kelas
     public function tampilkanSatuKelas($id_kelas){
@@ -62,6 +71,7 @@ class KelolaKelasRepository {
         $row = $statement->fetchAll();
         return $row;
     }
+
 
 }
 

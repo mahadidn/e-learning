@@ -32,6 +32,11 @@ class KelolaKelasService {
         $this->kelolaKelasRepository->hapusData($id_kelas);
     }
 
+    // lihat nilai akhir
+    public function ambilDataNilai($id_kelas, $nama_mhs){
+        return $this->kelolaKelasRepository->ambilDataNilai($id_kelas, $nama_mhs);
+    }
+
 
     
     // 

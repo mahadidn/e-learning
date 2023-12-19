@@ -11,7 +11,7 @@
             <h1 class="h3 mb-2 text-gray-800">Kelas <?= $model['kelas'][0]['matakuliah'] ?></h1>
             <p class="mb-4">Dosen Pengampu : <?= $model['kelas'][0]['nama_dosen'] ?></p>
             <a href="/kelas/mahasiswa" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
-            <a href="/kelas/mahasiswa/detail/nilaiakhir" class="btn btn-base mr-1">Lihat Nilai Akhir</a>
+            <a href="/kelas/mahasiswa/detail/nilaiakhir/<?= $model['id_kelas'] ?>" class="btn btn-base mr-1">Lihat Nilai Akhir</a>
             <a href="/kelas/mahasiswa/detail/datapenilaian/<?= $model['id_kelas'] ?>" class="btn btn-dark">Data Penilaian Kinerja</a>
         </div>
         <div class="card-body">

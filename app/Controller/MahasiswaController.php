@@ -7,12 +7,14 @@ use Klp1\ELearning\Config\Database;
 use Klp1\ELearning\Model\Domain\Mahasiswa;
 use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KelolaKelasRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 use Klp1\ELearning\Repository\KelolaPenilaianRepository;
 use Klp1\ELearning\Repository\KelolaPilihKelasMatakuliahRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaKelasService;
 use Klp1\ELearning\Service\KelolaPenilaianService;
 use Klp1\ELearning\Service\KelolaPilihKelasMatakuliahService;
 use Klp1\ELearning\Service\LoginService;
@@ -25,6 +27,7 @@ class MahasiswaController {
     private KelolaDataPribadiService $kelolaDataPribadiService;
     private KelolaPilihKelasMatakuliahService $kelolaPilihKelasMatakuliahService;
     private KelolaPenilaianService $kelolaPenilaianService;
+    private KelolaKelasService $kelolaKelasService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -34,6 +37,7 @@ class MahasiswaController {
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
         $kelolaPilihKelasMatakuliahRepository = new KelolaPilihKelasMatakuliahRepository($connection);
         $kelolaPenilaianRepository = new KelolaPenilaianRepository($connection);
+        $kelolaKelasRepository = new KelolaKelasRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
@@ -41,6 +45,7 @@ class MahasiswaController {
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
         $this->kelolaPilihKelasMatakuliahService = new KelolaPilihKelasMatakuliahService($kelolaPilihKelasMatakuliahRepository);
         $this->kelolaPenilaianService = new KelolaPenilaianService($kelolaPenilaianRepository);
+        $this->kelolaKelasService = new KelolaKelasService($kelolaKelasRepository);
     }
 
     public function beranda(): void{
@@ -198,8 +203,9 @@ class MahasiswaController {
     }
 
     // lihat nilai akhir
-    public function nilaiAkhir(){
+    public function nilaiAkhir($id_kelas){
         $mahasiswa = $this->loginService->current();
+        $row = $this->kelolaKelasService->ambilDataNilai($id_kelas, $mahasiswa->nama);
         View::render('mahasiswa-nilai-akhir', [
             "title" => "Kelas Mahasiswa Nilai Akhir",
             'usertype' => $mahasiswa->userType,
@@ -208,7 +214,9 @@ class MahasiswaController {
             'nama' => $mahasiswa->nama,
             'email' => $mahasiswa->email,
             'prodi' => $mahasiswa->prodi,
-            'jenis_kelamin' => $mahasiswa->jenisKelamin
+            'jenis_kelamin' => $mahasiswa->jenisKelamin,
+            'id_kelas' => $id_kelas,
+            'nilaiakhir' => $row
         ]);
     }
 

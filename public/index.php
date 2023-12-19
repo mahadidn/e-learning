@@ -30,7 +30,7 @@ Router::add('GET', '/data/editmahasiswa', MahasiswaController::class, 'editProfi
 Router::add('GET', '/kelas/mahasiswa', MahasiswaController::class, 'kelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/([0-9]*)', MahasiswaController::class, 'detailKelasMahasiswa', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/gabung/([0-9]*)', MahasiswaController::class, 'gabungKelas', [MustLoginMahasiswaMiddleware::class]);
-Router::add('GET', '/kelas/mahasiswa/detail/nilaiakhir', MahasiswaController::class, 'nilaiAkhir', [MustLoginMahasiswaMiddleware::class]);
+Router::add('GET', '/kelas/mahasiswa/detail/nilaiakhir/([0-9]*)', MahasiswaController::class, 'nilaiAkhir', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/detail/formpenilaian/([0-9]*)/tambah/([0-9]*)', MahasiswaController::class, 'formPenilaian', [MustLoginMahasiswaMiddleware::class]);
 Router::add('POST', '/kelas/mahasiswa/detail/formpenilaian/([0-9]*)/tambah/([0-9]*)', MahasiswaController::class, 'postFormPenilaian', [MustLoginMahasiswaMiddleware::class]);
 Router::add('GET', '/kelas/mahasiswa/detail/datapenilaian/([0-9]*)', MahasiswaController::class, 'dataPenilaian', [MustLoginMahasiswaMiddleware::class]);
