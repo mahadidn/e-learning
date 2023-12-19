@@ -10,11 +10,13 @@ use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
 use Klp1\ELearning\Repository\KelolaKelompokRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
+use Klp1\ELearning\Repository\KelolaNilaiKelompokRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
 use Klp1\ELearning\Service\KelolaKelompokService;
 use Klp1\ELearning\Service\KelolaMataKuliahService;
+use Klp1\ELearning\Service\KelolaNilaiKelompokService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -25,6 +27,7 @@ class DosenController {
     private KelolaDataPribadiService $kelolaDataPribadiService;
     private KelolaMataKuliahService $kelolaMatakuliahService;
     private KelolaKelompokService $kelolaKelompokService;
+    private KelolaNilaiKelompokService $kelolaNilaiKelompokService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -34,13 +37,15 @@ class DosenController {
         $kelolaDataPribadiRepository = new KelolaDataPribadiRepository($connection);
         $kelolaMatakuliahRepository = new KelolaMataKuliahRepository($connection);
         $kelolaKelompokRepository = new KelolaKelompokRepository($connection);
-        
+        $kelolaNilaiKelompokRepository = new KelolaNilaiKelompokRepository($connection);
+
         // service
         $this->registerService = new RegisterService($registerRepository);
         $this->loginService = new LoginService($loginRepository);
         $this->kelolaDataPribadiService = new KelolaDataPribadiService($kelolaDataPribadiRepository, $loginRepository, $this->loginService);
         $this->kelolaMatakuliahService = new KelolaMataKuliahService($kelolaMatakuliahRepository);
         $this->kelolaKelompokService = new KelolaKelompokService($kelolaKelompokRepository);
+        $this->kelolaNilaiKelompokService = new KelolaNilaiKelompokService($kelolaNilaiKelompokRepository);
     }
 
     public function beranda(): void{
@@ -285,6 +290,8 @@ class DosenController {
     // nilai kelompok
     public function nilaiKelompok($id_kelas){
         $dosen = $this->loginService->current();
+        $kelompok = $this->kelolaNilaiKelompokService->tampilkanDataNilaiKelompok($id_kelas);
+       
         View::render('dosen-data-nilai-kelompok', [
             "title" => "Kelas Dosen Nilai Kelompok",
             'usertype' => $dosen->userType,
@@ -294,15 +301,17 @@ class DosenController {
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
-            'id_kelas' => $id_kelas
+            'id_kelas' => $id_kelas,
+            'kelompok' => $kelompok
         ]);
     }
 
     // tambah nilai kelompok
-    public function tambahNilaiKelompok($id_kelas){
+    public function tambahNilaiKelompok($id_kelas, $id_kelompok ,$id_kinerja_kelompok){
         $dosen = $this->loginService->current();
+        $kelompok = $this->kelolaNilaiKelompokService->tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok);
         View::render('form-nilai-kelompok', [
-            "title" => "Kelas Dosen Nilai Kelompok",
+            "title" => "Edit Dosen Nilai Kelompok",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
             'nidn' => $dosen->nidn,
@@ -310,8 +319,49 @@ class DosenController {
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
-            'id_kelas' => $id_kelas
+            'id_kelas' => $id_kelas,
+            'kelompok' => $kelompok
         ]);
+    }
+
+    // edit nilai kelompok
+    public function editNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
+        $dosen = $this->loginService->current();
+        $kelompok = $this->kelolaNilaiKelompokService->tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok);
+        View::render('form-nilai-kelompok', [
+            "title" => "Edit Dosen Nilai Kelompok",
+            'usertype' => $dosen->userType,
+            'username' => $dosen->username,
+            'nidn' => $dosen->nidn,
+            'nama' => $dosen->name,
+            'jenis_kelamin' => $dosen->jenisKelamin,
+            'email' => $dosen->email,
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas,
+            'kelompok' => $kelompok
+        ]);
+    }
+
+    // postEdit
+    public function postEditNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
+        $nilai = (int)$_POST['nilaiKelompok'];
+
+        $this->kelolaNilaiKelompokService->editDataNilai($nilai, $id_kelompok);
+        View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
+    }
+
+    // postTambah
+    public function postTambahNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
+        $nilai = (int)$_POST['nilaiKelompok'];
+
+        $this->kelolaNilaiKelompokService->editDataNilai($nilai, $id_kelompok);
+        View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
+    }
+
+    // hapus nilai kelompok
+    public function hapusNilaiKelompok($id_kelas, $id_kinerja_kelompok){
+        $this->kelolaNilaiKelompokService->hapusDataNilai($id_kinerja_kelompok);
+        View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
     }
 
     // kriteria nilai kinerja
