@@ -24,8 +24,8 @@ class KelolaNilaiKelompokService {
 
     }
 
-    public function hapusDataNilai($id_kinerja_kelompok){
-        $this->kelolaNilaiKelompokRepository->simpanHapus($id_kinerja_kelompok);
+    public function hapusDataNilai($id_kelompok){
+        $this->kelolaNilaiKelompokRepository->simpanHapus($id_kelompok);
     }
 
     

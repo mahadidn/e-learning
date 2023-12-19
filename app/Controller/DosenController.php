@@ -359,8 +359,8 @@ class DosenController {
     }
 
     // hapus nilai kelompok
-    public function hapusNilaiKelompok($id_kelas, $id_kinerja_kelompok){
-        $this->kelolaNilaiKelompokService->hapusDataNilai($id_kinerja_kelompok);
+    public function hapusNilaiKelompok($id_kelas, $id_kelompok){
+        $this->kelolaNilaiKelompokService->hapusDataNilai($id_kelompok);
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
     }
 

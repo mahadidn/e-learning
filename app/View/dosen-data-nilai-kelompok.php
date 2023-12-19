@@ -48,7 +48,7 @@
                                 <div class="d-flex justify-content-center">
                                     <a class="btn btn-green btn-sm mr-2" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/tambah/<?= $value['id_kelompok'] ?>/<?= $value['id_kinerja_kelompok'] ?>">Tambah</a>
                                     <a class="btn btn-orange btn-sm mr-2" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/edit/<?= $value['id_kelompok'] ?>/<?= $value['id_kinerja_kelompok'] ?>">Edit</a>
-                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= $value['id_kinerja_kelompok'] ?>)">Hapus</button>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= $value['id_kelompok'] ?>)">Hapus</button>
                                 </div>
                             </td>
                         </tr>
@@ -62,7 +62,7 @@
 <!-- /.container-fluid -->
 
 <script>
-    function konfirmasi(id_kinerja_kelompok) {
+    function konfirmasi(id_kelompok) {
         Swal.fire({
             title: 'Konfirmasi',
             text: 'Apakah Anda yakin ingin menghapus nilai?',
@@ -75,7 +75,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
             
-                window.location.href = `/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/hapus/${id_kinerja_kelompok}`;
+                window.location.href = `/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/hapus/${id_kelompok}`;
             }
         });
     }
