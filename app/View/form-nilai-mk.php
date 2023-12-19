@@ -17,11 +17,9 @@
             <div class="card-body">
                 <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="inputKelompok">Kelompok</label>
+                        <label for="inputKelompok">Nama</label>
                         <select class="form-control" id="opsiKelompok">
-                            <option value="">Kelompok 1</option>
-                            <option value="">Kelompok 2</option>
-                            <option value="">Kelompok 3</option>
+                            <option value=""><?= $model['nilai_mhs']['nama_mhs'] ?></option>
                         </select>
                     </div>
                     <div class="form-row">
@@ -55,13 +53,13 @@
                         </div>
                     </div>
                     <div class="card-header py-3"> 
-                        <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('tambah')" name="" value="">
+                        <button type="submit" class="btn btn-green mr-1" name="" value="">
                             Simpan
                         </button>
                         <!-- <button type="submit" class="btn btn-green mr-1" onclick="konfirmasi('edit')" name="" value="">
                             Simpan
                         </button> -->
-                        <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/nilaimk">
+                        <a type="button" class="btn btn-danger" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaimk">
                             Kembali
                         </a>
                     </div>

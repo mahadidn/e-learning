@@ -1,4 +1,8 @@
 <?php
+
+use Klp1\ELearning\Config\Database;
+use Klp1\ELearning\Repository\KelolaNilaiKelompokRepository;
+use Klp1\elearning\Service\KelolaNilaiKelompokService;
     include 'includes/header.php';
     include 'includes/navbar.php';
 ?>
@@ -9,7 +13,7 @@
         <div class="card-header py-3">
             <!-- Page Heading -->
             <h1 class="h3 text-gray-800">Data Nilai Kelompok</h1>
-            <h1 class="h5 mb-4 text-gray-800">Kelas Mata Kuliah</h1>
+            <h1 class="h5 mb-4 text-gray-800">Kelas <?= $model['matakuliah'] ?></h1>
             <a href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>" class="btn btn-warning mr-2"><i class="fa fa-reply-all text-light" style="font-size: 20px"></i></a>
         </div>
         <div class="card-body">
@@ -38,16 +42,21 @@
                             <?php
                                 if ($value['nilai_kriteria1' != null]){
                                     $total = ((int)$value['nilai_kriteria1']+(int)$value['nilai_kriteria2']+(int)$value['nilai_dosen'])/3;
+                                    $total = (int)$total;
                                 }else {
                                     $total = 0;
                                 }
+                                $dsa = new KelolaNilaiKelompokRepository(Database::getConnection());
+                                $asd = new KelolaNilaiKelompokService($dsa);
+
+                                $asd->tambahNilaiAkhir($total, $value['nama_mahasiswa'], $model['matakuliah']);
                             
                             ?>
                             <td><?= $total ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-green btn-sm mr-2" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/tambah/<?= $value['id_kelompok'] ?>/<?= $value['id_kinerja_kelompok'] ?>">Tambah</a>
-                                    <a class="btn btn-orange btn-sm mr-2" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/edit/<?= $value['id_kelompok'] ?>/<?= $value['id_kinerja_kelompok'] ?>">Edit</a>
+                                    <a class="btn btn-green btn-sm mr-2" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/tambah/<?= $value['id_kelompok'] ?>/<?= $value['id_kinerja_kelompok'] ?>/<?= $total ?>">Tambah</a>
+                                    <a class="btn btn-orange btn-sm mr-2" href="/kelas/dosen/detail/<?= $model['id_kelas'] ?>/nilaikelompok/edit/<?= $value['id_kelompok'] ?>/<?= $value['id_kinerja_kelompok'] ?>/<?= $total ?>">Edit</a>
                                     <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= $value['id_kelompok'] ?>)">Hapus</button>
                                 </div>
                             </td>

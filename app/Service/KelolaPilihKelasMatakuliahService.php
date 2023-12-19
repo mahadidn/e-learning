@@ -11,8 +11,8 @@ class KelolaPilihKelasMatakuliahService {
         $this->kelolaPilihKelasMatakuliahRepository = $kelolaPilihKelasMatakuliahRepository;
     }
 
-    public function pilihKelas($id_kelas, $id_mahasiswa): void {
-        $this->kelolaPilihKelasMatakuliahRepository->simpanPilihan($id_kelas, $id_mahasiswa);
+    public function pilihKelas($id_kelas, $id_mahasiswa, $nama_mhs): void {
+        $this->kelolaPilihKelasMatakuliahRepository->simpanPilihan($id_kelas, $id_mahasiswa, $nama_mhs);
     }
 
     public function tampilkanDataKelas(){
@@ -26,6 +26,10 @@ class KelolaPilihKelasMatakuliahService {
 
     public function tampilkanKelasId($id_kelas){
         return $this->kelolaPilihKelasMatakuliahRepository->tampilkanKelasId($id_kelas);
+    }
+
+    public function updateNilai($nama_mk, $id_kelas){
+        $this->kelolaPilihKelasMatakuliahRepository->updateNilai($nama_mk, $id_kelas);
     }
 
 }

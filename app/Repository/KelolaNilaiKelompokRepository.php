@@ -9,10 +9,9 @@ class KelolaNilaiKelompokRepository {
         $this->connection = $connection;
     }
 
-    public function simpanTambah($nilai, $id_kinerja_kelompok): void {
-        $statement = $this->connection->prepare("UPDATE kinerja_kelompok SET nilai_dosen = ? WHERE id_kinerja_kelompok = ?");
-        $statement->execute([$nilai, $id_kinerja_kelompok]);
-
+    public function simpanTambah($nilai, $id_kelompok): void {
+        $statement = $this->connection->prepare("UPDATE kinerja_kelompok SET nilai_dosen = ? WHERE id_kelompok = ?");
+        $statement->execute([$nilai, $id_kelompok]);
     }
 
     public function simpanEdit($nilai, $id_kelompok): void {
@@ -41,6 +40,11 @@ class KelolaNilaiKelompokRepository {
 
         $row = $statement->fetch();
         return $row;
+    }
+
+    public function simpanNilaiAkhir($nilai_kelompok, $nama_mhs, $nama_mk){
+        $statement = $this->connection->prepare("UPDATE nilai SET nilai_kelompok = ? WHERE nama_mhs = ? and nama_mk = ?");
+        $statement->execute([$nilai_kelompok, $nama_mhs, $nama_mk]);
     }
 
 

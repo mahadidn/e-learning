@@ -26,6 +26,8 @@
                     <div class="form-group">
                         <label for="inputNilaikelompok">Nilai Kelompok</label>
                         <input required type="number" name="nilaiKelompok" class="form-control" id="inputNilaiKelompok" placeholder="Skala 0 -100" value="">
+                        <input type="text" hidden name="nama" value="<?= $model['kelompok']['nama_mahasiswa'] ?>">
+                        <input type="text" hidden name="matakuliah" value="<?= $model['matakuliah'] ?>">
                     </div>
                     <div class="card-header py-3"> 
                         <button type="submit" class="btn btn-green mr-1" name="" value="">

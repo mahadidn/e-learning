@@ -11,12 +11,14 @@ use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
 use Klp1\ELearning\Repository\KelolaKelompokRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 use Klp1\ELearning\Repository\KelolaNilaiKelompokRepository;
+use Klp1\ELearning\Repository\KelolaNilaiMatakuliahRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
 use Klp1\ELearning\Service\KelolaKelompokService;
 use Klp1\ELearning\Service\KelolaMataKuliahService;
 use Klp1\ELearning\Service\KelolaNilaiKelompokService;
+use Klp1\ELearning\Service\KelolaNilaiMatakuliahService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
 
@@ -28,6 +30,7 @@ class DosenController {
     private KelolaMataKuliahService $kelolaMatakuliahService;
     private KelolaKelompokService $kelolaKelompokService;
     private KelolaNilaiKelompokService $kelolaNilaiKelompokService;
+    private KelolaNilaiMatakuliahService $kelolaNilaiMatakuliahService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -38,6 +41,7 @@ class DosenController {
         $kelolaMatakuliahRepository = new KelolaMataKuliahRepository($connection);
         $kelolaKelompokRepository = new KelolaKelompokRepository($connection);
         $kelolaNilaiKelompokRepository = new KelolaNilaiKelompokRepository($connection);
+        $kelolaNilaiMatakuliahRepository = new KelolaNilaiMatakuliahRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
@@ -46,6 +50,7 @@ class DosenController {
         $this->kelolaMatakuliahService = new KelolaMataKuliahService($kelolaMatakuliahRepository);
         $this->kelolaKelompokService = new KelolaKelompokService($kelolaKelompokRepository);
         $this->kelolaNilaiKelompokService = new KelolaNilaiKelompokService($kelolaNilaiKelompokRepository);
+        $this->kelolaNilaiMatakuliahService = new KelolaNilaiMatakuliahService($kelolaNilaiMatakuliahRepository);
     }
 
     public function beranda(): void{
@@ -258,6 +263,8 @@ class DosenController {
     // nilai mk
     public function nilaimk($id_kelas){
         $dosen = $this->loginService->current();
+        $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanDataNilaiMatakuliah($id_kelas);
+
         View::render('dosen-data-nilai-mk', [
             "title" => "Kelas Dosen Nilai Matakuliah",
             'usertype' => $dosen->userType,
@@ -267,15 +274,17 @@ class DosenController {
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
-            'id_kelas' => $id_kelas
+            'id_kelas' => $id_kelas,
+            'nilai' => $nilai_mhs,
         ]);
     }
 
-    // tambah nilai mk
-    public function tambahNilaimk($id_kelas){
+    public function tambahmk($id_kelas, $id_nilai){
         $dosen = $this->loginService->current();
+        $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanSatuDataMatakuliah($id_kelas, $id_nilai);
+
         View::render('form-nilai-mk', [
-            "title" => "Kelas Dosen Tambah Nilai Matakuliah",
+            "title" => "Kelas Dosen Nilai Matakuliah",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
             'nidn' => $dosen->nidn,
@@ -283,13 +292,62 @@ class DosenController {
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
-            'id_kelas' => $id_kelas
+            'id_kelas' => $id_kelas,
+            'nilai_mhs' => $nilai_mhs
         ]);
     }
+
+    public function editmk($id_kelas, $id_nilai){
+        $dosen = $this->loginService->current();
+        $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanSatuDataMatakuliah($id_kelas, $id_nilai);
+
+        View::render('form-nilai-mk', [
+            "title" => "Kelas Dosen Nilai Matakuliah",
+            'usertype' => $dosen->userType,
+            'username' => $dosen->username,
+            'nidn' => $dosen->nidn,
+            'nama' => $dosen->name,
+            'jenis_kelamin' => $dosen->jenisKelamin,
+            'email' => $dosen->email,
+            'prodi' => $dosen->jurusan,
+            'id_kelas' => $id_kelas,
+            'nilai_mhs' => $nilai_mhs
+        ]);
+    }
+
+    public function postTambahmk($id_kelas, $id_nilai){
+
+        $nilai_tugas = $_POST['tugas'];
+        $nilai_uts = $_POST['uts'];
+        $nilai_uas = $_POST['uas'];
+
+        $this->kelolaNilaiMatakuliahService->tambahDataNilai($nilai_tugas, $nilai_uts, $nilai_uas, $id_kelas, $id_nilai);
+        View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
+    }
+
+    public function postEditmk($id_kelas, $id_nilai){
+
+        $nilai_tugas = $_POST['tugas'];
+        $nilai_uts = $_POST['uts'];
+        $nilai_uas = $_POST['uas'];
+
+        $this->kelolaNilaiMatakuliahService->tambahDataNilai($nilai_tugas, $nilai_uts, $nilai_uas, $id_kelas, $id_nilai);
+        View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
+    }
+
+    // hapus mk
+    public function hapusmk($id_kelas, $id_nilai){
+        $this->kelolaNilaiMatakuliahService->hapusDataNilai($id_nilai); 
+        View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
+    }
+
+    
 
     // nilai kelompok
     public function nilaiKelompok($id_kelas){
         $dosen = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
+        $mk = $row[0]['nama_mk'];
         $kelompok = $this->kelolaNilaiKelompokService->tampilkanDataNilaiKelompok($id_kelas);
        
         View::render('dosen-data-nilai-kelompok', [
@@ -302,13 +360,17 @@ class DosenController {
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
             'id_kelas' => $id_kelas,
-            'kelompok' => $kelompok
+            'kelompok' => $kelompok,
+            'matakuliah' => $mk
         ]);
     }
 
     // tambah nilai kelompok
     public function tambahNilaiKelompok($id_kelas, $id_kelompok ,$id_kinerja_kelompok){
         $dosen = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
+        $mk = $row[0]['nama_mk'];
+        
         $kelompok = $this->kelolaNilaiKelompokService->tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok);
         View::render('form-nilai-kelompok', [
             "title" => "Edit Dosen Nilai Kelompok",
@@ -320,14 +382,18 @@ class DosenController {
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
             'id_kelas' => $id_kelas,
-            'kelompok' => $kelompok
+            'kelompok' => $kelompok,
+            'matakuliah' => $mk,
         ]);
     }
 
     // edit nilai kelompok
     public function editNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
         $dosen = $this->loginService->current();
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
+        $mk = $row[0]['nama_mk'];
         $kelompok = $this->kelolaNilaiKelompokService->tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok);
+        
         View::render('form-nilai-kelompok', [
             "title" => "Edit Dosen Nilai Kelompok",
             'usertype' => $dosen->userType,
@@ -338,12 +404,13 @@ class DosenController {
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
             'id_kelas' => $id_kelas,
-            'kelompok' => $kelompok
+            'kelompok' => $kelompok,
+            'matakuliah' => $mk,
         ]);
     }
 
     // postEdit
-    public function postEditNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
+    public function postEditNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok, $nilaikriteria){
         $nilai = (int)$_POST['nilaiKelompok'];
 
         $this->kelolaNilaiKelompokService->editDataNilai($nilai, $id_kelompok);
@@ -351,10 +418,15 @@ class DosenController {
     }
 
     // postTambah
-    public function postTambahNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
+    public function postTambahNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok, $nilaikriteria){
         $nilai = (int)$_POST['nilaiKelompok'];
+        $nama = $_POST['nama'];
+        $matakuliah = $_POST['matakuliah'];
 
-        $this->kelolaNilaiKelompokService->editDataNilai($nilai, $id_kelompok);
+        $nilaiAkhir = ((int)$nilaikriteria + $nilai)/2;
+
+        $this->kelolaNilaiKelompokService->tambahDataNilai($nilai, $id_kelompok);
+        $this->kelolaNilaiKelompokService->tambahNilaiAkhir($nilaiAkhir, $nama, $matakuliah);
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
     }
 
@@ -362,38 +434,6 @@ class DosenController {
     public function hapusNilaiKelompok($id_kelas, $id_kelompok){
         $this->kelolaNilaiKelompokService->hapusDataNilai($id_kelompok);
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
-    }
-
-    // kriteria nilai kinerja
-    public function kriteriaNilai($id_kelas){
-        $dosen = $this->loginService->current();
-        View::render('form-kriteria-penilaian', [
-            "title" => "Kelas Dosen Kriteria Penilaian",
-            'usertype' => $dosen->userType,
-            'username' => $dosen->username,
-            'nidn' => $dosen->nidn,
-            'nama' => $dosen->name,
-            'jenis_kelamin' => $dosen->jenisKelamin,
-            'email' => $dosen->email,
-            'prodi' => $dosen->jurusan,
-            'id_kelas' => $id_kelas
-        ]);
-    }
-
-    // kriteria nilai mata kuliah
-    public function kriteriaNilaiMK($id_kelas){
-        $dosen = $this->loginService->current();
-        View::render('form-kriteria-penilaianmk', [
-            "title" => "Kelas Dosen Kriteria Penilaian",
-            'usertype' => $dosen->userType,
-            'username' => $dosen->username,
-            'nidn' => $dosen->nidn,
-            'nama' => $dosen->name,
-            'jenis_kelamin' => $dosen->jenisKelamin,
-            'email' => $dosen->email,
-            'prodi' => $dosen->jurusan,
-            'id_kelas' => $id_kelas
-        ]);
     }
 
     public function nilaiAkhir($id_kelas){

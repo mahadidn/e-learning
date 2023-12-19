@@ -172,7 +172,7 @@ class MahasiswaController {
     // pilihKelas
     public function gabungKelas($id_kelas){
         $mahasiswa = $this->loginService->current(); 
-        $this->kelolaPilihKelasMatakuliahService->pilihKelas($id_kelas, $mahasiswa->id);
+        $this->kelolaPilihKelasMatakuliahService->pilihKelas($id_kelas, $mahasiswa->id, $mahasiswa->nama);
         View::redirect('/kelas/mahasiswa/' . $id_kelas);
     }
 
@@ -180,7 +180,8 @@ class MahasiswaController {
     public function detailKelasMahasiswa($id_kelas){
         $mahasiswa = $this->loginService->current();
         $kelas = $this->kelolaPilihKelasMatakuliahService->tampilkanKelasId($id_kelas);
-        var_dump($kelas[0]['nama_dosen']);
+        $nama_mk = $kelas[0]['matakuliah'];
+        $this->kelolaPilihKelasMatakuliahService->updateNilai($nama_mk, $id_kelas);
 
         View::render('mahasiswa-data-kelas', [
             "title" => "Detail Kelas Mahasiswa",

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 17, 2023 at 07:56 PM
+-- Generation Time: Dec 19, 2023 at 01:01 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -133,16 +133,9 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kapasitas`, `nama_dosen`, `matak
 CREATE TABLE `kelompok` (
   `nama_kelompok` varchar(255) NOT NULL,
   `jumlah_anggota` int(11) DEFAULT NULL,
-  `id_kelompok` int(11) NOT NULL
+  `id_kelompok` int(11) NOT NULL,
+  `id_kelas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kelompok`
---
-
-INSERT INTO `kelompok` (`nama_kelompok`, `jumlah_anggota`, `id_kelompok`) VALUES
-('Kelompok 1', 2, 50),
-('Kelompok 2', 1, 56);
 
 -- --------------------------------------------------------
 
@@ -153,17 +146,9 @@ INSERT INTO `kelompok` (`nama_kelompok`, `jumlah_anggota`, `id_kelompok`) VALUES
 CREATE TABLE `kelompok_mahasiswa` (
   `id_kelompok` int(11) NOT NULL,
   `nama_anggota` varchar(255) NOT NULL,
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `id_kelas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kelompok_mahasiswa`
---
-
-INSERT INTO `kelompok_mahasiswa` (`id_kelompok`, `nama_anggota`, `id`) VALUES
-(50, 'Mahadi Dwi Nugraha', 7),
-(50, 'Mahasiswa 2', 8),
-(56, 'Mahadi Dwi Nugraha', 17);
 
 -- --------------------------------------------------------
 
@@ -173,10 +158,12 @@ INSERT INTO `kelompok_mahasiswa` (`id_kelompok`, `nama_anggota`, `id`) VALUES
 
 CREATE TABLE `kinerja_kelompok` (
   `id_kinerja_kelompok` int(11) NOT NULL,
-  `nama_kelompok` varchar(255) NOT NULL,
-  `nama_anggota` varchar(255) NOT NULL,
-  `nilai_kriteria1` int(11) NOT NULL,
-  `nilai_kriteria2` int(11) NOT NULL
+  `nilai_kriteria1` int(11) DEFAULT NULL,
+  `nilai_kriteria2` int(11) DEFAULT NULL,
+  `nilai_dosen` int(11) DEFAULT NULL,
+  `id_kelompok` int(11) DEFAULT NULL,
+  `nama_mahasiswa` varchar(255) DEFAULT NULL,
+  `id_kelas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -204,7 +191,9 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`id`, `nim`, `username`, `password`, `nama`, `email`, `prodi`, `jenis_kelamin`, `id_kelompok`, `id_matakuliah`) VALUES
 (1, '2101020065', 'mahadi_dn', '$2y$10$TGBiPCRvdKWYeLp5V71VCO2Agx4R2HpK2Lfs3DGpS5FhFYUSXcG3W', 'Mahadi Dwi Nugraha', 'mahadidwinugraha@gmail.com', 'Teknik Informatika', 'laki-laki', NULL, NULL),
-(2, '2101020066', 'mahasiswa2', '$2y$10$cTTw1//UuGTrxOYvOvaUue3tFZ4Yi6HEY13H4SUQRtZMu0Yarl6HG', 'Mahasiswa 2', 'mahasiswa2@gmail.com', 'Teknik Informatika', 'perempuan', NULL, NULL);
+(2, '2101020066', 'mahasiswa2', '$2y$10$cTTw1//UuGTrxOYvOvaUue3tFZ4Yi6HEY13H4SUQRtZMu0Yarl6HG', 'Mahasiswa 2', 'mahasiswa2@gmail.com', 'Teknik Informatika', 'perempuan', NULL, NULL),
+(3, '2123123', 'mahasiswa1', '$2y$10$6X88W6Q1CgdfYFpW8pkHEeymtDcmuo59luKALDAVzIdsb3N0d.dMy', 'mahasiswa1', 'mahasiswa1@gmail.com', 'Teknik Informatika', 'laki-laki', NULL, NULL),
+(4, '21012312', 'mahasiswa3', '$2y$10$qXoyek1Oay8Yd4P4otJaY.QwiWBxfEPiHY7Gwsh0B/CsVkDPEdiqO', 'mahasiswa3', 'mahasiswa3@gmail.com', 'Teknik Informatika', 'perempuan', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -217,15 +206,6 @@ CREATE TABLE `mahasiswa_kelas` (
   `id_kelas` int(11) DEFAULT NULL,
   `id_mahasiswa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `mahasiswa_kelas`
---
-
-INSERT INTO `mahasiswa_kelas` (`id_mahasiswa_kelas`, `id_kelas`, `id_mahasiswa`) VALUES
-(3, 12, 1),
-(4, 12, 2),
-(10, 15, 1);
 
 -- --------------------------------------------------------
 
@@ -263,10 +243,15 @@ INSERT INTO `matakuliah` (`nama_mk`, `id_mk`, `jadwal_mk`, `sks`, `id_dosen`) VA
 
 CREATE TABLE `nilai` (
   `nama_mhs` varchar(255) NOT NULL,
-  `nama_mk` varchar(100) NOT NULL,
-  `nilai_mk` int(11) NOT NULL,
+  `nama_mk` varchar(100) DEFAULT NULL,
+  `nilai_mk` int(11) DEFAULT NULL,
   `id_nilai` int(11) NOT NULL,
-  `id_mk` int(11) DEFAULT NULL
+  `id_mk` int(11) DEFAULT NULL,
+  `id_kelas` int(11) DEFAULT NULL,
+  `nilai_tugas` int(11) DEFAULT NULL,
+  `nilai_uts` int(11) DEFAULT NULL,
+  `nilai_uas` int(11) DEFAULT NULL,
+  `nilai_kelompok` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -278,7 +263,8 @@ CREATE TABLE `nilai` (
 CREATE TABLE `nilai_kelompok` (
   `nilai_kelompok` int(11) NOT NULL,
   `nama_kelompok` varchar(255) NOT NULL,
-  `id_nilai_kelompok` int(11) NOT NULL
+  `id_nilai_kelompok` int(11) NOT NULL,
+  `id_kelompok` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -335,8 +321,7 @@ INSERT INTO `session_admin` (`username_session`, `user_id`, `id`) VALUES
 ('admin1', '6570b264d0269', 1),
 ('admin1', '65773d32588c3', 1),
 ('admin1', '65779800295a3', 1),
-('admin1', '6578060bc3e3f', 1),
-('admin1', '657eef7cdefa0', 1);
+('admin1', '6578060bc3e3f', 1);
 
 -- --------------------------------------------------------
 
@@ -355,7 +340,7 @@ CREATE TABLE `session_dosen` (
 --
 
 INSERT INTO `session_dosen` (`username_session`, `user_id`, `id`) VALUES
-('dosen3', '657eef636ad1c', 4);
+('dosen21', '6580b33a74c0c', 2);
 
 -- --------------------------------------------------------
 
@@ -374,7 +359,10 @@ CREATE TABLE `session_mahasiswa` (
 --
 
 INSERT INTO `session_mahasiswa` (`id`, `username_session`, `user_id`) VALUES
-(1, 'mahadi_dn', '656f116c81439');
+(1, 'mahadi_dn', '656f116c81439'),
+(1, 'mahadi_dn', '6580c0babd311'),
+(4, 'mahasiswa3', '65810ead8f28d'),
+(3, 'mahasiswa1', '6581202fcf43a');
 
 -- --------------------------------------------------------
 
@@ -451,7 +439,8 @@ ALTER TABLE `kelompok_mahasiswa`
 -- Indexes for table `kinerja_kelompok`
 --
 ALTER TABLE `kinerja_kelompok`
-  ADD PRIMARY KEY (`id_kinerja_kelompok`);
+  ADD PRIMARY KEY (`id_kinerja_kelompok`),
+  ADD KEY `fk_kinerjaKelompok_kelompok` (`id_kelompok`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -487,7 +476,8 @@ ALTER TABLE `nilai`
 -- Indexes for table `nilai_kelompok`
 --
 ALTER TABLE `nilai_kelompok`
-  ADD PRIMARY KEY (`id_nilai_kelompok`);
+  ADD PRIMARY KEY (`id_nilai_kelompok`),
+  ADD KEY `fk_nilaiKelompok_kelompok` (`id_kelompok`);
 
 --
 -- Indexes for table `nilai_matakuliah`
@@ -566,31 +556,31 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `kelompok_mahasiswa`
 --
 ALTER TABLE `kelompok_mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `kinerja_kelompok`
 --
 ALTER TABLE `kinerja_kelompok`
-  MODIFY `id_kinerja_kelompok` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kinerja_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa_kelas`
 --
 ALTER TABLE `mahasiswa_kelas`
-  MODIFY `id_mahasiswa_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_mahasiswa_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `matakuliah`
@@ -602,7 +592,7 @@ ALTER TABLE `matakuliah`
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `nilai_kelompok`
@@ -646,6 +636,12 @@ ALTER TABLE `kelompok_mahasiswa`
   ADD CONSTRAINT `fk_kelompokMahasiswa_kelompok` FOREIGN KEY (`id_kelompok`) REFERENCES `kelompok` (`id_kelompok`);
 
 --
+-- Constraints for table `kinerja_kelompok`
+--
+ALTER TABLE `kinerja_kelompok`
+  ADD CONSTRAINT `fk_kinerjaKelompok_kelompok` FOREIGN KEY (`id_kelompok`) REFERENCES `kelompok` (`id_kelompok`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -670,6 +666,12 @@ ALTER TABLE `matakuliah`
 --
 ALTER TABLE `nilai`
   ADD CONSTRAINT `fk_matakuliah_nilai` FOREIGN KEY (`id_mk`) REFERENCES `matakuliah` (`id_mk`);
+
+--
+-- Constraints for table `nilai_kelompok`
+--
+ALTER TABLE `nilai_kelompok`
+  ADD CONSTRAINT `fk_nilaiKelompok_kelompok` FOREIGN KEY (`id_kelompok`) REFERENCES `kelompok` (`id_kelompok`);
 
 --
 -- Constraints for table `session_admin`

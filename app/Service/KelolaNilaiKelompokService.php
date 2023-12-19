@@ -36,6 +36,9 @@ class KelolaNilaiKelompokService {
         return $this->kelolaNilaiKelompokRepository->tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok);
     }
 
+    public function tambahNilaiAkhir($nilai_kelompok, $nama_mhs, $nama_mk){
+        $this->kelolaNilaiKelompokRepository->simpanNilaiAkhir($nilai_kelompok, $nama_mhs, $nama_mk);
+    }
 
 }
 
