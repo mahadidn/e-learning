@@ -33,8 +33,8 @@ class KelolaDataProdiRepository {
         $statement = $this->connection->prepare("SELECT * FROM prodi");
         $statement->execute();
 
-        $row = $statement->fetchAll();
-        return $row;
+        $prodi = $statement->fetchAll();
+        return $prodi;
     }
 
     // get satu prodi
@@ -42,8 +42,8 @@ class KelolaDataProdiRepository {
         $statement = $this->connection->prepare("SELECT * FROM prodi WHERE id_prodi = ?");
         $statement->execute([$id_prodi]);
 
-        $row = $statement->fetch();
-        return $row;
+        $prodi = $statement->fetch();
+        return $prodi;
     }
 
 

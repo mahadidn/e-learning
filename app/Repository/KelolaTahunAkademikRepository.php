@@ -25,6 +25,37 @@ class KelolaTahunAkademikRepository {
         $statement->execute([$tahunAkademik->nama_semester, $tahunAkademik->tahun, $tahunAkademik->status, $id_semester]);
     }
 
+    
+    public function getTahunById(int $id_semester): TahunAkademik{
+        $statement = $this->connection->prepare("SELECT * FROM tahun_akademik WHERE id_semester = ?");
+        $statement->execute([$id_semester]);
+        $row = $statement->fetch();
+
+        $tahunAkademik = new TahunAkademik;
+        $tahunAkademik->id_semester = $row['id_semester'];
+        $tahunAkademik->nama_semester = $row['nama_semester'];
+        $tahunAkademik->tahun = $row['tahun'];
+        $tahunAkademik->status = $row['status'];
+        
+        return $tahunAkademik;
+    }
+
+    public function getTahunAkademik(){
+        $statement = $this->connection->prepare("SELECT id_semester, nama_semester, tahun, status FROM tahun_akademik");
+        $statement->execute();
+        
+        $rowTahunAkademik = $statement->fetchAll();
+        
+        return $rowTahunAkademik;
+        
+    }
+    
+    public function hapusData(int $id_semester) {
+        $statement = $this->connection->prepare("DELETE FROM tahun_akademik WHERE id_semester = ?");
+        $statement->execute([$id_semester]);
+    }
+
+    
     public function findIdSemester(string $nama_semester, string $tahun ): TahunAkademik {
         $statement = $this->connection->prepare("select * from tahun_akademik where nama_semester = ? and tahun = ?");
         $statement->execute([$nama_semester, $tahun]);
@@ -42,35 +73,6 @@ class KelolaTahunAkademikRepository {
         }
 
         return $tahunAkademik;
-    }
-
-    public function getTahunById(int $id_semester): TahunAkademik{
-        $statement = $this->connection->prepare("SELECT * FROM tahun_akademik WHERE id_semester = ?");
-        $statement->execute([$id_semester]);
-        $row = $statement->fetch();
-
-        $tahunAkademik = new TahunAkademik;
-        $tahunAkademik->id_semester = $row['id_semester'];
-        $tahunAkademik->nama_semester = $row['nama_semester'];
-        $tahunAkademik->tahun = $row['tahun'];
-        $tahunAkademik->status = $row['status'];
-
-        return $tahunAkademik;
-    }
-
-    public function getTahunAkademik(){
-        $statement = $this->connection->prepare("SELECT id_semester, nama_semester, tahun, status FROM tahun_akademik");
-        $statement->execute();
-
-        $rowTahunAkademik = $statement->fetchAll();
-        
-        return $rowTahunAkademik;
-
-    }
-
-    public function hapusData(int $id_semester) {
-        $statement = $this->connection->prepare("DELETE FROM tahun_akademik WHERE id_semester = ?");
-        $statement->execute([$id_semester]);
     }
 
 }

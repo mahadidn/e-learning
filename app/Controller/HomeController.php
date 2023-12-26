@@ -44,7 +44,7 @@ class HomeController {
         $loginRequest->password = $_POST['password'];
 
         try{
-            $loginResponse = $this->loginService->login($loginRequest);
+            $loginResponse = $this->loginService->loginVerify($loginRequest);
             if ($loginResponse->userType == "dosen"){
                 
                 $this->loginService->createSession($loginResponse->id, $loginResponse->username);

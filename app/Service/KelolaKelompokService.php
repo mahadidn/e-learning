@@ -22,6 +22,16 @@ class KelolaKelompokService {
 
     }
 
+
+    public function editDataKelompok(Kelompok $kelompok, $anggota, $id_kelas){
+
+        $row = $this->kelolaKelompokRepository->simpanEdit($kelompok, $id_kelas);
+        $id_kelompok = (int)$row[0]['id_kelompok'];
+
+        $this->kelolaKelompokRepository->simpanKelompokMahasiswa($anggota, $id_kelompok, $id_kelas);
+
+    }
+
     public function tampilkanDataKelompok($id_kelas){
         return $this->kelolaKelompokRepository->tampilkanDataKelompok($id_kelas);
     }

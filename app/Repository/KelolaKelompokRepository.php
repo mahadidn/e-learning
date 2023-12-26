@@ -29,12 +29,31 @@ class KelolaKelompokRepository {
        return $row;
     }
 
+    public function simpanEdit(Kelompok $kelompok, $id_kelas){
+       $statement = $this->connection->prepare("INSERT INTO kelompok (nama_kelompok, jumlah_anggota, id_kelas) VALUES (?, ?, ?)");
+       $statement->execute([$kelompok->nama_kelompok, $kelompok->jumlah_anggota, $id_kelas]);
+       
+       $statement2 = $this->connection->prepare("SELECT * FROM kelompok WHERE nama_kelompok = ? and id_kelas = ?");
+       $statement2->execute([$kelompok->nama_kelompok, $id_kelas]);
+       $row = $statement2->fetchAll();
+       
+       $statement3 = $this->connection->prepare("SELECT nama_anggota, kelompok.id_kelompok as id_kelompok, kelompok.nama_kelompok as nama_kelompok, kelompok.jumlah_anggota as jumlah_kelompok FROM kelompok join kelompok_mahasiswa on (kelompok.id_kelompok = kelompok_mahasiswa.id_kelompok) WHERE kelompok.nama_kelompok = ? and kelompok.id_kelas = ?");
+       $statement3->execute([$kelompok->nama_kelompok, $id_kelas]);
+       $row3 = $statement3->fetchAll();
+
+
+       
+       return $row;
+    }
+
+    
+
     public function tampilkanDataKelompok($id_kelas){
         $statement = $this->connection->prepare("SELECT nama_kelompok, jumlah_anggota, nama_anggota, kelompok_mahasiswa.id ,kelompok_mahasiswa.id_kelompok from kelompok JOIN kelompok_mahasiswa ON (kelompok.id_kelompok = kelompok_mahasiswa.id_kelompok) WHERE kelompok.id_kelas = ?");
         $statement->execute([$id_kelas]);
 
-        $row = $statement->fetchAll();
-        return $row;
+        $kelompok = $statement->fetchAll();
+        return $kelompok;
     }
     
     public function simpanHapus($id_kelompok, $hapusKelas, $id_kelas){

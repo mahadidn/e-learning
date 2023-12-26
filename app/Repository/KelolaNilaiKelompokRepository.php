@@ -22,9 +22,9 @@ class KelolaNilaiKelompokRepository {
     public function tampilkanDataNilaiKelompok($id_kelas){
         $statement = $this->connection->prepare("SELECT * FROM kinerja_kelompok WHERE id_kelas = ?");
         $statement->execute([$id_kelas]);
-        $row = $statement->fetchAll();
+        $nilaiKelompok = $statement->fetchAll();
 
-        return $row;
+        return $nilaiKelompok;
     }
 
     public function simpanHapus($id_kelompok): void {
@@ -38,8 +38,8 @@ class KelolaNilaiKelompokRepository {
         $statement = $this->connection->prepare("SELECT * FROM kinerja_kelompok WHERE id_kelas = ? and id_kinerja_kelompok = ?");
         $statement->execute([$id_kelas, $id_kinerja_kelompok]);
 
-        $row = $statement->fetch();
-        return $row;
+        $nilaiKelompok = $statement->fetch();
+        return $nilaiKelompok;
     }
 
     public function simpanNilaiAkhir($nilai_kelompok, $nama_mhs, $nama_mk){

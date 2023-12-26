@@ -12,7 +12,9 @@ class KelolaMataKuliahRepository {
         $this->connection = $connection;
     }
 
-    // admin
+    // kelola matakuliah controller ini digunakan oleh admin dan dosen seperti sequencenya
+
+    // role admin
     public function simpanTambah(Matakuliah $matakuliah){
         $statement = $this->connection->prepare("INSERT INTO matakuliah(nama_mk, jadwal_mk, sks) VALUES (?, ?, ?)");
         $statement->execute([$matakuliah->nama_mk, $matakuliah->jadwal_mk, $matakuliah->sks]);
@@ -34,17 +36,17 @@ class KelolaMataKuliahRepository {
         $statement = $this->connection->prepare("SELECT * FROM matakuliah");
         $statement->execute();
 
-        $row = $statement->fetchAll();
-        return $row;
+        $matakuliah = $statement->fetchAll();
+        return $matakuliah;
     }
 
-    // dosen
+    // role dosen
     public function tampilkanMatakuliahDanKelas($nama_dosen){
         $statement = $this->connection->prepare("select * from matakuliah JOIN kelas ON (matakuliah.nama_mk = kelas.matakuliah) WHERE nama_dosen = ?");
         $statement->execute([$nama_dosen]);
 
-        $row = $statement->fetchAll();
-        return $row;
+        $matakuliah = $statement->fetchAll();
+        return $matakuliah;
     }
 
     
@@ -53,8 +55,8 @@ class KelolaMataKuliahRepository {
         $statement = $this->connection->prepare("select * from matakuliah JOIN kelas ON (matakuliah.nama_mk = kelas.matakuliah) WHERE id_kelas = ?");
         $statement->execute([$id_kelas]);
 
-        $row = $statement->fetchAll();
-        return $row;
+        $matakuliah = $statement->fetchAll();
+        return $matakuliah;
     }
 
     // 
@@ -62,8 +64,8 @@ class KelolaMataKuliahRepository {
         $statement = $this->connection->prepare("SELECT * FROM matakuliah WHERE id_mk = ?");
         $statement->execute([$id_mk]);
 
-        $row = $statement->fetch();
-        return $row;
+        $matakuliah = $statement->fetch();
+        return $matakuliah;
     }
 
 
@@ -71,8 +73,8 @@ class KelolaMataKuliahRepository {
         $statement = $this->connection->prepare("select mahasiswa.nama, mahasiswa.nim from mahasiswa_kelas JOIN kelas ON (mahasiswa_kelas.id_kelas = kelas.id_kelas) Join mahasiswa ON (mahasiswa_kelas.id_mahasiswa = mahasiswa.id) where kelas.id_kelas = ?");
         $statement->execute([$id_kelas]);
 
-        $row = $statement->fetchAll();
-        return $row;
+        $mahasiswa = $statement->fetchAll();
+        return $mahasiswa;
     }
 
 }

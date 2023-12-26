@@ -55,6 +55,12 @@ class KelolaTahunAkademikService {
         return $tahunAkademik;
     }
 
+    
+    public function hapusDataTahunAkademik($id_semester){
+        
+        $this->kontrolTahunAkademikRepository->hapusData($id_semester);
+    }
+    
     public function getIdSemester(string $nama_semester, string $tahun){
         $tahunAkademik = new TahunAkademik();
         var_dump($nama_semester, $tahun);
@@ -69,12 +75,6 @@ class KelolaTahunAkademikService {
 
         return $tahunAkademik;
     }
-
-    public function hapusDataTahunAkademik($id_semester){
-
-        $this->kontrolTahunAkademikRepository->hapusData($id_semester);
-    }
-
 
 }
 

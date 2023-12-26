@@ -41,7 +41,7 @@ class KelolaDataPribadiService {
             $updateMahasiswa->jenisKelamin = $mahasiswa->jenisKelamin;
             $updateMahasiswa->nim = $mahasiswa->nim;
 
-            $this->kelolaDataPribadiRepository->ubahDataMahasiswa($updateMahasiswa, $mhs->username);
+            $this->kelolaDataPribadiRepository->simpanEditMahasiswa($updateMahasiswa, $mhs->username);
             Database::commitTransaction();
             return $updateMahasiswa;
         }catch(\Exception $exception){
@@ -69,7 +69,7 @@ class KelolaDataPribadiService {
             $updateDosen->jenisKelamin = $dosen->jenisKelamin;
             $updateDosen->nidn = $dosen->nidn;
 
-            $this->kelolaDataPribadiRepository->ubahDataDosen($updateDosen, $dsn->username);
+            $this->kelolaDataPribadiRepository->simpanEditDosen($updateDosen, $dsn->username);
             Database::commitTransaction();
             return $updateDosen;
         }catch(\Exception $exception){
@@ -93,7 +93,7 @@ class KelolaDataPribadiService {
             $updateAdmin->password = password_hash($admin->password, PASSWORD_BCRYPT);
             $updateAdmin->email = $admin->email;
 
-            $this->kelolaDataPribadiRepository->ubahDataAdmin($updateAdmin, $admn->username);
+            $this->kelolaDataPribadiRepository->simpanEditAdmin($updateAdmin, $admn->username);
             Database::commitTransaction();
             return $updateAdmin;
         }catch(\Exception $exception){

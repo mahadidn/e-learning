@@ -14,20 +14,20 @@ class KelolaDataPribadiRepository {
         $this->connection = $connection;
     }
 
-    public function ubahDataDosen(Dosen $dosen, $username): void {
+    public function simpanEditDosen(Dosen $dosen, $username): void {
         
         $statement = $this->connection->prepare("UPDATE dosen SET username = ?, nidn = ?, password = ?, nama = ?, jenis_kelamin = ?, email = ?, prodi = ? WHERE username = ?");
         $statement->execute([$dosen->username, $dosen->nidn, $dosen->password, $dosen->name, $dosen->jenisKelamin, $dosen->email, $dosen->jurusan, $username]);
 
     }
 
-    public function ubahDataMahasiswa(Mahasiswa $mahasiswa, $username): void {
+    public function simpanEditMahasiswa(Mahasiswa $mahasiswa, $username): void {
         $statement = $this->connection->prepare("UPDATE mahasiswa SET username = ?, nim = ?, password = ?, nama = ?, email = ?, prodi = ?, jenis_kelamin = ? WHERE username = ?");
         $statement->execute([$mahasiswa->username, $mahasiswa->nim, $mahasiswa->password, $mahasiswa->nama, $mahasiswa->email, $mahasiswa->prodi, $mahasiswa->jenisKelamin, $username]);
     
     }
 
-    public function ubahDataAdmin(Admin $admin, $username): void {
+    public function simpanEditAdmin(Admin $admin, $username): void {
         $statement = $this->connection->prepare("UPDATE admin SET username = ?, password = ?, email = ? WHERE username = ?");
         $statement->execute([$admin->username, $admin->password, $admin->email, $username]);
 

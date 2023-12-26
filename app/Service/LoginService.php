@@ -21,7 +21,7 @@ class LoginService {
     }
 
     // login
-    public function login(Login $loginRequest){
+    public function loginVerify(Login $loginRequest): Dosen|Mahasiswa|Admin|null{
         $this->validateLoginRequest($loginRequest);
         $user = $this->loginRepository->findByUsername($loginRequest->username);
         if ($user == null){

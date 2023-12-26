@@ -13,6 +13,8 @@ class KelolaKelasService {
         $this->kelolaKelasRepository = $kelolaKelasRepository;
     }
 
+    // admin
+    // tambah data kelas
     public function tambahDataKelas(Kelas $kelas){
         $this->kelolaKelasRepository->simpanTambah($kelas);
     }
@@ -32,6 +34,7 @@ class KelolaKelasService {
         $this->kelolaKelasRepository->hapusData($id_kelas);
     }
 
+    // mahasiswa
     // lihat nilai akhir
     public function ambilDataNilai($id_kelas, $nama_mhs){
         return $this->kelolaKelasRepository->ambilDataNilai($id_kelas, $nama_mhs);

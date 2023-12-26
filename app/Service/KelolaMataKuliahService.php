@@ -7,13 +7,15 @@ use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 
 class KelolaMataKuliahService {
 
+    // kelola matakuliah controller ini digunakan oleh admin dan dosen seperti sequencenya
+
     private KelolaMataKuliahRepository $kelolaMataKuliahRepository;
     public function __construct(KelolaMataKuliahRepository $kelolaMataKuliahRepository){
 
         $this->kelolaMataKuliahRepository = $kelolaMataKuliahRepository;
     }
 
-    // admin
+    // role admin
     public function tambahDataMatakuliah(Matakuliah $matakuliah){
         $this->kelolaMataKuliahRepository->simpanTambah($matakuliah);
     }
@@ -31,7 +33,7 @@ class KelolaMataKuliahService {
         $this->kelolaMataKuliahRepository->hapusData($id_mk);
     }
 
-    // dosen
+    // role dosen
     public function tampilkanMatakuliahDanKelas($nama_dosen){
         return $this->kelolaMataKuliahRepository->tampilkanMatakuliahDanKelas($nama_dosen);
     }

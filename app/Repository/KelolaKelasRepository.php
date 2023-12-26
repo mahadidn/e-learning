@@ -13,6 +13,7 @@ class KelolaKelasRepository {
     }
 
 
+    // admin
     // simpan kelas
     public function simpanTambah(Kelas $kelas){
         $statement = $this->connection->prepare("INSERT INTO kelas (nama_kelas, kapasitas, nama_dosen, matakuliah) VALUES (?, ?, ?, ?)");
@@ -40,18 +41,19 @@ class KelolaKelasRepository {
         $statement = $this->connection->prepare("SELECT * FROM kelas");
         $statement->execute();
 
-        $row = $statement->fetchAll();
-        return $row;
+        $kelas = $statement->fetchAll();
+        return $kelas;
 
     }
 
+    // mahasiswa
     // lihat nilai akir
     public function ambilDataNilai($id_kelas, $nama_mhs){
         $statement = $this->connection->prepare("SELECT * FROM nilai WHERE id_kelas = ? and nama_mhs = ?");
         $statement->execute([$id_kelas, $nama_mhs]);
 
-        $row = $statement->fetchAll();
-        return $row;
+        $nilai = $statement->fetchAll();
+        return $nilai;
     }
 
     // 
@@ -60,16 +62,17 @@ class KelolaKelasRepository {
         $statement = $this->connection->prepare("SELECT * FROM kelas WHERE id_kelas = ?");
         $statement->execute([$id_kelas]);
 
-        $row = $statement->fetch();
-        return $row;
+        $kelas = $statement->fetch();
+        return $kelas;
     }
 
+    
     public function tampilkanDosen(){
         $statement = $this->connection->prepare("SELECT * FROM dosen");
         $statement->execute();
 
-        $row = $statement->fetchAll();
-        return $row;
+        $dosen = $statement->fetchAll();
+        return $dosen;
     }
 
 
