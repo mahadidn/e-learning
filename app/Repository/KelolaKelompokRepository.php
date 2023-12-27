@@ -49,17 +49,20 @@ class KelolaKelompokRepository {
     
 
     public function tampilkanDataKelompok($id_kelas){
-        $statement = $this->connection->prepare("SELECT nama_kelompok, jumlah_anggota, nama_anggota, kelompok_mahasiswa.id ,kelompok_mahasiswa.id_kelompok from kelompok JOIN kelompok_mahasiswa ON (kelompok.id_kelompok = kelompok_mahasiswa.id_kelompok) WHERE kelompok.id_kelas = ?");
+        $statement = $this->connection->prepare("SELECT nama_kelompok, jumlah_anggota, nama_anggota, kelompok_mahasiswa.id, mahasiswa.id as id_mahasiswa ,kelompok_mahasiswa.id_kelompok from kelompok JOIN kelompok_mahasiswa ON (kelompok.id_kelompok = kelompok_mahasiswa.id_kelompok) JOIN mahasiswa ON (kelompok_mahasiswa.nama_anggota = mahasiswa.nama) WHERE kelompok.id_kelas = ?");
         $statement->execute([$id_kelas]);
 
         $kelompok = $statement->fetchAll();
         return $kelompok;
     }
     
-    public function simpanHapus($id_kelompok, $hapusKelas, $id_kelas){
+    public function simpanHapus($id_kelompok, $hapusKelas, $id_kelas, $nama_mhs){
         $statement = $this->connection->prepare("DELETE FROM kelompok_mahasiswa WHERE id = ? and id_kelas = ?");
         $statement->execute([$hapusKelas, $id_kelas]);
 
+        $statement2 = $this->connection->prepare("DELETE FROM kinerja_kelompok WHERE id_kelompok = ? and nama_mahasiswa = ?");
+        $statement2->execute([$id_kelompok, $nama_mhs]);
+        
         
         $statement = $this->connection->prepare("SELECT * FROM kelompok WHERE id_kelompok = ? and id_kelas = ?");
         $statement->execute([$id_kelompok, $id_kelas]);
@@ -67,15 +70,19 @@ class KelolaKelompokRepository {
         
         $jumlah_anggota = (int)$row[0]['jumlah_anggota'] - 1;
         
-        if ($jumlah_anggota == 0){
-            $statement = $this->connection->prepare("DELETE FROM kelompok WHERE id_kelompok = ? and id_kelas = ?");
-            $statement->execute([$id_kelompok, $id_kelas]);
+        try {
+            if ($jumlah_anggota == 0){
+                $statement = $this->connection->prepare("DELETE FROM kelompok WHERE id_kelompok = ? and id_kelas = ?");
+                $statement->execute([$id_kelompok, $id_kelas]);
+                
+                $statementKinerja = $this->connection->prepare("DELETE FROM kinerja_kelompok WHERE id_kelompok = ? and id_kelas = ?");
+                $statementKinerja->execute([$id_kelompok, $id_kelas]);
+            }else {
+                $statement = $this->connection->prepare("UPDATE kelompok SET jumlah_anggota = ? WHERE id_kelompok = ? and id_kelas = ?");
+                $statement->execute([$jumlah_anggota, $id_kelompok, $id_kelas]);
+            }
+        }catch(\PDOException $e){
             
-            $statementKinerja = $this->connection->prepare("DELETE FROM kinerja_kelompok WHERE id_kelompok = ? and id_kelas = ?");
-            $statementKinerja->execute([$id_kelompok, $id_kelas]);
-        }else {
-            $statement = $this->connection->prepare("UPDATE kelompok SET jumlah_anggota = ? WHERE id_kelompok = ? and id_kelas = ?");
-            $statement->execute([$jumlah_anggota, $id_kelompok, $id_kelas]);
         }
 
     }
@@ -93,6 +100,14 @@ class KelolaKelompokRepository {
 
         }
 
+    }
+
+    public function cariMahasiswa($id_mhs){
+        $statement = $this->connection->prepare("SELECT nama FROM mahasiswa WHERE id = ?");
+        $statement->execute([$id_mhs]);
+        $mahasiswa = $statement->fetch();
+
+        return $mahasiswa; 
     }
 
 

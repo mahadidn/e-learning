@@ -18,6 +18,9 @@ class KelolaPilihKelasMatakuliahRepository{
         $statement2 = $this->connection->prepare("INSERT INTO nilai (nama_mhs, id_kelas) VALUES (?, ?)");
         $statement2->execute([$nama_mhs, $id_kelas]);
 
+        $statement3 = $this->connection->prepare("INSERT INTO arsip_nilai(nama_mahasiswa, id_kelas) VALUES (?, ?)");
+        $statement3->execute([$nama_mhs, $id_kelas]);
+
     }
  
     public function tampilkanDataKelas(){
@@ -49,6 +52,10 @@ class KelolaPilihKelasMatakuliahRepository{
         var_dump($id_kelas);
         $statement = $this->connection->prepare("UPDATE nilai SET nama_mk = ? WHERE id_kelas = ?");
         $statement->execute([$nama_mk, $id_kelas]);
+        
+        $statement2 = $this->connection->prepare("UPDATE arsip_nilai SET nama_mk = ? WHERE id_kelas = ?");
+        $statement2->execute([$nama_mk, $id_kelas]);
+
     }
 
 

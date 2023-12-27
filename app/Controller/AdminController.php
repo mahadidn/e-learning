@@ -14,6 +14,7 @@ use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
 use Klp1\ELearning\Repository\KelolaDataProdiRepository;
 use Klp1\ELearning\Repository\KelolaKelasRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
+use Klp1\ELearning\Repository\KelolaNilaiRepository;
 use Klp1\ELearning\Repository\KelolaTahunAkademikRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
@@ -21,6 +22,7 @@ use Klp1\ELearning\Service\KelolaDataPribadiService;
 use Klp1\ELearning\Service\KelolaDataProdiService;
 use Klp1\ELearning\Service\KelolaKelasService;
 use Klp1\ELearning\Service\KelolaMataKuliahService;
+use Klp1\ELearning\Service\KelolaNilaiService;
 use Klp1\ELearning\Service\KelolaTahunAkademikService;
 use Klp1\ELearning\Service\LoginService;
 use Klp1\ELearning\Service\RegisterService;
@@ -34,6 +36,7 @@ class AdminController {
     private KelolaMataKuliahService $kelolaMatakuliahService;
     private KelolaKelasService $kelolaKelasService;
     private KelolaDataProdiService $kelolaDataProdiService;
+    private KelolaNilaiService $kelolaNilaiService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -46,6 +49,7 @@ class AdminController {
         $kelolaMatakuliahRepository = new KelolaMataKuliahRepository($connection);
         $kelolaKelasRepository = new KelolaKelasRepository($connection);
         $kelolaDataProdiRepository = new KelolaDataProdiRepository($connection);
+        $kelolaNilaiRepository = new KelolaNilaiRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
@@ -55,6 +59,7 @@ class AdminController {
         $this->kelolaMatakuliahService = new KelolaMataKuliahService($kelolaMatakuliahRepository);
         $this->kelolaKelasService = new KelolaKelasService($kelolaKelasRepository);
         $this->kelolaDataProdiService = new KelolaDataProdiService($kelolaDataProdiRepository);
+        $this->kelolaNilaiService = new KelolaNilaiService($kelolaNilaiRepository);
     }
     
     public function beranda(){
@@ -423,21 +428,27 @@ class AdminController {
     }
 
     // arsip mata kuliah
-    public function arsipMataKuliah(){
+    public function arsipMataKuliah($id_mk){
         $admin = $this->loginService->current();
         // bikin arsip baru lagi nanti
-        // $row = $this->kelolaMatakuliahService->tampilkanArsipNilai();
-        
+        $matakuliah = $this->kelolaNilaiService->tampilkanMatakuliah($id_mk);
+        $row = $this->kelolaNilaiService->tampilkanArsipNilaiMatakuliah($matakuliah);
         View::render('arsip-nilai-mata-kuliah', [
             'title' => 'Arsip Nilai Matakuliah',
             'usertype' => $admin->userType,
             'username' => $admin->username,
             'email' => $admin->email,
-            // 'arsip_nilai' => $row,
+            'arsip_nilai' => $row,
+            'id_mk' => $id_mk
         ]);
     }
 
-    // 
+    // hapus arsip
+    public function hapusArsip($id_arsip, $id_mk){
+        // var_dump($id_arsip);
+        $this->kelolaNilaiService->hapusNilai($id_arsip);
+        View::redirect("/matakuliah/arsip/$id_mk");
+    }
    
 
 }

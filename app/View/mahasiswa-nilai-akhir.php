@@ -1,6 +1,12 @@
 <?php
     include 'includes/header.php';
     include 'includes/navbar.php';
+
+    use Klp1\ELearning\Config\Database;
+    use Klp1\ELearning\Repository\KelolaNilaiRepository;
+    use Klp1\ELearning\Service\KelolaNilaiService;
+
+
 ?>
 
 <!-- Begin Page Content -->
@@ -27,8 +33,14 @@
                     <?php foreach ($model['nilaiakhir'] as $key => $value) {?>
 
                         <?php
-                            $nilaiakhir = ((int)($value['nilai_tugas']) + (int)$value['nilai_uts'] + (int)$value['nilai_uas'] + (int)$value['nilai_kelompok'])/4;
-                            
+                            // $nilaiakhir = ((int)($value['nilai_tugas']) + (int)$value['nilai_uts'] + (int)$value['nilai_uas'] + (int)$value['nilai_kelompok'])/4;
+                            $nilaiakhir = (($value['nilai_tugas']) + $value['nilai_uts'] + $value['nilai_uas'] + $value['nilai_kelompok'])/4;
+
+                            $nilaiRepo = new KelolaNilaiRepository(Database::getConnection());
+                            $nilaiService = new KelolaNilaiService($nilaiRepo);
+
+                            $nilaiService->updateNilai($nilaiakhir, $value['nama_mhs'], $value['id_kelas']);
+
                             ?>
 
                         <tr>

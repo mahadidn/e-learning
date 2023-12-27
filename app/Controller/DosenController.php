@@ -8,6 +8,7 @@ use Klp1\ELearning\Model\Domain\Dosen;
 use Klp1\ELearning\Model\Domain\Kelompok;
 use Klp1\ELearning\Model\Register;
 use Klp1\ELearning\Repository\KelolaDataPribadiRepository;
+use Klp1\ELearning\Repository\KelolaKelasRepository;
 use Klp1\ELearning\Repository\KelolaKelompokRepository;
 use Klp1\ELearning\Repository\KelolaMataKuliahRepository;
 use Klp1\ELearning\Repository\KelolaNilaiKelompokRepository;
@@ -15,6 +16,7 @@ use Klp1\ELearning\Repository\KelolaNilaiMatakuliahRepository;
 use Klp1\ELearning\Repository\LoginRepository;
 use Klp1\ELearning\Repository\RegisterRepository;
 use Klp1\ELearning\Service\KelolaDataPribadiService;
+use Klp1\ELearning\Service\KelolaKelasService;
 use Klp1\ELearning\Service\KelolaKelompokService;
 use Klp1\ELearning\Service\KelolaMataKuliahService;
 use Klp1\ELearning\Service\KelolaNilaiKelompokService;
@@ -31,6 +33,7 @@ class DosenController {
     private KelolaKelompokService $kelolaKelompokService;
     private KelolaNilaiKelompokService $kelolaNilaiKelompokService;
     private KelolaNilaiMatakuliahService $kelolaNilaiMatakuliahService;
+    private KelolaKelasService $kelolaKelasService;
 
     public function __construct(){
         $connection = Database::getConnection();
@@ -42,6 +45,7 @@ class DosenController {
         $kelolaKelompokRepository = new KelolaKelompokRepository($connection);
         $kelolaNilaiKelompokRepository = new KelolaNilaiKelompokRepository($connection);
         $kelolaNilaiMatakuliahRepository = new KelolaNilaiMatakuliahRepository($connection);
+        $kelolaKelasRepository = new KelolaKelasRepository($connection);
 
         // service
         $this->registerService = new RegisterService($registerRepository);
@@ -51,6 +55,7 @@ class DosenController {
         $this->kelolaKelompokService = new KelolaKelompokService($kelolaKelompokRepository);
         $this->kelolaNilaiKelompokService = new KelolaNilaiKelompokService($kelolaNilaiKelompokRepository);
         $this->kelolaNilaiMatakuliahService = new KelolaNilaiMatakuliahService($kelolaNilaiMatakuliahRepository);
+        $this->kelolaKelasService = new KelolaKelasService($kelolaKelasRepository);
     }
 
     public function beranda(): void{
@@ -254,9 +259,13 @@ class DosenController {
     }
 
     // hapus dosen kelompok
-    public function hapusDosenKelompok($id_kelas, $hapusKelas, $id_kelompok){
+    public function hapusDosenKelompok($id_kelas, $hapusKelas, $id_kelompok, $id_mhs){
+
+        $mahasiswa = $this->kelolaKelompokService->cariMahasiswa($id_mhs)[0];
+
+        $this->kelolaKelompokService->hapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok, $mahasiswa);
         
-        $this->kelolaKelompokService->hapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok);
+        
         View::redirect("/kelas/dosen/detail/$id_kelas/kelompok");
     }
 
@@ -346,7 +355,8 @@ class DosenController {
     // nilai kelompok
     public function nilaiKelompok($id_kelas){
         $dosen = $this->loginService->current();
-        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
+        // $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
+        $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
         $mk = $row[0]['nama_mk'];
         $kelompok = $this->kelolaNilaiKelompokService->tampilkanDataNilaiKelompok($id_kelas);
        
@@ -438,6 +448,7 @@ class DosenController {
 
     public function nilaiAkhir($id_kelas){
         $dosen = $this->loginService->current();
+        $row = $this->kelolaKelasService->ambilDataNilaiSemua($id_kelas);
         View::render('dosen-nilai-akhir', [
             "title" => "Kelas Dosen Nilai Akhir",
             'usertype' => $dosen->userType,
@@ -447,7 +458,8 @@ class DosenController {
             'jenis_kelamin' => $dosen->jenisKelamin,
             'email' => $dosen->email,
             'prodi' => $dosen->jurusan,
-            'id_kelas' => $id_kelas
+            'id_kelas' => $id_kelas,
+            'nilai_akhir' => $row
         ]);
     }
 

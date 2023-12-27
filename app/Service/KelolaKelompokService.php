@@ -36,8 +36,12 @@ class KelolaKelompokService {
         return $this->kelolaKelompokRepository->tampilkanDataKelompok($id_kelas);
     }
 
-    public function hapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok){
-        $this->kelolaKelompokRepository->simpanHapus($id_kelompok, $hapusKelas, $id_kelas);
+    public function hapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok, $nama_mhs){
+        $this->kelolaKelompokRepository->simpanHapus($id_kelompok, $hapusKelas, $id_kelas, $nama_mhs);
+    }
+
+    public function cariMahasiswa($id_mhs){
+        return $this->kelolaKelompokRepository->cariMahasiswa($id_mhs);
     }
 
 }

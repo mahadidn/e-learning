@@ -35,7 +35,7 @@
                             <td><?= $value['sks'] ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a class="btn btn-dark btn-sm mr-2" href="/matakuliah/arsip">Arsip</a>
+                                    <a class="btn btn-dark btn-sm mr-2" href="/matakuliah/arsip/<?= $value['id_mk'] ?>">Arsip</a>
                                     <a class="btn btn-orange btn-sm mr-2" href="/matakuliah/edit/<?= $value['id_mk'] ?>">Edit</a>
                                     <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= (int)$value['id_mk'] ?>)">Hapus</button>
                                 </div>

@@ -34,12 +34,15 @@ class KelolaKelasService {
         $this->kelolaKelasRepository->hapusData($id_kelas);
     }
 
-    // mahasiswa
+    // mahasiswa & dosen
     // lihat nilai akhir
     public function ambilDataNilai($id_kelas, $nama_mhs){
         return $this->kelolaKelasRepository->ambilDataNilai($id_kelas, $nama_mhs);
     }
 
+    public function ambilDataNilaiSemua($id_kelas){
+        return $this->kelolaKelasRepository->ambilDataNilaiSemua($id_kelas);
+    }
 
     
     // 

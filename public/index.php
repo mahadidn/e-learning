@@ -49,7 +49,7 @@ Router::add('GET', '/kelas/dosen/detail/([0-9]*)', DosenController::class, 'kela
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/kelompok', DosenController::class, 'kelasDosenKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/kelompokdetail', DosenController::class, 'tambahDosenKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('POST', '/kelas/dosen/detail/([0-9]*)/kelompokdetail', DosenController::class, 'postTambahDosenKelompok', [MustLoginDosenMiddleware::class]);
-Router::add('GET', '/kelas/dosen/detail/([0-9]*)/kelompokdetail/hapus/([0-9]*)/idkelompok/([0-9]*)', DosenController::class, 'hapusDosenKelompok', [MustLoginDosenMiddleware::class]);
+Router::add('GET', '/kelas/dosen/detail/([0-9]*)/kelompokdetail/hapus/([0-9]*)/idkelompok/([0-9]*)/id_mhs/([0-9]*)', DosenController::class, 'hapusDosenKelompok', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaimk', DosenController::class, 'nilaimk', [MustLoginDosenMiddleware::class]);
 
 Router::add('GET', '/kelas/dosen/detail/([0-9]*)/nilaikelompok', DosenController::class, 'nilaiKelompok', [MustLoginDosenMiddleware::class]);
@@ -104,6 +104,7 @@ Router::add('POST', '/kelas/admin/tambah', AdminController::class, 'postTambahKe
 Router::add('GET', '/kelas/admin/edit/([0-9]*)', AdminController::class, 'editKelasAdmin', [MustLoginAdminMiddleware::class]);
 Router::add('POST', '/kelas/admin/edit/([0-9]*)', AdminController::class, 'postEditKelasAdmin', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/kelas/admin/hapus/([0-9]*)', AdminController::class, 'hapusKelas', [MustLoginAdminMiddleware::class]);
-Router::add('GET', '/matakuliah/arsip', AdminController::class, 'arsipMataKuliah', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/matakuliah/arsip/([0-9a-zA-Z]*)', AdminController::class, 'arsipMataKuliah', [MustLoginAdminMiddleware::class]);
 Router::add('GET', '/matakuliah/arsip/edit', AdminController::class, 'editArsipMataKuliah', [MustLoginAdminMiddleware::class]);
+Router::add('GET', '/matakuliah/arsip/hapus/([0-9]*)/([0-9]*)', AdminController::class, 'hapusArsip', [MustLoginAdminMiddleware::class]);
 Router::run();

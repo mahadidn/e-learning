@@ -32,19 +32,21 @@
                             <th>No.</th>
                             <th>Nama Mahasiswa</th>
                             <th>NIM</th>
+                            <th>Nilai MK</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($variable as $key => $value) { ?>
+                    <?php foreach ($model['arsip_nilai'] as $key => $value) { ?>
                         <tr>
                             <td><?= $i ?></td>
                             <td><?= $value['nama_mahasiswa'] ?></td>
                             <td><?= $value['nim'] ?></td>
+                            <td><?= $value['nilai_mk'] ?? '' ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi()">Hapus</button>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= $value['id_arsip'] ?>)">Hapus</button>
                                 </div>
                             </td>
                         </tr>
@@ -58,7 +60,7 @@
 <!-- /.container-fluid -->
 
 <script>
-    function konfirmasi() {
+    function konfirmasi(id_arsip) {
         Swal.fire({
             title: 'Konfirmasi',
             text: 'Apakah Anda yakin ingin menghapus data?',
@@ -71,7 +73,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
             
-                window.location.href = "/matakuliah/arsip";
+                window.location.href = `/matakuliah/arsip/hapus/${id_arsip}/<?= $model['id_mk'] ?>`;
             }
         });
     }

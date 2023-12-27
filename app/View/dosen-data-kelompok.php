@@ -26,6 +26,7 @@
                     </thead>
                     <tbody>
                     <?php $i = 1; ?>
+                    <?php var_dump($model['kelompok'][0]['id_mahasiswa']) ?>
                     <?php foreach ($model['kelompok'] as $key => $value) { ?>
 
                         <tr>
@@ -34,7 +35,7 @@
                             <td><?= $value['nama_anggota'] ?></td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= $value['id'] ?>, <?= $value['id_kelompok'] ?>)">Hapus</button>
+                                    <button class="btn btn-danger btn-sm" onclick="konfirmasi(<?= $value['id'] ?>, <?= $value['id_kelompok'] ?>, <?= $value['id_mahasiswa'] ?>)">Hapus</button>
                                 </div>
                             </td>
                         </tr>
@@ -49,7 +50,7 @@
 <!-- /.container-fluid -->
 
 <script>
-    function konfirmasi(number, number_id) {
+    function konfirmasi(number, number_id, id_mahasiswa) {
         Swal.fire({
             title: 'Konfirmasi',
             text: 'Apakah Anda yakin ingin menghapus data?',
@@ -62,7 +63,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
             
-                window.location.href = `/kelas/dosen/detail/<?= $model['id_kelas'] ?>/kelompokdetail/hapus/${number}/idkelompok/${number_id}`;
+                window.location.href = `/kelas/dosen/detail/<?= $model['id_kelas'] ?>/kelompokdetail/hapus/${number}/idkelompok/${number_id}/id_mhs/${id_mahasiswa}`;
             }
         });
     }

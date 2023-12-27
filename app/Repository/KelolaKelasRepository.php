@@ -46,11 +46,19 @@ class KelolaKelasRepository {
 
     }
 
-    // mahasiswa
+    // mahasiswa & dosen
     // lihat nilai akir
     public function ambilDataNilai($id_kelas, $nama_mhs){
         $statement = $this->connection->prepare("SELECT * FROM nilai WHERE id_kelas = ? and nama_mhs = ?");
         $statement->execute([$id_kelas, $nama_mhs]);
+
+        $nilai = $statement->fetchAll();
+        return $nilai;
+    }
+
+    public function ambilDataNilaiSemua($id_kelas){
+        $statement = $this->connection->prepare("select * from nilai join mahasiswa where (nilai.nama_mhs = mahasiswa.nama && id_kelas = ?)");
+        $statement->execute([$id_kelas]);
 
         $nilai = $statement->fetchAll();
         return $nilai;

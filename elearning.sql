@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 19, 2023 at 01:01 PM
+-- Generation Time: Dec 27, 2023 at 11:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,15 +34,6 @@ CREATE TABLE `admin` (
   `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `username`, `password`, `email`) VALUES
-(1, 'admin1', '$2y$10$sjyEF08v11kPs5s1bEUFQ.VnJoz268k9lxKz4jY5tABZUfjRacQN.', 'admin1@gmail.com'),
-(2, 'admin21', '$2y$10$WyUDSeDRNDOZBkUOcNj.TO3nXj4rHxerKHmAYd7Xg7k.mgQcbsE/S', 'admin2@gmail.com'),
-(3, 'admin3', '$2y$10$963wGtbfI2bO0a5rwPPsx.xAOvDE5USlPK0fFlKV8epxuSNOMq75S', 'admin3@gmail.com');
-
 -- --------------------------------------------------------
 
 --
@@ -63,11 +54,11 @@ CREATE TABLE `anggota_kelompok` (
 
 CREATE TABLE `arsip_nilai` (
   `id_arsip` int(11) NOT NULL,
-  `id_semester` varchar(20) NOT NULL,
-  `id_mk` varchar(20) NOT NULL,
-  `nama_mk` varchar(100) NOT NULL,
-  `nilai_mk` int(11) NOT NULL,
-  `nama_mahasiswa` varchar(400) DEFAULT NULL
+  `id_mk` varchar(20) DEFAULT NULL,
+  `nama_mk` varchar(100) DEFAULT NULL,
+  `nilai_mk` int(11) DEFAULT NULL,
+  `nama_mahasiswa` varchar(400) DEFAULT NULL,
+  `id_kelas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -89,15 +80,6 @@ CREATE TABLE `dosen` (
   `id_matakuliah` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `dosen`
---
-
-INSERT INTO `dosen` (`id`, `nidn`, `username`, `password`, `nama`, `jenis_kelamin`, `email`, `prodi`, `id_nilai_kelompok`, `id_matakuliah`) VALUES
-(2, '123123', 'dosen21', '$2y$10$i6ZQhKi4vFrRamysJB4xdOVxwyIVlF2QPUnTabcdnfEASJvb6kvca', 'dosen21', 'perempuan', 'dosen21@gmail.com', 'Teknik Informatika', NULL, NULL),
-(3, '1231231', 'dosen12', '$2y$10$cmCFx/oBYKY4IsFEikE.Z.4v0bNqPvPrCaEMA5QRkXK.IVTmYjyFS', 'dosen2', 'perempuan', 'dosen1@gmail.com', 'Teknik Informatika', NULL, NULL),
-(4, '123123', 'dosen3', '$2y$10$KyCNIOQy0i9O8zqodDGzIOdSdUJe0/F2r1LGE6pW0Fs/F11Mm8GL.', 'dosen3', 'laki-laki', 'dosen3@gmail.com', 'Teknik Elektro', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -111,18 +93,6 @@ CREATE TABLE `kelas` (
   `nama_dosen` varchar(500) NOT NULL,
   `matakuliah` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kelas`
---
-
-INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kapasitas`, `nama_dosen`, `matakuliah`) VALUES
-(12, 'Ruang 1', 38, 'dosen21', 'Statistika'),
-(15, 'Ruang 2', 38, 'dosen21', 'Pemrograman Web'),
-(19, 'Ruang 6', 38, 'dosen2', 'Statistika'),
-(20, 'Ruang 10', 44, 'dosen2', 'Pemrograman Web'),
-(22, 'Ruang 3', 33, 'dosen21', 'B'),
-(23, 'Ruang Elektro', 46, 'dosen3', 'Elektro');
 
 -- --------------------------------------------------------
 
@@ -185,16 +155,6 @@ CREATE TABLE `mahasiswa` (
   `id_matakuliah` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `mahasiswa`
---
-
-INSERT INTO `mahasiswa` (`id`, `nim`, `username`, `password`, `nama`, `email`, `prodi`, `jenis_kelamin`, `id_kelompok`, `id_matakuliah`) VALUES
-(1, '2101020065', 'mahadi_dn', '$2y$10$TGBiPCRvdKWYeLp5V71VCO2Agx4R2HpK2Lfs3DGpS5FhFYUSXcG3W', 'Mahadi Dwi Nugraha', 'mahadidwinugraha@gmail.com', 'Teknik Informatika', 'laki-laki', NULL, NULL),
-(2, '2101020066', 'mahasiswa2', '$2y$10$cTTw1//UuGTrxOYvOvaUue3tFZ4Yi6HEY13H4SUQRtZMu0Yarl6HG', 'Mahasiswa 2', 'mahasiswa2@gmail.com', 'Teknik Informatika', 'perempuan', NULL, NULL),
-(3, '2123123', 'mahasiswa1', '$2y$10$6X88W6Q1CgdfYFpW8pkHEeymtDcmuo59luKALDAVzIdsb3N0d.dMy', 'mahasiswa1', 'mahasiswa1@gmail.com', 'Teknik Informatika', 'laki-laki', NULL, NULL),
-(4, '21012312', 'mahasiswa3', '$2y$10$qXoyek1Oay8Yd4P4otJaY.QwiWBxfEPiHY7Gwsh0B/CsVkDPEdiqO', 'mahasiswa3', 'mahasiswa3@gmail.com', 'Teknik Informatika', 'perempuan', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -220,20 +180,6 @@ CREATE TABLE `matakuliah` (
   `sks` int(11) NOT NULL,
   `id_dosen` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `matakuliah`
---
-
-INSERT INTO `matakuliah` (`nama_mk`, `id_mk`, `jadwal_mk`, `sks`, `id_dosen`) VALUES
-('Sistem Terdistribusi', 8, '2023-12-13', 3, NULL),
-('Metode Numerik', 9, '2023-12-10', 3, NULL),
-('Statistika', 10, '2023-12-13', 3, NULL),
-('Perancangan dan Implementasi Perangkat Lunak', 11, '2023-12-14', 3, NULL),
-('Pemrograman Web', 12, '2023-12-15', 4, NULL),
-('Masyarakat Cerdas', 13, '2023-12-12', 3, NULL),
-('B', 16, '2023-12-13', 4, NULL),
-('Elektro', 18, '2023-12-12', 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -291,15 +237,6 @@ CREATE TABLE `prodi` (
   `jumlah_mhs` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `prodi`
---
-
-INSERT INTO `prodi` (`id_prodi`, `nama_prodi`, `jumlah_mhs`) VALUES
-(27, 'Teknik Elektro', 210),
-(31, 'Teknik Perkapalan', 190),
-(34, 'Teknik Informatika', 120);
-
 -- --------------------------------------------------------
 
 --
@@ -311,17 +248,6 @@ CREATE TABLE `session_admin` (
   `user_id` varchar(255) NOT NULL,
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `session_admin`
---
-
-INSERT INTO `session_admin` (`username_session`, `user_id`, `id`) VALUES
-('admin15', '656f47b2b99b2', 1),
-('admin1', '6570b264d0269', 1),
-('admin1', '65773d32588c3', 1),
-('admin1', '65779800295a3', 1),
-('admin1', '6578060bc3e3f', 1);
 
 -- --------------------------------------------------------
 
@@ -335,13 +261,6 @@ CREATE TABLE `session_dosen` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `session_dosen`
---
-
-INSERT INTO `session_dosen` (`username_session`, `user_id`, `id`) VALUES
-('dosen21', '6580b33a74c0c', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -353,16 +272,6 @@ CREATE TABLE `session_mahasiswa` (
   `username_session` varchar(50) NOT NULL,
   `user_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `session_mahasiswa`
---
-
-INSERT INTO `session_mahasiswa` (`id`, `username_session`, `user_id`) VALUES
-(1, 'mahadi_dn', '656f116c81439'),
-(1, 'mahadi_dn', '6580c0babd311'),
-(4, 'mahasiswa3', '65810ead8f28d'),
-(3, 'mahasiswa1', '6581202fcf43a');
 
 -- --------------------------------------------------------
 
@@ -376,14 +285,6 @@ CREATE TABLE `tahun_akademik` (
   `tahun` varchar(20) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tahun_akademik`
---
-
-INSERT INTO `tahun_akademik` (`id_semester`, `nama_semester`, `tahun`, `status`) VALUES
-(41, 'Genap', '2024', 'Aktif'),
-(43, 'Genap', '2021', 'Tidak Aktif');
 
 --
 -- Indexes for dumped tables
@@ -526,7 +427,7 @@ ALTER TABLE `tahun_akademik`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `anggota_kelompok`
@@ -538,61 +439,61 @@ ALTER TABLE `anggota_kelompok`
 -- AUTO_INCREMENT for table `arsip_nilai`
 --
 ALTER TABLE `arsip_nilai`
-  MODIFY `id_arsip` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_arsip` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `kelompok_mahasiswa`
 --
 ALTER TABLE `kelompok_mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `kinerja_kelompok`
 --
 ALTER TABLE `kinerja_kelompok`
-  MODIFY `id_kinerja_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_kinerja_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa_kelas`
 --
 ALTER TABLE `mahasiswa_kelas`
-  MODIFY `id_mahasiswa_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_mahasiswa_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `matakuliah`
 --
 ALTER TABLE `matakuliah`
-  MODIFY `id_mk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_mk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `nilai_kelompok`
@@ -604,13 +505,13 @@ ALTER TABLE `nilai_kelompok`
 -- AUTO_INCREMENT for table `prodi`
 --
 ALTER TABLE `prodi`
-  MODIFY `id_prodi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_prodi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tahun_akademik`
 --
 ALTER TABLE `tahun_akademik`
-  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_semester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables
