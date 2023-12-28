@@ -16,7 +16,7 @@ Database::getConnection("prod");
 
 // Home Controller
 Router::add('GET', '/', HomeController::class, 'masukkanUsernamePassword', []);
-Router::add('POST', '/', HomeController::class, 'postLogin', []);
+Router::add('POST', '/', HomeController::class, 'loginVerify', []);
 
 // Mahasiswa Controller
 Router::add('GET', '/register/mahasiswa', MahasiswaController::class, 'tampilkanFormRegistrasi', []);
