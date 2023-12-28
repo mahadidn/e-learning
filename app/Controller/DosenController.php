@@ -60,7 +60,7 @@ class DosenController {
 
     public function beranda(): void{
         $dosen = $this->loginService->current();
-        View::render('index', [
+        View::render('Beranda', [
             "title" => "Dashboard Dosen",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,

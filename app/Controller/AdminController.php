@@ -64,7 +64,7 @@ class AdminController {
     
     public function beranda(){
         $admin = $this->loginService->current();
-        View::render('index', [
+        View::render('Beranda', [
             "title" => "Dashboard Admin",
             'usertype' => $admin->userType,
             'username' => $admin->username,

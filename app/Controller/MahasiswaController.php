@@ -50,7 +50,7 @@ class MahasiswaController {
 
     public function beranda(): void{
         $mahasiswa = $this->loginService->current();
-        View::render('index', [
+        View::render('Beranda', [
             "title" => "Dashboard Mahasiswa",
             'usertype' => $mahasiswa->userType,
             'username' => $mahasiswa->username,
