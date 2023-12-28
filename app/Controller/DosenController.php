@@ -457,7 +457,7 @@ class DosenController {
     }
 
     // logout
-    public function menuLogout(){
+    public function prosesLogout(){
         $this->loginService->destroy();
         View::redirect("/");
     }

@@ -185,7 +185,7 @@ class MahasiswaController {
         $nama_mk = $kelas[0]['matakuliah'];
         $this->kelolaPilihKelasMatakuliahService->updateNilai($nama_mk, $id_kelas);
 
-        View::render('mahasiswa-data-kelas', [
+        View::render('DataKelasMahasiswa', [
             "title" => "Detail Kelas Mahasiswa",
             'usertype' => $mahasiswa->userType,
             'username' => $mahasiswa->username,

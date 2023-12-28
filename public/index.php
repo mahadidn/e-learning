@@ -16,7 +16,7 @@ Database::getConnection("prod");
 
 // Home Controller
 Router::add('GET', '/', HomeController::class, 'masukkanUsernamePassword', []);
-Router::add('POST', '/', HomeController::class, 'postLogin', []);
+Router::add('POST', '/', HomeController::class, 'loginVerify', []);
 
 // Mahasiswa Controller
 Router::add('GET', '/register/mahasiswa', MahasiswaController::class, 'tampilkanFormRegistrasi', []);
@@ -40,7 +40,7 @@ Router::add('GET', '/kelas/mahasiswa/detail/datapenilaian/([0-9]*)', MahasiswaCo
 Router::add('GET', '/register/dosen', DosenController::class, 'tampilkanFormRegistrasi', []);
 Router::add('POST', '/register/dosen', DosenController::class, 'register', []);
 Router::add('GET', '/dashboard/dosen', DosenController::class, 'beranda', [MustLoginDosenMiddleware::class]);
-Router::add('POST', '/dosen/logout', DosenController::class, 'menuLogout', [MustLoginDosenMiddleware::class]);
+Router::add('POST', '/dosen/logout', DosenController::class, 'prosesLogout', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/data/dosen', DosenController::class, 'tampilkanMenuDataPribadi', [MustLoginDosenMiddleware::class]);
 Router::add('POST', '/data/dosen', DosenController::class, 'ubahData', [MustLoginDosenMiddleware::class]);
 Router::add('GET', '/data/editdosen', DosenController::class, 'editProfil', [MustLoginDosenMiddleware::class]);

@@ -21,6 +21,7 @@ class HomeController {
     }
 
     
+    // login
     public function masukkanUsernamePassword(): void {
         $user = $this->loginService->current();
         if ($user == null){
@@ -38,7 +39,7 @@ class HomeController {
     }
 
 
-    public function postLogin(){
+    public function loginVerify(){
         $loginRequest = new Login();
         $loginRequest->username = $_POST['username'];
         $loginRequest->password = $_POST['password'];
@@ -60,10 +61,10 @@ class HomeController {
                 $this->loginService->createSession($loginResponse->id, $loginResponse->username);
                 View::redirect('/dashboard/admin');
             }
-        }catch (\Exception $exception){
+        }catch (\Exception $tampilkanKesalahan){
             View::render('MenuLogin', [
                 "title" => 'Login',
-                'error' => $exception->getMessage()
+                'error' => $tampilkanKesalahan->getMessage()
             ]);
         }
 
