@@ -72,12 +72,12 @@ class AdminController {
         ]);
     }
 
-    public function logout(){
+    public function menuLogout(){
         $this->loginService->destroy();
         View::redirect("/");
     }
 
-    public function registerAdmin(){
+    public function menuRegistrasiAdmin(){
         View::render('registrasiAdmin', [
             "title" => "Register Admin"
         ]);
@@ -146,7 +146,7 @@ class AdminController {
     }
 
     // tahun akademik
-    public function tahunAkademik(){
+    public function menuTahunAkademik(){
         $admin = $this->loginService->current();
         $tahunAkademik = $this->kelolaTahunAkademikService->tampilkanTahunAkademik();
         View::render('data-tahun-akademik', [
@@ -159,7 +159,7 @@ class AdminController {
     }
 
     // tambah tahun akademik
-    public function tambahTahunAkademik(){
+    public function menuTambahDataTahunAkademik(){
         $admin = $this->loginService->current();
         View::render('form-tahun-akademik', [
             "title" => "Tambah Tahun Akademik",
@@ -181,7 +181,7 @@ class AdminController {
     }
 
     // edit tahun akademik
-    public function editTahunAkademik($id_semester){
+    public function menuEditDataTahunAkademik($id_semester){
         $admin = $this->loginService->current();
         $tahunAkademik = new TahunAkademik();
         $tahunAkademik = $this->kelolaTahunAkademikService->getSemesterById($id_semester);
@@ -206,7 +206,7 @@ class AdminController {
         View::redirect('/tahunakademik');
     }
 
-    public function hapusTahunAkademik(){
+    public function menuHapusDataTahunAkademik(){
         $path = $_SERVER['PATH_INFO'];
         $semester = explode("/", $path);
         $id_semester = $semester[4];
@@ -215,7 +215,7 @@ class AdminController {
     }
 
     // data prodi
-    public function dataProdi(){
+    public function menuProdi(){
         $admin = $this->loginService->current();
         $row = $this->kelolaDataProdiService->tampilkanDataProdi();
         View::render('data-prodi', [
@@ -228,7 +228,7 @@ class AdminController {
     }
 
     // tambah data prodi
-    public function tambahDataProdi(){
+    public function menuTambahDataProdi(){
         $admin = $this->loginService->current();
         View::render('form-prodi', [
             'title' => 'Tambah Data Prodi',
@@ -249,7 +249,7 @@ class AdminController {
     }
 
     // edit prodi
-    public function editProdi($id_prodi){
+    public function menuEditDataProdi($id_prodi){
         $admin = $this->loginService->current();
         $row = $this->kelolaDataProdiService->tampilkanSatuProdi($id_prodi);
         View::render('form-prodi', [
@@ -273,13 +273,13 @@ class AdminController {
     }
 
     // hapus prodi
-    public function hapusProdi($id_prodi){
+    public function menuHapusDataProdi($id_prodi){
         $this->kelolaDataProdiService->hapusDataProdi($id_prodi);
         View::redirect('/dataprodi');
     }
 
     // matakuliah
-    public function matakuliah(){
+    public function menuMatakuliah(){
         $admin = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanDataMatakuliah();
         View::render('data-mata-kuliah', [
@@ -291,7 +291,7 @@ class AdminController {
         ]);
     }
 
-    public function tambahMatakuliah(){
+    public function menuTambahDataMatakuliah(){
         $admin = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanDataMatakuliah();
         
@@ -320,7 +320,7 @@ class AdminController {
     }
 
     // edit
-    public function editMatakuliah($id_mk){
+    public function menuEditDataMatakuliah($id_mk){
         $admin = $this->loginService->current();
         $matakuliah = $this->kelolaMatakuliahService->tampilkanMatakuliahSatu($id_mk);
 
@@ -345,13 +345,13 @@ class AdminController {
     }
 
     // hapus
-    public function hapusMatakuliah($id_mk){
+    public function menuHapusDataMatakuliah($id_mk){
         $this->kelolaMatakuliahService->hapusDataMatakuliah($id_mk);
         View::redirect('/matakuliah');
     }
 
     // kelas
-    public function kelasAdmin(){
+    public function menuKelasMatakuliah(){
         $admin = $this->loginService->current();
         $row = $this->kelolaKelasService->tampilkanDataKelas();
 
@@ -365,7 +365,7 @@ class AdminController {
     }
 
     // tambah kelas admin
-    public function tambahKelasAdmin(){
+    public function menuTambahDataKelas(){
         $admin = $this->loginService->current();
         $dosen = $this->kelolaKelasService->tampilkanSemuaDosen();
         $getMK = $this->kelolaMatakuliahService->tampilkanDataMatakuliah();
@@ -380,7 +380,7 @@ class AdminController {
     }
 
     // edit kelas admin
-    public function editKelasAdmin($id_kelas){
+    public function menuEditDataKelas($id_kelas){
         $admin = $this->loginService->current();
         $dosen = $this->kelolaKelasService->tampilkanSemuaDosen();
         $kelas = $this->kelolaKelasService->tampilkanSatuKelas($id_kelas);
@@ -422,13 +422,13 @@ class AdminController {
     }
 
     // hapus kelas
-    public function hapusKelas($id_kelas){
+    public function menuHapusDataKelas($id_kelas){
         $this->kelolaKelasService->hapusDataKelas($id_kelas);
         View::redirect('/kelas/admin');
     }
 
     // arsip mata kuliah
-    public function arsipMataKuliah($id_mk){
+    public function menuArsipNilai($id_mk){
         $admin = $this->loginService->current();
         // bikin arsip baru lagi nanti
         $matakuliah = $this->kelolaNilaiService->tampilkanMatakuliah($id_mk);

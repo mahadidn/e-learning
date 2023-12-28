@@ -21,7 +21,7 @@ class HomeController {
     }
 
     
-    public function index(): void {
+    public function menuLogin(): void {
         $user = $this->loginService->current();
         if ($user == null){
             View::render('login', [

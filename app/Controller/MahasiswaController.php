@@ -64,7 +64,7 @@ class MahasiswaController {
     }
 
     // register
-    public function registerMahasiswa(): void {
+    public function menuRegistrasiMahasiswa(): void {
         View::render('registrasiMahasiswa', [
             "title" => "Daftar Akun Mahasiswa"
         ]);
@@ -153,7 +153,7 @@ class MahasiswaController {
     }
 
     // kelas Mahasiswa
-    public function kelasMahasiswa(){
+    public function menuKelasMatakuliah(){
         $mahasiswa = $this->loginService->current();
         $kelas = $this->kelolaPilihKelasMatakuliahService->tampilkanDataKelas();
         $kelas_mahasiswa = $this->kelolaPilihKelasMatakuliahService->tampilkanKelasMahasiswa($mahasiswa->id);
@@ -203,7 +203,7 @@ class MahasiswaController {
     }
 
     // lihat nilai akhir
-    public function nilaiAkhir($id_kelas){
+    public function menuNilaiAkhirMatakuliah($id_kelas){
         $mahasiswa = $this->loginService->current();
         $row = $this->kelolaKelasService->ambilDataNilai($id_kelas, $mahasiswa->nama);
         View::render('mahasiswa-nilai-akhir', [
@@ -221,7 +221,7 @@ class MahasiswaController {
     }
 
     // penilaian
-    public function formPenilaian($id_kelas, $id_kinerja_kelompok){
+    public function menuPilihAnggota($id_kelas, $id_kinerja_kelompok){
         $mahasiswa = $this->loginService->current();
         $kinerjaMhs = $this->kelolaPenilaianService->tampilkanEditKinerja($id_kinerja_kelompok, $id_kelas);
 
@@ -248,7 +248,7 @@ class MahasiswaController {
     }
 
     //hasil penilaian
-    public function dataPenilaian($id_kelas){
+    public function menuPenilaian($id_kelas){
         $mahasiswa = $this->loginService->current();
         $id_kelompok = $this->kelolaPenilaianService->kelompokMhs($mahasiswa->nama, $id_kelas);
         $kelompok = $this->kelolaPenilaianService->tampilkanPenilaianTersimpan($id_kelompok, $id_kelas);
@@ -270,7 +270,7 @@ class MahasiswaController {
         ]);
     }
 
-    public function logout(){
+    public function menuLogout(){
         $this->loginService->destroy();
         View::redirect("/");
     }

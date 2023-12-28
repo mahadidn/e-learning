@@ -17,7 +17,7 @@ class LoginRepository {
     }
 
     // login
-    public function findByUsername(string $username): Admin|Dosen|Mahasiswa|null {
+    public function validasi(string $username): Admin|Dosen|Mahasiswa|null {
 
         $statementAdmin = $this->connection->prepare("SELECT id, username, password, email FROM admin WHERE username = ?");
         $statementAdmin->execute([$username]);

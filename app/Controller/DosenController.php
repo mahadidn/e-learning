@@ -73,7 +73,7 @@ class DosenController {
         ]);
     }
 
-    public function registerDosen(): void {
+    public function menuRegistrasiDosen(): void {
         View::render('registrasiDosen', [
             "title" => "Daftar Akun Dosen"
         ]);
@@ -162,7 +162,7 @@ class DosenController {
     }
 
     // kelas dosen
-    public function tampilkanDaftarMatakuliah(){
+    public function menuMatakuliah(){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
 
@@ -180,7 +180,7 @@ class DosenController {
     }
 
     // kelas dosen detail
-    public function kelasDosenDetail($id_kelas){
+    public function dataKelas($id_kelas){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
         $mahasiswa = $this->kelolaMatakuliahService->tampilkanMahasiswa($id_kelas);
@@ -201,7 +201,7 @@ class DosenController {
     }
 
     // kelas dosen kelompok
-    public function kelasDosenKelompok($id_kelas){
+    public function menuDataKelompok($id_kelas){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
         $kelompok = $this->kelolaKelompokService->tampilkanDataKelompok($id_kelas);
@@ -222,7 +222,7 @@ class DosenController {
     }
 
     // tambah dosen kelompok
-    public function tambahDosenKelompok($id_kelas){
+    public function menuTambahDataKelompok($id_kelas){
         $dosen = $this->loginService->current();
         $mahasiswa = $this->kelolaMatakuliahService->tampilkanMahasiswa($id_kelas);
         View::render('form-kelompok', [
@@ -259,7 +259,7 @@ class DosenController {
     }
 
     // hapus dosen kelompok
-    public function hapusDosenKelompok($id_kelas, $hapusKelas, $id_kelompok, $id_mhs){
+    public function menuHapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok, $id_mhs){
 
         $mahasiswa = $this->kelolaKelompokService->cariMahasiswa($id_mhs)[0];
 
@@ -270,7 +270,7 @@ class DosenController {
     }
 
     // nilai mk
-    public function nilaimk($id_kelas){
+    public function menuNilaiMatakuliah($id_kelas){
         $dosen = $this->loginService->current();
         $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanDataNilaiMatakuliah($id_kelas);
 
@@ -288,7 +288,7 @@ class DosenController {
         ]);
     }
 
-    public function tambahmk($id_kelas, $id_nilai){
+    public function menuTambahDataNilaiMatakuliah($id_kelas, $id_nilai){
         $dosen = $this->loginService->current();
         $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanSatuDataMatakuliah($id_kelas, $id_nilai);
 
@@ -306,7 +306,7 @@ class DosenController {
         ]);
     }
 
-    public function editmk($id_kelas, $id_nilai){
+    public function menuEditDataNilaiMatakuliah($id_kelas, $id_nilai){
         $dosen = $this->loginService->current();
         $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanSatuDataMatakuliah($id_kelas, $id_nilai);
 
@@ -345,7 +345,7 @@ class DosenController {
     }
 
     // hapus mk
-    public function hapusmk($id_kelas, $id_nilai){
+    public function menuHapusDataNilaiMatakuliah($id_kelas, $id_nilai){
         $this->kelolaNilaiMatakuliahService->hapusDataNilai($id_nilai); 
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
     }
@@ -376,7 +376,7 @@ class DosenController {
     }
 
     // tambah nilai kelompok
-    public function tambahNilaiKelompok($id_kelas, $id_kelompok ,$id_kinerja_kelompok){
+    public function menuTambahDataNilaiKelompok($id_kelas, $id_kelompok ,$id_kinerja_kelompok){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
         $mk = $row[0]['nama_mk'];
@@ -398,7 +398,7 @@ class DosenController {
     }
 
     // edit nilai kelompok
-    public function editNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
+    public function menuEditDataNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
         $mk = $row[0]['nama_mk'];
@@ -441,12 +441,12 @@ class DosenController {
     }
 
     // hapus nilai kelompok
-    public function hapusNilaiKelompok($id_kelas, $id_kelompok){
+    public function menuHapusDataNilaiKelompok($id_kelas, $id_kelompok){
         $this->kelolaNilaiKelompokService->hapusDataNilai($id_kelompok);
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
     }
 
-    public function nilaiAkhir($id_kelas){
+    public function menuNilaiAkhirMatakuliah($id_kelas){
         $dosen = $this->loginService->current();
         $row = $this->kelolaKelasService->ambilDataNilaiSemua($id_kelas);
         View::render('dosen-nilai-akhir', [
@@ -464,7 +464,7 @@ class DosenController {
     }
 
 
-    public function logout(){
+    public function menuLogout(){
         $this->loginService->destroy();
         View::redirect("/");
     }

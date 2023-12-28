@@ -22,8 +22,8 @@ class LoginService {
 
     // login
     public function loginVerify(Login $loginRequest): Dosen|Mahasiswa|Admin|null{
-        $this->validateLoginRequest($loginRequest);
-        $user = $this->loginRepository->findByUsername($loginRequest->username);
+        $this->validasi($loginRequest);
+        $user = $this->loginRepository->validasi($loginRequest->username);
         if ($user == null){
             throw new \Exception("Username atau Password salah!");
         }
@@ -53,7 +53,7 @@ class LoginService {
 
     }
 
-    public function validateLoginRequest(Login $loginRequest){
+    public function validasi(Login $loginRequest){
         if ($loginRequest->username == null || $loginRequest->password == null || trim($loginRequest->username) == "" || trim($loginRequest->password) == ""){
             throw new \Exception("Username atau password tidak boleh kosong!");
         }
@@ -61,7 +61,7 @@ class LoginService {
 
     // create session
     public function createSession(int $id, string $usernameSession): SessionAdmin|SessionDosen|SessionMahasiswa {
-        $user = $this->loginRepository->findByUsername($usernameSession);
+        $user = $this->loginRepository->validasi($usernameSession);
 
         if ($user->userType == "admin"){
             $session = new SessionAdmin();
