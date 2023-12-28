@@ -21,10 +21,10 @@ class HomeController {
     }
 
     
-    public function menuLogin(): void {
+    public function masukkanUsernamePassword(): void {
         $user = $this->loginService->current();
         if ($user == null){
-            View::render('login', [
+            View::render('MenuLogin', [
             'title' => 'login'
         ]);
         }else if ($user->userType == "admin"){
@@ -61,7 +61,7 @@ class HomeController {
                 View::redirect('/dashboard/admin');
             }
         }catch (\Exception $exception){
-            View::render('login', [
+            View::render('MenuLogin', [
                 "title" => 'Login',
                 'error' => $exception->getMessage()
             ]);

@@ -73,13 +73,14 @@ class DosenController {
         ]);
     }
 
-    public function menuRegistrasiDosen(): void {
-        View::render('registrasiDosen', [
+    // registrasi dosen
+    public function tampilkanFormRegistrasi(): void {
+        View::render('MenuRegistrasiDosen', [
             "title" => "Daftar Akun Dosen"
         ]);
     }
 
-    public function postRegisterDosen(){
+    public function register(){
         $request = new Register();
         $request->username = $_POST['username'];
         $request->email = $_POST['email'];
@@ -101,10 +102,10 @@ class DosenController {
 
     }
 
-    // kelola data pribadi
-    public function menuDataPribadi(){
+    // Mengelola data pribadi
+    public function tampilkanMenuDataPribadi(){
         $dosen = $this->loginService->current();
-        View::render('data-pribadi', [
+        View::render('MenuDataPribadi', [
             "title" => "Data Pribadi Dosen",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -116,7 +117,7 @@ class DosenController {
         ]);
     }
 
-    public function postMenuDataPribadi(){
+    public function ubahData(){
         $request = new Dosen();
         $request->username = $_POST['username'];
         $request->password = $_POST['password'];
@@ -161,12 +162,12 @@ class DosenController {
         ]);
     }
 
-    // kelas dosen
-    public function menuMatakuliah(){
+    // melihat daftar mata kuliah
+    public function tampilkanDaftarMatakuliah(){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
 
-        View::render('dosen-kelas', [
+        View::render('MenuMatakuliahDosen', [
             "title" => "Kelas Dosen",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -179,13 +180,12 @@ class DosenController {
         ]);
     }
 
-    // kelas dosen detail
-    public function dataKelas($id_kelas){
+    public function tampilkanDataKelas($id_kelas){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
         $mahasiswa = $this->kelolaMatakuliahService->tampilkanMahasiswa($id_kelas);
         
-        View::render('dosen-data-kelas', [
+        View::render('DataKelas', [
             "title" => "Kelas Dosen Detail",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -200,13 +200,13 @@ class DosenController {
         ]);
     }
 
-    // kelas dosen kelompok
-    public function menuDataKelompok($id_kelas){
+    // Mengelola Data kelompok
+    public function pilihMenuTambahDataKelompok($id_kelas){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
         $kelompok = $this->kelolaKelompokService->tampilkanDataKelompok($id_kelas);
 
-        View::render('dosen-data-kelompok', [
+        View::render('MenuDataKelompok', [
             "title" => "Kelas Dosen Kelompok",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -221,11 +221,10 @@ class DosenController {
         ]);
     }
 
-    // tambah dosen kelompok
-    public function menuTambahDataKelompok($id_kelas){
+    public function menampilkanFormDataKelompokTambah($id_kelas){
         $dosen = $this->loginService->current();
         $mahasiswa = $this->kelolaMatakuliahService->tampilkanMahasiswa($id_kelas);
-        View::render('form-kelompok', [
+        View::render('MenuTambahDataKelompok', [
             "title" => "Kelas Dosen Tambah Kelompok",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -239,8 +238,7 @@ class DosenController {
         ]);
     }
 
-    // post tambah dosen kelompok
-    public function postTambahDosenKelompok($id_kelas){
+    public function tambahDataKelompok($id_kelas){
 
         $kelompok = new Kelompok();
         $kelompok->nama_kelompok = $_POST['namaKelompok'];
@@ -258,8 +256,7 @@ class DosenController {
         View::redirect("/kelas/dosen/detail/$kelas/kelompok");
     }
 
-    // hapus dosen kelompok
-    public function menuHapusDataKelompok($id_kelas, $hapusKelas, $id_kelompok, $id_mhs){
+    public function menampilkanFormDataKelompokHapus($id_kelas, $hapusKelas, $id_kelompok, $id_mhs){
 
         $mahasiswa = $this->kelolaKelompokService->cariMahasiswa($id_mhs)[0];
 
@@ -269,12 +266,12 @@ class DosenController {
         View::redirect("/kelas/dosen/detail/$id_kelas/kelompok");
     }
 
-    // nilai mk
-    public function menuNilaiMatakuliah($id_kelas){
+    // mengelola data nilai mata kuliah
+    public function pilihMenuTambahDataNilai($id_kelas){
         $dosen = $this->loginService->current();
         $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanDataNilaiMatakuliah($id_kelas);
 
-        View::render('dosen-data-nilai-mk', [
+        View::render('MenuNilaiMatakuliahDosen', [
             "title" => "Kelas Dosen Nilai Matakuliah",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -288,11 +285,11 @@ class DosenController {
         ]);
     }
 
-    public function menuTambahDataNilaiMatakuliah($id_kelas, $id_nilai){
+    public function menampilkanFormDataNilaiTambah($id_kelas, $id_nilai){
         $dosen = $this->loginService->current();
         $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanSatuDataMatakuliah($id_kelas, $id_nilai);
 
-        View::render('form-nilai-mk', [
+        View::render('MenuTambahDataNilaiMatakuliah', [
             "title" => "Kelas Dosen Nilai Matakuliah",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -306,11 +303,21 @@ class DosenController {
         ]);
     }
 
-    public function menuEditDataNilaiMatakuliah($id_kelas, $id_nilai){
+    public function tambahDataNilai($id_kelas, $id_nilai){
+
+        $nilai_tugas = $_POST['tugas'];
+        $nilai_uts = $_POST['uts'];
+        $nilai_uas = $_POST['uas'];
+
+        $this->kelolaNilaiMatakuliahService->tambahDataNilai($nilai_tugas, $nilai_uts, $nilai_uas, $id_kelas, $id_nilai);
+        View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
+    }
+
+    public function menampilkanFormDataNilaiEdit($id_kelas, $id_nilai){
         $dosen = $this->loginService->current();
         $nilai_mhs = $this->kelolaNilaiMatakuliahService->tampilkanSatuDataMatakuliah($id_kelas, $id_nilai);
 
-        View::render('form-nilai-mk', [
+        View::render('MenuEditDataNilaiMatakuliah', [
             "title" => "Kelas Dosen Nilai Matakuliah",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -324,7 +331,8 @@ class DosenController {
         ]);
     }
 
-    public function postTambahmk($id_kelas, $id_nilai){
+
+    public function editDataNilai($id_kelas, $id_nilai){
 
         $nilai_tugas = $_POST['tugas'];
         $nilai_uts = $_POST['uts'];
@@ -334,33 +342,22 @@ class DosenController {
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
     }
 
-    public function postEditmk($id_kelas, $id_nilai){
-
-        $nilai_tugas = $_POST['tugas'];
-        $nilai_uts = $_POST['uts'];
-        $nilai_uas = $_POST['uas'];
-
-        $this->kelolaNilaiMatakuliahService->tambahDataNilai($nilai_tugas, $nilai_uts, $nilai_uas, $id_kelas, $id_nilai);
-        View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
-    }
-
-    // hapus mk
-    public function menuHapusDataNilaiMatakuliah($id_kelas, $id_nilai){
+    public function hapusDataNilai($id_kelas, $id_nilai){
         $this->kelolaNilaiMatakuliahService->hapusDataNilai($id_nilai); 
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaimk");
     }
 
     
 
-    // nilai kelompok
-    public function nilaiKelompok($id_kelas){
+    // mengelola data nilai kelompok
+    public function pilihMenuTambahDataNilaiKelompok($id_kelas){
         $dosen = $this->loginService->current();
         // $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelasIDKelas($id_kelas);
         $mk = $row[0]['nama_mk'];
         $kelompok = $this->kelolaNilaiKelompokService->tampilkanDataNilaiKelompok($id_kelas);
        
-        View::render('dosen-data-nilai-kelompok', [
+        View::render('MenuNilaiMatakuliah', [
             "title" => "Kelas Dosen Nilai Kelompok",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -375,14 +372,13 @@ class DosenController {
         ]);
     }
 
-    // tambah nilai kelompok
-    public function menuTambahDataNilaiKelompok($id_kelas, $id_kelompok ,$id_kinerja_kelompok){
+    public function menampilkanFormDataNilaiTambahKelompok($id_kelas, $id_kelompok ,$id_kinerja_kelompok){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
         $mk = $row[0]['nama_mk'];
         
         $kelompok = $this->kelolaNilaiKelompokService->tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok);
-        View::render('form-nilai-kelompok', [
+        View::render('MenuTambahDataNilaiKelompok', [
             "title" => "Edit Dosen Nilai Kelompok",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -397,14 +393,13 @@ class DosenController {
         ]);
     }
 
-    // edit nilai kelompok
-    public function menuEditDataNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
+    public function menampilkanFormDataNilaiEditKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok){
         $dosen = $this->loginService->current();
         $row = $this->kelolaMatakuliahService->tampilkanMatakuliahDanKelas($dosen->name);
         $mk = $row[0]['nama_mk'];
         $kelompok = $this->kelolaNilaiKelompokService->tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok);
         
-        View::render('form-nilai-kelompok', [
+        View::render('MenuEditDataNilaiKelompok', [
             "title" => "Edit Dosen Nilai Kelompok",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -419,16 +414,14 @@ class DosenController {
         ]);
     }
 
-    // postEdit
-    public function postEditNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok, $nilaikriteria){
+    public function editDataNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok, $nilaikriteria){
         $nilai = (int)$_POST['nilaiKelompok'];
 
         $this->kelolaNilaiKelompokService->editDataNilai($nilai, $id_kelompok);
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
     }
 
-    // postTambah
-    public function postTambahNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok, $nilaikriteria){
+    public function tambahDataNilaiKelompok($id_kelas, $id_kelompok, $id_kinerja_kelompok, $nilaikriteria){
         $nilai = (int)$_POST['nilaiKelompok'];
         $nama = $_POST['nama'];
         $matakuliah = $_POST['matakuliah'];
@@ -440,16 +433,16 @@ class DosenController {
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
     }
 
-    // hapus nilai kelompok
-    public function menuHapusDataNilaiKelompok($id_kelas, $id_kelompok){
+    public function hapusDataNilaiKelompok($id_kelas, $id_kelompok){
         $this->kelolaNilaiKelompokService->hapusDataNilai($id_kelompok);
         View::redirect("/kelas/dosen/detail/$id_kelas/nilaikelompok");
     }
 
-    public function menuNilaiAkhirMatakuliah($id_kelas){
+    // Melihat nilai akhir matakuliah
+    public function memilihNilaiAkhirMatakuliah($id_kelas){
         $dosen = $this->loginService->current();
         $row = $this->kelolaKelasService->ambilDataNilaiSemua($id_kelas);
-        View::render('dosen-nilai-akhir', [
+        View::render('MenuNilaiAkhirMatakuliahDosen', [
             "title" => "Kelas Dosen Nilai Akhir",
             'usertype' => $dosen->userType,
             'username' => $dosen->username,
@@ -463,7 +456,7 @@ class DosenController {
         ]);
     }
 
-
+    // logout
     public function menuLogout(){
         $this->loginService->destroy();
         View::redirect("/");

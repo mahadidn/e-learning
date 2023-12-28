@@ -63,9 +63,9 @@ class MahasiswaController {
         ]);
     }
 
-    // register
-    public function menuRegistrasiMahasiswa(): void {
-        View::render('registrasiMahasiswa', [
+    // registrasi
+    public function tampilkanFormRegistrasi(): void {
+        View::render('MenuRegistrasiMahasiswa', [
             "title" => "Daftar Akun Mahasiswa"
         ]);
     }
@@ -92,10 +92,10 @@ class MahasiswaController {
 
     }
 
-    // kelola data pribadi
-    public function menuDataPribadi(){
+    // mengelola data pribadi
+    public function tampilkanMenuDataPribadi(){
         $mahasiswa = $this->loginService->current();
-        View::render('data-pribadi', [
+        View::render('MenuDataPribadi', [
             "title" => "Data Pribadi Mahasiswa",
             'usertype' => $mahasiswa->userType,
             'username' => $mahasiswa->username,
@@ -107,7 +107,7 @@ class MahasiswaController {
         ]);
     }
 
-    public function postMenuDataPribadi(){
+    public function ubahData(){
         $request = new Mahasiswa();
         $request->username = $_POST['username'];
         $request->password = $_POST['password'];
@@ -137,7 +137,6 @@ class MahasiswaController {
 
     }
 
-    // edit data pribadi
      public function editProfil(){
         $mahasiswa = $this->loginService->current();
         View::render('keloladata-pribadi', [
@@ -152,14 +151,14 @@ class MahasiswaController {
         ]);
     }
 
-    // kelas Mahasiswa
-    public function menuKelasMatakuliah(){
+    // Memilih kelas mata kuliah
+    public function tampilkanDaftarKelas(){
         $mahasiswa = $this->loginService->current();
         $kelas = $this->kelolaPilihKelasMatakuliahService->tampilkanDataKelas();
         $kelas_mahasiswa = $this->kelolaPilihKelasMatakuliahService->tampilkanKelasMahasiswa($mahasiswa->id);
         
 
-        View::render('mahasiswa-kelas', [
+        View::render('MenuKelasMatakuliahMahasiswa', [
             "title" => "Kelas Mahasiswa",
             'usertype' => $mahasiswa->userType,
             'id_mhs' => $mahasiswa->id,
@@ -174,14 +173,12 @@ class MahasiswaController {
         ]);
     }
 
-    // pilihKelas
-    public function gabungKelas($id_kelas){
+    public function pilihKelas($id_kelas){
         $mahasiswa = $this->loginService->current(); 
         $this->kelolaPilihKelasMatakuliahService->pilihKelas($id_kelas, $mahasiswa->id, $mahasiswa->nama);
         View::redirect('/kelas/mahasiswa/' . $id_kelas);
     }
 
-    // detail kelas mahasiswa
     public function detailKelasMahasiswa($id_kelas){
         $mahasiswa = $this->loginService->current();
         $kelas = $this->kelolaPilihKelasMatakuliahService->tampilkanKelasId($id_kelas);
@@ -202,11 +199,11 @@ class MahasiswaController {
         ]);
     }
 
-    // lihat nilai akhir
-    public function menuNilaiAkhirMatakuliah($id_kelas){
+    // Melihat Nilai Akhir mata kuliah
+    public function memilihNilaiAkhirMatakuliah($id_kelas){
         $mahasiswa = $this->loginService->current();
         $row = $this->kelolaKelasService->ambilDataNilai($id_kelas, $mahasiswa->nama);
-        View::render('mahasiswa-nilai-akhir', [
+        View::render('MenuNilaiAkhirMatakuliahMahasiswa', [
             "title" => "Kelas Mahasiswa Nilai Akhir",
             'usertype' => $mahasiswa->userType,
             'username' => $mahasiswa->username,
@@ -220,42 +217,14 @@ class MahasiswaController {
         ]);
     }
 
-    // penilaian
-    public function menuPilihAnggota($id_kelas, $id_kinerja_kelompok){
-        $mahasiswa = $this->loginService->current();
-        $kinerjaMhs = $this->kelolaPenilaianService->tampilkanEditKinerja($id_kinerja_kelompok, $id_kelas);
-
-        View::render('form-penilaian-kinerja', [
-            "title" => "Kelas Mahasiswa Penilaian",
-            'usertype' => $mahasiswa->userType,
-            'username' => $mahasiswa->username,
-            'nim' => $mahasiswa->nim,
-            'nama' => $mahasiswa->nama,
-            'email' => $mahasiswa->email,
-            'prodi' => $mahasiswa->prodi,
-            'jenis_kelamin' => $mahasiswa->jenisKelamin,
-            'id_kelas' => $id_kelas,
-            'kinerjaMhs' => $kinerjaMhs,
-            'id_kinerja_kelompok' => $id_kinerja_kelompok,
-        ]);
-    }
-
-    public function postFormPenilaian($id_kelas, $id_kinerja_kelompok){
-        
-        $this->kelolaPenilaianService->isiFormPenilaian($_POST['nilaiK1'], $_POST['nilaiK2'], $id_kinerja_kelompok, $id_kelas);
-    
-        View::redirect("/kelas/mahasiswa/detail/datapenilaian/$id_kelas");
-    }
-
-    //hasil penilaian
-    public function menuPenilaian($id_kelas){
+    // Mengelola Data Kinerja Kelompok
+    public function tampilkanMenuPenilaian($id_kelas){
         $mahasiswa = $this->loginService->current();
         $id_kelompok = $this->kelolaPenilaianService->kelompokMhs($mahasiswa->nama, $id_kelas);
         $kelompok = $this->kelolaPenilaianService->tampilkanPenilaianTersimpan($id_kelompok, $id_kelas);
-        var_dump($id_kelompok);
         $kelompokKinerja = $this->kelolaPenilaianService->tampilkanPenilaianKinerja($id_kelompok, $id_kelas);
 
-        View::render('mahasiswa-penilaian-kinerja', [
+        View::render('MenuPenilaian', [
             "title" => "Data Penilaian Kinerja",
             'usertype' => $mahasiswa->userType,
             'username' => $mahasiswa->username,
@@ -270,7 +239,34 @@ class MahasiswaController {
         ]);
     }
 
-    public function menuLogout(){
+    public function pilihAnggota($id_kelas, $id_kinerja_kelompok){
+        $mahasiswa = $this->loginService->current();
+        $kinerjaMhs = $this->kelolaPenilaianService->tampilkanEditKinerja($id_kinerja_kelompok, $id_kelas);
+
+        View::render('MenuPilihAnggota', [
+            "title" => "Kelas Mahasiswa Penilaian",
+            'usertype' => $mahasiswa->userType,
+            'username' => $mahasiswa->username,
+            'nim' => $mahasiswa->nim,
+            'nama' => $mahasiswa->nama,
+            'email' => $mahasiswa->email,
+            'prodi' => $mahasiswa->prodi,
+            'jenis_kelamin' => $mahasiswa->jenisKelamin,
+            'id_kelas' => $id_kelas,
+            'kinerjaMhs' => $kinerjaMhs,
+            'id_kinerja_kelompok' => $id_kinerja_kelompok,
+        ]);
+    }
+
+    public function isiFormPenilaian($id_kelas, $id_kinerja_kelompok){
+        
+        $this->kelolaPenilaianService->isiFormPenilaian($_POST['nilaiK1'], $_POST['nilaiK2'], $id_kinerja_kelompok, $id_kelas);
+    
+        View::redirect("/kelas/mahasiswa/detail/datapenilaian/$id_kelas");
+    }
+
+    // logout
+    public function prosesLogout(){
         $this->loginService->destroy();
         View::redirect("/");
     }
