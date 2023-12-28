@@ -37,7 +37,7 @@ include 'includes/navbar.php';
             <?php if($model['usertype'] == 'dosen' || $model['usertype'] == 'mahasiswa'){ ?>
               <div class="form-group">
                 <label for="inputNama">Nama Lengkap</label>
-                <input required type="text" name="nama" class="form-control" id="inputNama" value="<?= $model['nama'] ?>" />
+                <input disabled type="text" name="nama" class="form-control" id="inputNama" value="<?= $model['nama'] ?>" />
               </div>
               <div class="form-group">
                 <label for="inputJenisKelamin">Jenis Kelamin</label>
@@ -52,7 +52,7 @@ include 'includes/navbar.php';
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputUsername">Username</label>
-                  <input required type="text" name="username" class="form-control" id="inputUsername" value="<?= $model['username'] ?>" />
+                  <input required type="text" name="username" disabled class="form-control" id="inputUsername" value="<?= $model['username'] ?>" />
                 </div>
                 <div class="form-group col-md-6">
 

@@ -25,10 +25,6 @@ class KelolaDataPribadiService {
     public function ubahDataMahasiswa(Mahasiswa $mahasiswa): Mahasiswa{
         try {
             Database::beginTransaction();
-            $periksaMahasiswa = $this->loginRepository->findByUsername($mahasiswa->username);
-            if($periksaMahasiswa != null){
-                throw new Exception("Username telah digunakan");
-            }
 
             $mhs = $this->loginService->current();
 
@@ -53,10 +49,6 @@ class KelolaDataPribadiService {
     public function ubahDataDosen(Dosen $dosen): Dosen{
         try {
             Database::beginTransaction();
-            $perikaDosen = $this->loginRepository->findByUsername($dosen->username);
-            if($perikaDosen != null){
-                throw new Exception("Username telah digunakan");
-            }
 
             $dsn = $this->loginService->current();
 
@@ -81,10 +73,6 @@ class KelolaDataPribadiService {
     public function ubahDataAdmin(Admin $admin): Admin {
         try {
             Database::beginTransaction();
-            $periksaAdmin = $this->loginRepository->findByUsername($admin->username);
-            if($periksaAdmin != null){
-                throw new Exception("Username telah digunakan");
-            }
 
             $admn = $this->loginService->current();
 

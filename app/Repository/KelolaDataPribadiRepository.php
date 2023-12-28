@@ -16,20 +16,20 @@ class KelolaDataPribadiRepository {
 
     public function simpanEditDosen(Dosen $dosen, $username): void {
         
-        $statement = $this->connection->prepare("UPDATE dosen SET username = ?, nidn = ?, password = ?, nama = ?, jenis_kelamin = ?, email = ?, prodi = ? WHERE username = ?");
-        $statement->execute([$dosen->username, $dosen->nidn, $dosen->password, $dosen->name, $dosen->jenisKelamin, $dosen->email, $dosen->jurusan, $username]);
+        $statement = $this->connection->prepare("UPDATE dosen SET nidn = ?, password = ?, jenis_kelamin = ?, email = ?, prodi = ? WHERE username = ?");
+        $statement->execute([$dosen->nidn, $dosen->password, $dosen->jenisKelamin, $dosen->email, $dosen->jurusan, $username]);
 
     }
 
     public function simpanEditMahasiswa(Mahasiswa $mahasiswa, $username): void {
-        $statement = $this->connection->prepare("UPDATE mahasiswa SET username = ?, nim = ?, password = ?, nama = ?, email = ?, prodi = ?, jenis_kelamin = ? WHERE username = ?");
-        $statement->execute([$mahasiswa->username, $mahasiswa->nim, $mahasiswa->password, $mahasiswa->nama, $mahasiswa->email, $mahasiswa->prodi, $mahasiswa->jenisKelamin, $username]);
+        $statement = $this->connection->prepare("UPDATE mahasiswa SET nim = ?, password = ?, email = ?, prodi = ?, jenis_kelamin = ? WHERE username = ?");
+        $statement->execute([$mahasiswa->nim, $mahasiswa->password, $mahasiswa->email, $mahasiswa->prodi, $mahasiswa->jenisKelamin, $username]);
     
     }
 
     public function simpanEditAdmin(Admin $admin, $username): void {
-        $statement = $this->connection->prepare("UPDATE admin SET username = ?, password = ?, email = ? WHERE username = ?");
-        $statement->execute([$admin->username, $admin->password, $admin->email, $username]);
+        $statement = $this->connection->prepare("UPDATE admin SET password = ?, email = ? WHERE username = ?");
+        $statement->execute([$admin->password, $admin->email, $username]);
 
     }
 

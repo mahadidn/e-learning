@@ -5,11 +5,11 @@ namespace Klp1\ELearning\Model\Domain;
 class Mahasiswa {
     public ?int $id = null;
     public string $userType = "mahasiswa";
-    public string $nim;
-    public string $username;
-    public string $password;
-    public string $nama;
-    public string $email;
-    public string $prodi;
-    public string $jenisKelamin;
+    public ?string $nim = null;
+    public ?string $username = null;
+    public ?string $password = null;
+    public ?string $nama = null;
+    public ?string $email = null;
+    public ?string $prodi = null;
+    public ?string $jenisKelamin = null;
 }
