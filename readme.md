@@ -64,24 +64,19 @@
     <li>
         <p>MenampilkanFormDataNilaiTambahKelompok()</p>
         <img src="./img/sequence4.jpeg" width="500px" alt="">
-
     </li>
-
     <li>
         <p>TambahDataNilaiKelompok()</p>
         <img src="./img/sequence5.jpeg" width="500px" alt="">
     </li>
-
     <li>
         <p>MenampilkanFormDataNilaiEditKelompok()</p>
         <img src="./img/sequence3.jpeg" width="500px" alt="">
     </li>
-
     <li>
         <p>EditDataNilaiKelompok()</p>
         <img src="./img/sequence6.jpeg" width="500px" alt="">
     </li>
-
     <li>
         <p>HapusDataNilaiKelompok()</p>
         <img src="./img/sequence7.jpeg" width="500px" alt="">
