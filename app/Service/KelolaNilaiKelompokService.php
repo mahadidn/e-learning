@@ -27,8 +27,6 @@ class KelolaNilaiKelompokService {
     public function hapusDataNilai($id_kelompok){
         $this->kelolaNilaiKelompokRepository->simpanHapus($id_kelompok);
     }
-
-    
     
     // 
     public function tampilkanSatuDataNilaiKelompok($id_kelas, $id_kinerja_kelompok){
